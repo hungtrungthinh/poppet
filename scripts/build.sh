@@ -34,7 +34,7 @@ fpm -s dir -t deb -n poppet -v $BUILDVER -d "nginx,redis-server,mysql-server,mys
          ../poppet/=/usr/share/nginx/poppet 
 tar -zcvf poppet-$BUILDVER.tar.gz poppet
 
-cp /home/build/poppet_$BUILDVER'_amd64.deb' /usr/share/nginx/download.poppet.com/latest_amd64.deb
-cp /home/build/poppet_$BUILDVER'_i686.deb' /usr/share/nginx/download.poppet.com/latest_i686.deb
-cp /home/build/poppet_$BUILDVER'_amd64.deb' /usr/share/nginx/download.poppet.com/
-cp /home/build/poppet_$BUILDVER'_i686.deb' /usr/share/nginx/download.poppet.com/
+cp /home/build/poppet_$BUILDVER'_amd64.deb' /usr/share/nginx/download.unifispot.com/latest_amd64.deb
+cp /home/build/poppet_$BUILDVER'_i686.deb' /usr/share/nginx/download.unifispot.com/latest_i686.deb
+cp /home/build/poppet_$BUILDVER'_amd64.deb' /usr/share/nginx/download.unifispot.com/
+cp /home/build/poppet_$BUILDVER'_i686.deb' /usr/share/nginx/download.unifispot.com/

@@ -14,7 +14,7 @@ app = create_app(mode= 'development')
 
 import logging
 from logging.handlers import RotatingFileHandler
-log_file = '/usr/share/nginx/unifispot/logs/production.log'
+log_file = '/usr/share/nginx/poppet/logs/production.log'
 file_handler = RotatingFileHandler(log_file,'a', 1 * 1024 * 1024, 10)
 app.logger.setLevel(logging.DEBUG)
 file_handler.setLevel(logging.DEBUG)
