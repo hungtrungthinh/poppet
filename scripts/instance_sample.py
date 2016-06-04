@@ -1,13 +1,13 @@
 SQLALCHEMY_DATABASE_URI = 'mysql://<user>:<password>@localhost/<db>'
 
 
-#change 'unifispot.local' to domain of your choice
-MAIL_DEFAULT_SENDER ='no-reply@unifispot.local'
-SECURITY_EMAIL_SENDER = 'no-reply@unifispot.local'
+#change 'poppet.local' to domain of your choice
+MAIL_DEFAULT_SENDER ='no-reply@poppet.local'
+SECURITY_EMAIL_SENDER = 'no-reply@poppet.local'
 
 
 #Email address of admin users
-ADMINS = ['admin@unifispot.local']
+ADMINS = ['admin@poppet.local']
 
 MAIL_SERVER='localhost'
 MAIL_PORT='25'

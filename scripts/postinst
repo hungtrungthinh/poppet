@@ -1,5 +1,5 @@
 #!/bin/sh
-# postinst script for unifispot
+# postinst script for poppet
 
 set -e
 
@@ -18,16 +18,16 @@ set -e
 # source debconf library
 . /usr/share/debconf/confmodule
 
-CONFFILE=/usr/share/nginx/unifispot/instance/config.py
-INSTALLDIR=/usr/share/nginx/unifispot
+CONFFILE=/usr/share/nginx/poppet/instance/config.py
+INSTALLDIR=/usr/share/nginx/poppet
 
 case "$1" in
 
   configure)
-    db_get unifispot/mysql-host && MYSQLHOST=${RET}
-    db_get unifispot/mysql-root-user  && MYSQLUSER=${RET}  
-    db_get unifispot/mysql-root-pass && MYSQLPASS=${RET}
-    db_get unifispot/mysql-db-name && MYSQLDB=${RET}
+    db_get poppet/mysql-host && MYSQLHOST=${RET}
+    db_get poppet/mysql-root-user  && MYSQLUSER=${RET}  
+    db_get poppet/mysql-root-pass && MYSQLPASS=${RET}
+    db_get poppet/mysql-db-name && MYSQLDB=${RET}
 
     cd $INSTALLDIR
 
@@ -40,8 +40,8 @@ case "$1" in
         echo '-------------------------Creating logs folder-----------------------------------------'
     fi
 
-    if [ ! -d $INSTALLDIR/unifispot/static/uploads/ ]; then
-        mkdir -p $INSTALLDIR/unifispot/static/uploads/
+    if [ ! -d $INSTALLDIR/poppet/static/uploads/ ]; then
+        mkdir -p $INSTALLDIR/poppet/static/uploads/
         echo '-------------------------Creating uploads folder-----------------------------------------'
     fi
     if [ ! -f $INSTALLDIR/instance/__init__.py ]; then
@@ -83,26 +83,26 @@ case "$1" in
         echo '-------------------------Configuring uWSGI-----------------------------------------'
         mkdir /etc/uwsgi
         mkdir /etc/uwsgi/vassals
-        ln -s /usr/share/nginx/unifispot/scripts/uwsgi.ini /etc/uwsgi/vassals/uwsgi.ini
-        cp /usr/share/nginx/unifispot/scripts/uwsgi.conf /etc/init/
+        ln -s /usr/share/nginx/poppet/scripts/uwsgi.ini /etc/uwsgi/vassals/uwsgi.ini
+        cp /usr/share/nginx/poppet/scripts/uwsgi.conf /etc/init/
     fi    
 
 
     if [ ! -f /etc/nginx/sites-enabled/wifiapp ]; then
         echo '-------------------------Configuring nGINX-----------------------------------------'
         rm -rf /etc/nginx/sites-enabled/default
-        cp /usr/share/nginx/unifispot/scripts/wifiapp.conf /etc/nginx/sites-available/wifiapp.conf
+        cp /usr/share/nginx/poppet/scripts/wifiapp.conf /etc/nginx/sites-available/wifiapp.conf
         ln -s /etc/nginx/sites-available/wifiapp.conf /etc/nginx/sites-enabled/wifiapp
     fi
 
 
 
-    if [ ! -f /etc/supervisor/conf.d/unifispot_celery.conf ]; then
+    if [ ! -f /etc/supervisor/conf.d/poppet_celery.conf ]; then
         echo '-------------------------Configuring celeryd-----------------------------------------'
-        ln -s /usr/share/nginx/unifispot/scripts/supervisord.conf  /etc/supervisor/conf.d/unifispot_celery.conf
+        ln -s /usr/share/nginx/poppet/scripts/supervisord.conf  /etc/supervisor/conf.d/unifispot_celery.conf
     fi 
 
-    chown -R www-data:www-data /usr/share/nginx/unifispot
+    chown -R www-data:www-data /usr/share/nginx/poppet
     service uwsgi restart
     service nginx restart
     service supervisor restart

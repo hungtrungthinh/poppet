@@ -1,4 +1,4 @@
-CONFFILE=/usr/share/nginx/unifispot/instance/config.py
+CONFFILE=/usr/share/nginx/poppet/instance/config.py
 
 apt-get update
 apt-get install nginx redis-server mysql-server mysql-client python-dev libmysqlclient-dev python-pip git libffi-dev -y 
@@ -7,12 +7,12 @@ apt-get install nginx redis-server mysql-server mysql-client python-dev libmysql
 cd /usr/share/nginx
 echo "------------------------------Getting latest Source files----------------------------"
 
-if [  -d unifispot ]; then
-    cd unifispot
+if [  -d poppet ]; then
+    cd poppet
     git pull
 else 
-    git clone https://rakeshmmk@bitbucket.org/rakeshmmk/unifispot.git
-    cd unifispot
+    git clone https://rakeshmmk@bitbucket.org/rakeshmmk/poppet.git
+    cd poppet
 fi
 
 
@@ -26,7 +26,7 @@ pip install -r requirements.txt
 mkdir -p instance
 mkdir -p logs
 mkdir -p touch instance/__init__.py
-mkdir -p unifispot/static/uploads/
+mkdir -p poppet/static/uploads/
 
 
 if [ ! -d migrations ]; then
@@ -44,9 +44,9 @@ if  ! .env/bin/python manage.py db current >/dev/null 2>/dev/null  ; then
     username=${username:-root}
     echo "Please Enter your MySQL Root Password []: "
     read -s  passwd
-    echo " Trying to create a new Db named unifispot"
-    mysql -u $username -p$passwd -e "create database unifispot";
-    sed -i "s/^SQLALCHEMY_DATABASE_URI.*/SQLALCHEMY_DATABASE_URI=\"mysql:\/\/$username:$passwd@$host\/unifispot\"/g"  $CONFFILE
+    echo " Trying to create a new Db named poppet"
+    mysql -u $username -p$passwd -e "create database poppet";
+    sed -i "s/^SQLALCHEMY_DATABASE_URI.*/SQLALCHEMY_DATABASE_URI=\"mysql:\/\/$username:$passwd@$host\/poppet\"/g"  $CONFFILE
 fi
 
 .env/bin/python manage.py db migrate
@@ -57,8 +57,8 @@ fi
 mkdir -p /etc/uwsgi
 mkdir -p /etc/uwsgi/vassals
 rm -rf /etc/uwsgi/vassals/uwsgi.ini
-ln -s /usr/share/nginx/unifispot/scripts/uwsgi.ini /etc/uwsgi/vassals/uwsgi.ini
-chown -R www-data:www-data /usr/share/nginx/unifispot
+ln -s /usr/share/nginx/poppet/scripts/uwsgi.ini /etc/uwsgi/vassals/uwsgi.ini
+chown -R www-data:www-data /usr/share/nginx/poppet
 cp uwsgi.conf /etc/init/
 
 #configure Nginx
@@ -71,6 +71,6 @@ service nginx restart
 
 #configure celery
 apt-get install supervisor
-rm -f  /etc/supervisor/conf.d/unifispot_celery.conf
-ln -s /usr/share/nginx/unifispot/scripts/supervisord.conf  /etc/supervisor/conf.d/unifispot_celery.conf
+rm -f  /etc/supervisor/conf.d/poppet_celery.conf
+ln -s /usr/share/nginx/poppet/scripts/supervisord.conf  /etc/supervisor/conf.d/unifispot_celery.conf
 service supervisor restart

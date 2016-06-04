@@ -1,22 +1,22 @@
-Template: unifispot/mysql-host
+Template: poppet/mysql-host
 Type: string
 Default: localhost
 Description: Enter MySQL Hostname [localhost]:
  Please provide the hostname for mysql server.
 
-Template: unifispot/mysql-root-pass
+Template: poppet/mysql-root-pass
 Type: password
 Description: Enter MySQL root password:
  Please provide the password for your MySQL sever.
 
 
-Template: unifispot/mysql-root-user
+Template: poppet/mysql-root-user
 Type: string
 Default: root
 Description: Enter MySQL root Username[root]:
  Please Enter your MySQL Root Username
 
-Template: unifispot/mysql-db-name
+Template: poppet/mysql-db-name
 Type: string
 Default: poppet
 Description: Enter DB name you want to use [poppet]:
