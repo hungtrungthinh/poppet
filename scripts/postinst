@@ -97,7 +97,7 @@ case "$1" in
 
 
 
-    if [ ! -f /etc/supervisor/conf.d/poppet_celery.conf ]; then
+    if [ ! -f /etc/supervisor/conf.d/unifispot_celery.conf ]; then
         echo '-------------------------Configuring celeryd-----------------------------------------'
         ln -s /usr/share/nginx/poppet/scripts/supervisord.conf  /etc/supervisor/conf.d/unifispot_celery.conf
     fi 
