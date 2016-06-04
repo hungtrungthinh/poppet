@@ -10,7 +10,7 @@ mkdir "$PKGDIR"
 cd "$BUILDDIR"
 
 echo "------------------------------Getting latest Source files----------------------------"
-#git clone https://github.com/unifispot/poppet.git
+#git clone https://github.com/poppet/poppet.git
 cp -r /home/user/projects/poppet/  $BUILDDIR
 
 echo "------------------------------Create new venv and activate----------------------------"
@@ -24,7 +24,7 @@ mkdir instance
 mkdir logs
 mkdir touch instance/__init__.py
 cp instance_sample.py instance/config.py
-mkdir -p unifispot/static/uploads/
+mkdir -p poppet/static/uploads/
 
 cd "$BUILDDIR"
 
