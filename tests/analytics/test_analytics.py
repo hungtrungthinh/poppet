@@ -9,7 +9,7 @@ from sqlalchemy import and_,or_
 
 
 from unifispot.client.models import Client,Wifisite,Voucher
-from unifispot.analytics.models import Sitestat,Sitestatweek,Sitestatmonth
+from unifispot.analytics.models import Sitestat
 from unifispot.models import db
 from unifispot.guest.models import Guest,Device,Guestsession,Guesttrack,Facebookauth,Smsdata
 from hashids import Hashids
@@ -17,7 +17,7 @@ from random import randint
 import time,uuid,arrow
 import pytest
 from unifispot.const import *
-from unifispot.analytics.helpers import update_daily_stat,update_weekly_stat,update_monthly_stat
+from unifispot.analytics.helpers import update_daily_stat
 from tests.helpers.guest import randomMAC
 from dateutil import tz
 import random
@@ -240,48 +240,3 @@ def test_update_daily_stat5(session,populate_analytics):
     assert 0 == sitestat.get_total_logins(),'Num Logins is :%s instead of expected :%s' %(sitestat.get_total_logins(),0)
     assert 20 == sitestat.num_visits,'Num visits is :%s instead of expected :%s' %(sitestat.num_visits,20)
 
-def test_update_weekly_stat(session,populate_sitestats):
-    '''Check if update_weekly_stat is updating same entry even after updating timezone'''
-    site1 = Wifisite.query.filter_by(id=1).first()
-    daydate = arrow.now()
-    #run daily_stats 
-    update_weekly_stat(site1.id,daydate)
-
-    weekstat = Sitestatweek.query.first()
- 
-    assert 1    == Sitestatweek.query.count(),'Sitestat count is not 1'
-    assert 70   == weekstat.get_total_logins(),'Num Logins is :%s instead of expected :%s' %(weekstat.get_total_logins(),70)
-    assert 105  == weekstat.num_visits,'Num visits is :%s instead of expected :%s' %(weekstat.num_visits,105)    
-    assert 7    == weekstat.num_likes,'num_likes is :%s instead of expected :%s' %(weekstat.num_likes,7)    
-    assert 7    == weekstat.num_likes,'num_likes is :%s instead of expected :%s' %(weekstat.num_likes,7)    
-    assert 14   == weekstat.num_checkins,'num_checkins is :%s instead of expected :%s' %(weekstat.num_checkins,14)    
-    assert 49   == weekstat.num_newlogins,'num_newlogins is :%s instead of expected :%s' %(weekstat.num_newlogins,49)    
-    assert 21   == weekstat.num_repeats,'num_repeats is :%s instead of expected :%s' %(weekstat.num_repeats,21)    
-    assert 21   == weekstat.num_emails,'num_emails is :%s instead of expected :%s' %(weekstat.num_emails,21)    
-    assert 28   == weekstat.num_fb,'num_fb is :%s instead of expected :%s' %(weekstat.num_fb,28)    
-    assert 14   == weekstat.num_vouchers,'num_vouchers is :%s instead of expected :%s' %(weekstat.num_vouchers,14)    
-    assert 7   == weekstat.num_phones,'num_phones is :%s instead of expected :%s' %(weekstat.num_emails,7)    
-
-
-
-def test_update_monthly_stat(session,populate_sitestats):
-    '''Check if update_monthly_stat is updating same entry even after updating timezone'''
-    site1 = Wifisite.query.filter_by(id=1).first()
-    daydate = arrow.now()
-    days        = (daydate.ceil('month') - daydate.floor('month')).days    
-    #run daily_stats 
-    update_monthly_stat(site1.id,daydate)
-
-    monthstat = Sitestatmonth.query.first()
- 
-    assert 1            == Sitestatmonth.query.count(),'Sitestatmonth count is not 1'
-    assert 10* days     == monthstat.get_total_logins(),'Num Logins is :%s instead of expected :%s' %(monthstat.get_total_logins(),10* days )
-    assert 15* days     == monthstat.num_visits,'Num visits is :%s instead of expected :%s' %(monthstat.num_visits,15* days )    
-    assert 1* days     == monthstat.num_likes,'num_likes is :%s instead of expected :%s' %(monthstat.num_likes,1* days)    
-    assert 2* days     == monthstat.num_checkins,'num_checkins is :%s instead of expected :%s' %(monthstat.num_checkins,2* days)    
-    assert 7* days     == monthstat.num_newlogins,'num_newlogins is :%s instead of expected :%s' %(monthstat.num_newlogins,7* days)    
-    assert 3* days     == monthstat.num_repeats,'num_repeats is :%s instead of expected :%s' %(monthstat.num_repeats,3* days)    
-    assert 3* days     == monthstat.num_emails,'num_emails is :%s instead of expected :%s' %(monthstat.num_emails,3* days)    
-    assert 4* days     == monthstat.num_fb,'num_fb is :%s instead of expected :%s' %(monthstat.num_fb,4* days)    
-    assert 2* days     == monthstat.num_vouchers,'num_vouchers is :%s instead of expected :%s' %(monthstat.num_vouchers,2* days )    
-    assert 1* days     == monthstat.num_phones,'num_phones is :%s instead of expected :%s' %(monthstat.num_emails,1* days )

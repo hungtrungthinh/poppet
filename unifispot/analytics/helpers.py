@@ -21,9 +21,8 @@ def update_daily_stat(siteid,daydate):
 
     tracks_dict     = {}
     num_visits      = 0
-    login_types     = {'email':0,'fb':0,'phone':0,'voucher':0,'returning':0}
-    num_checkins    = 0
-    num_likes       = 0
+    login_types     = {'email':0,'fb':0,'phone':0,'voucher':0,'returning':0,'num_checkins':0,'num_likes':0}
+
 
     def update_login_type(track):
         #global login_types
@@ -39,9 +38,9 @@ def update_daily_stat(siteid,daydate):
             login_types['returning'] += 1   
 
         if track.fb_liked == 1:
-            num_likes += 1         
+            login_types['num_likes'] += 1         
         if track.fb_posted == 1:
-            num_likes += 1     
+            login_types['num_checkins'] += 1     
 
 
     tracks = Guesttrack.query.filter(and_(Guesttrack.site_id==siteid,Guesttrack.timestamp>=day_start,
@@ -82,7 +81,7 @@ def update_daily_stat(siteid,daydate):
         sitestat = Sitestat(site_id=siteid,date=day_key,num_visits=num_visits,num_newlogins=num_newlogins,
                             num_repeats=login_types['returning'],num_emails=login_types['email'],
                             num_fb=login_types['fb'],num_vouchers=login_types['voucher'],
-                            num_phones=login_types['phone'],num_likes=num_likes,num_checkins=num_checkins)
+                            num_phones=login_types['phone'],num_likes=login_types['num_likes'],num_checkins=login_types['num_checkins'])
 
         db.session.add(sitestat)
         db.session.commit()
@@ -90,8 +89,8 @@ def update_daily_stat(siteid,daydate):
     else:
         #update
         check_sitestat.num_visits=num_visits
-        check_sitestat.num_likes=num_likes
-        check_sitestat.num_checkins=num_checkins
+        check_sitestat.num_likes=login_types['num_likes']
+        check_sitestat.num_checkins=login_types['num_checkins']
         check_sitestat.num_newlogins=num_newlogins
         check_sitestat.num_repeats=login_types['returning']
         check_sitestat.num_emails=login_types['email']
