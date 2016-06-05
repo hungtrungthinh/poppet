@@ -21,7 +21,7 @@
 3. Install dependencies
 
     ```sh
-    sudo apt-get install nginx,redis-server,mysql-server,mysql-client,python-dev,python,libmysqlclient-dev,python-pip,git,libffi-dev,upstart,supervisor,libssl-dev,libtiff5-dev,libjpeg8-dev,zlib1g-dev,libfreetype6-dev,liblcms2-dev,libwebp-dev,tcl8.6-dev,tk8.6-dev,python-tk -y
+    sudo apt-get install nginx,redis-server,mysql-server,mysql-client,python-dev,python,libmysqlclient-dev,python-pip,git,libffi-dev,upstart,supervisor,libssl-dev,libtiff5-dev,libjpeg8-dev,zlib1g-dev,libfreetype6-dev,liblcms2-dev,libwebp-dev,tcl8.6-dev,tk8.6-dev,python-tk,upstart -y
     sudo pip install -U pip
     ```
 

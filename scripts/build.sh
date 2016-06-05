@@ -22,12 +22,12 @@ rm -rf $SOURCEDIR/.git
 
 echo "-----------------------------Building Packages-----------------------------"
 cd build 
-fpm -s dir -t deb -n poppet -v $BUILDVER -d "nginx,redis-server,mysql-server,mysql-client,python-dev,python,libmysqlclient-dev,python-pip,git,libffi-dev,upstart,supervisor,libssl-dev,libtiff5-dev,libjpeg8-dev,zlib1g-dev,libfreetype6-dev,liblcms2-dev,libwebp-dev,tcl8.6-dev,tk8.6-dev,python-tk" \
+fpm -s dir -t deb -n poppet -v $BUILDVER -d "nginx,redis-server,mysql-server,mysql-client,python-dev,python,libmysqlclient-dev,python-pip,git,libffi-dev,upstart,supervisor,libssl-dev,libtiff5-dev,libjpeg8-dev,zlib1g-dev,libfreetype6-dev,liblcms2-dev,libwebp-dev" \
     --after-install ../poppet/scripts/postinst -a i686 \
     --deb-templates ../poppet/scripts/templates \
     --deb-config ../poppet/scripts/config \
     ../poppet/=/usr/share/nginx/poppet 
-fpm -s dir -t deb -n poppet -v $BUILDVER -d "nginx,redis-server,mysql-server,mysql-client,python-dev,python,libmysqlclient-dev,python-pip,git,libffi-dev,upstart,supervisor,libssl-dev,libtiff5-dev,libjpeg8-dev,zlib1g-dev,libfreetype6-dev,liblcms2-dev,libwebp-dev,tcl8.6-dev,tk8.6-dev,python-tk" \
+fpm -s dir -t deb -n poppet -v $BUILDVER -d "nginx,redis-server,mysql-server,mysql-client,python-dev,python,libmysqlclient-dev,python-pip,git,libffi-dev,upstart,supervisor,libssl-dev,libtiff5-dev,libjpeg8-dev,zlib1g-dev,libfreetype6-dev,liblcms2-dev,libwebp-dev" \
     --after-install ../poppet/scripts/postinst -a amd64\
     --deb-templates ../poppet/scripts/templates \
     --deb-config ../poppet/scripts/config \

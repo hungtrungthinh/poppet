@@ -5,6 +5,10 @@ It is built using python and flask and runs on nginx or any webserver that suppo
 
 ## Installation
 
+### For Ubuntu
+You can download compiled deb files for Ubuntu (tested only on 14.04) [![here](https://unifispot.com/blog/editions/)]
+
+### For Other Platforms
 Checkout INSTALL.md file
 
 ## License
@@ -19,8 +23,4 @@ However, in some cases, there is a requirement to re-brand the application for c
 
 In this instance, a “Permission” can be purchased which will allow you to re-brand the  interfaces.For further information, or to purchase a permission to re-brand, please contact us.
 
-# Donate
 
-Liked our work? Feel free to donate to us.
-
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9CSJHDFS5WB9Q)

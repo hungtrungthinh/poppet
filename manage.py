@@ -51,10 +51,14 @@ def demo_init():
         from unifispot.superadmin.models import Account
         from unifispot.admin.models import Admin       
         from unifispot.client.models import Client,Wifisite,Landingpage 
+        from unifispot.guest.models import Guest
         import arrow
         from random import randint 
         from unifispot.analytics.models import Sitestat  
         from unifispot.base.utils.helper import get_random_integers 
+        from faker import Factory
+        fake = Factory.create()
+
         try:
             account = Account.query.filter_by(id=1).first()
         except :
@@ -142,6 +146,10 @@ def demo_init():
                     daystat.num_phones     = logins[3]
                     db.session.add(daystat)
                 db.session.commit()     
+                ##------------------guests for site1
+                for i in range(100):
+                    db.session.add(Guest(firstname=fake.first_name(),lastname=fake.last_name(),email=fake.email()))
+                db.session.commit()
 
 @manager.command
 def defaul_customfields():

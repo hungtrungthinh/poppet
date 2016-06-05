@@ -1,7 +1,7 @@
 CONFFILE=/usr/share/nginx/poppet/instance/config.py
 
 apt-get update
-apt-get install nginx redis-server mysql-server mysql-client python-dev libmysqlclient-dev python-pip git libffi-dev -y 
+apt-get install nginx redis-server mysql-server mysql-client python-dev python libmysqlclient-dev python-pip git libffi-dev upstart supervisor libssl-dev libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev -y
 
 
 cd /usr/share/nginx
@@ -11,7 +11,7 @@ if [  -d poppet ]; then
     cd poppet
     git pull
 else 
-    git clone https://rakeshmmk@bitbucket.org/rakeshmmk/poppet.git
+   https://github.com/unifispot/poppet.git
     cd poppet
 fi
 
