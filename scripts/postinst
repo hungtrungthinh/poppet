@@ -1,4 +1,4 @@
-#!/bin/sh
+!/bin/sh
 # postinst script for poppet
 
 set -e
@@ -25,7 +25,7 @@ case "$1" in
 
   configure)
     db_get poppet/mysql-host && MYSQLHOST=${RET}
-    db_get poppet/mysql-root-user  && MYSQLUSER=${RET}  
+    db_get poppet/mysql-root-user  && MYSQLUSER=${RET}
     db_get poppet/mysql-root-pass && MYSQLPASS=${RET}
     db_get poppet/mysql-db-name && MYSQLDB=${RET}
 
@@ -34,7 +34,7 @@ case "$1" in
     if [ ! -d $INSTALLDIR/instance ]; then
         mkdir -p $INSTALLDIR/instance
         echo '-------------------------Creating instance folder-----------------------------------------'
-    fi    
+    fi
     if [ ! -d $INSTALLDIR/logs ]; then
         mkdir -p $INSTALLDIR/logs
         echo '-------------------------Creating logs folder-----------------------------------------'
@@ -53,13 +53,12 @@ case "$1" in
         /bin/cp $INSTALLDIR/scripts/instance_sample.py $INSTALLDIR/instance/config.py
         echo '-------------------------Creating instance/config.py file--------------------------------'
         sed -i "s/^SQLALCHEMY_DATABASE_URI.*/SQLALCHEMY_DATABASE_URI=\"mysql:\/\/$MYSQLUSER:$MYSQLPASS@$MYSQLHOST\/$MYSQLDB\"/g"  $CONFFILE
-    fi    
-
+    fi
     if ! mysql -u$MYSQLUSER -p$MYSQLPASS -h$MYSQLHOST  -e 'use '$MYSQLDB; then
         echo " Trying to create a new Db named $MYSQLDB"
         mysql -u$MYSQLUSER -p$MYSQLPASS -h$MYSQLHOST -e "create database "$MYSQLDB;
     fi
-        
+
     if [ ! -f $INSTALLDIR/.env/bin/activate ]; then
         pip install virtualenv
         virtualenv $INSTALLDIR/.env
@@ -79,15 +78,32 @@ case "$1" in
     $INSTALLDIR/.env/bin/python $INSTALLDIR/manage.py init_data
 
 
+    if [  -d /etc/init/uwsgi.conf ]; then
+        echo '-------------Upstart UWSGI config found, removing and upgrading to supervisor--------------'
+        if service --status-all | grep -Fq 'uwsgi'; then
+          sudo service uwsgi stop
+        fi
+        rm -rf /etc/init/uwsgi.conf
+
+    fi
+
     if [ ! -d /etc/uwsgi ]; then
-        echo '-------------------------Configuring uWSGI-----------------------------------------'
+        echo '-------------------------Creating /etc/uwsgi-----------------------------------------'
         mkdir /etc/uwsgi
+
+    fi
+    if [ ! -d /etc/uwsgi/vassals ]; then
+        echo '-------------------------Creating /etc/uwsgi/vassals-----------------------------------------'        
         mkdir /etc/uwsgi/vassals
         ln -s /usr/share/nginx/poppet/scripts/uwsgi.ini /etc/uwsgi/vassals/uwsgi.ini
-        cp /usr/share/nginx/poppet/scripts/uwsgi.conf /etc/init/
-    fi    
 
+    fi
 
+    if [ ! -f /etc/uwsgi/vassals/uwsgi.ini ]; then
+        echo '-------------------------Configuring /etc/uwsgi/vassals/uwsgi.ini-----------------------------'
+        ln -s /usr/share/nginx/poppet/scripts/uwsgi.ini /etc/uwsgi/vassals/uwsgi.ini
+
+    fi
     if [ ! -f /etc/nginx/sites-enabled/wifiapp ]; then
         echo '-------------------------Configuring nGINX-----------------------------------------'
         rm -rf /etc/nginx/sites-enabled/default
@@ -95,15 +111,12 @@ case "$1" in
         ln -s /etc/nginx/sites-available/wifiapp.conf /etc/nginx/sites-enabled/wifiapp
     fi
 
-
-
     if [ ! -f /etc/supervisor/conf.d/unifispot_celery.conf ]; then
         echo '-------------------------Configuring celeryd-----------------------------------------'
         ln -s /usr/share/nginx/poppet/scripts/supervisord.conf  /etc/supervisor/conf.d/unifispot_celery.conf
-    fi 
+    fi
 
     chown -R www-data:www-data /usr/share/nginx/poppet
-    service uwsgi restart
     service nginx restart
     service supervisor restart
 
@@ -128,3 +141,4 @@ esac
 db_stop
 
 exit 0
+         
