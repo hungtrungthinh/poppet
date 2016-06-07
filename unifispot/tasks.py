@@ -187,9 +187,9 @@ def celery_weekly_report(*args, **kwargs):
     for site in sites:
         if site.reports_type == CLIENT_REPORT_WEEKLY:
             tzinfo = tz.gettz(site.timezone)
-            today     = arrow.now(tzinfo)
-            start_of_week = today.floor('week')
-            end_of_week = today.ceil('week')
+            day     = arrow.now(tzinfo).replace(days=-2) #calculate past week
+            start_of_week = day.floor('week')
+            end_of_week = day.ceil('week')
             generate_report(site.id,start_of_week,end_of_week)
 
 @periodic_task(run_every=crontab(hour=0, minute=30, day_of_month=1))           
@@ -199,9 +199,9 @@ def celery_monthly_report(*args, **kwargs):
     for site in sites:
         if site.reports_type == CLIENT_REPORT_MONTHLY:
             tzinfo = tz.gettz(site.timezone)
-            today     = arrow.now(tzinfo).replace(days=-2)
-            start_of_month = today.floor('month')
-            end_of_month = today.ceil('month')
+            day     = arrow.now(tzinfo).replace(days=-2)
+            start_of_month = day.floor('month')
+            end_of_month = day.ceil('month')
             generate_report(site.id,start_of_month,end_of_month)
 
 @periodic_task(run_every=(crontab(hour="*/1")))
