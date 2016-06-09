@@ -95,25 +95,25 @@ case "$1" in
     if [ ! -d /etc/uwsgi/vassals ]; then
         echo '-------------------------Creating /etc/uwsgi/vassals-----------------------------------------'        
         mkdir /etc/uwsgi/vassals
-        ln -s /usr/share/nginx/poppet/scripts/uwsgi.ini /etc/uwsgi/vassals/uwsgi.ini
+        ln -sf /usr/share/nginx/poppet/scripts/uwsgi.ini /etc/uwsgi/vassals/uwsgi.ini
 
     fi
 
     if [ ! -f /etc/uwsgi/vassals/uwsgi.ini ]; then
         echo '-------------------------Configuring /etc/uwsgi/vassals/uwsgi.ini-----------------------------'
-        ln -s /usr/share/nginx/poppet/scripts/uwsgi.ini /etc/uwsgi/vassals/uwsgi.ini
+        ln -sf /usr/share/nginx/poppet/scripts/uwsgi.ini /etc/uwsgi/vassals/uwsgi.ini
 
     fi
     if [ ! -f /etc/nginx/sites-enabled/wifiapp ]; then
         echo '-------------------------Configuring nGINX-----------------------------------------'
         rm -rf /etc/nginx/sites-enabled/default
         cp /usr/share/nginx/poppet/scripts/wifiapp.conf /etc/nginx/sites-available/wifiapp.conf
-        ln -s /etc/nginx/sites-available/wifiapp.conf /etc/nginx/sites-enabled/wifiapp
+        ln -sf /etc/nginx/sites-available/wifiapp.conf /etc/nginx/sites-enabled/wifiapp
     fi
 
     if [ ! -f /etc/supervisor/conf.d/unifispot_celery.conf ]; then
         echo '-------------------------Configuring celeryd-----------------------------------------'
-        ln -s /usr/share/nginx/poppet/scripts/supervisord.conf  /etc/supervisor/conf.d/unifispot_celery.conf
+        ln -sf /usr/share/nginx/poppet/scripts/supervisord.conf  /etc/supervisor/conf.d/unifispot_celery.conf
     fi
 
     chown -R www-data:www-data /usr/share/nginx/poppet
