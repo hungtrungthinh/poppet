@@ -17,7 +17,7 @@ fi
 mkdir "$BUILDDIR"
 mkdir "$SOURCEDIR"
 
-git clone https://rakeshmmk@bitbucket.org/rakeshmmk/poppet.git
+git clone https://github.com/unifispot/poppet.git
 
 rm -rf $SOURCEDIR/.git
 
