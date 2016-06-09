@@ -40,8 +40,8 @@ case "$1" in
         echo '-------------------------Creating logs folder-----------------------------------------'
     fi
 
-    if [ ! -d $INSTALLDIR/poppet/static/uploads/ ]; then
-        mkdir -p $INSTALLDIR/poppet/static/uploads/
+    if [ ! -d $INSTALLDIR/poppet/unifispot/static/uploads/ ]; then
+        mkdir -p $INSTALLDIR/poppet/unifispot/static/uploads/
         echo '-------------------------Creating uploads folder-----------------------------------------'
     fi
     if [ ! -f $INSTALLDIR/instance/__init__.py ]; then

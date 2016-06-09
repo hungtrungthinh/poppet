@@ -26,7 +26,7 @@ pip install -r requirements.txt
 mkdir -p instance
 mkdir -p logs
 mkdir -p touch instance/__init__.py
-mkdir -p poppet/static/uploads/
+mkdir -p poppet/unifispot/static/uploads/
 
 
 if [ ! -d migrations ]; then
