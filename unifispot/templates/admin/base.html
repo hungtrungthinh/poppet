@@ -67,6 +67,11 @@
                     <li>
                         <span class="m-r-sm text-muted welcome-message">Welcome to UnifiSpot</span>
                     </li>
+                    {% if site_id %}
+                    <li>
+                        <button id="{{site_id}}" class="btn btn-xs btn-danger site-del">DEL</a>
+                    </li>   
+                    {%endif%}                 
                     <li class="dropdown " id='site-list'>
                         {%block site_select %}
                         {%endblock%}
@@ -136,7 +141,47 @@
                 $('#wifisitemodal').modal();
 
             });
+
+            //handle deleting 
+            $('.site-del').click(function(e) {
+                el = this;
+                bootbox.confirm("You are about to delete the site,this action can't be undone. Are you Sure? ", function(r) {
+                    if (r) {
+                        //sent request to delete order with given id
+                        //block UI while request is processed
+                        $.blockUI({boxed: true});
+                        $.ajax({
+                            type: 'delete',
+                            url: "{{url_for('client.wifisite_api',id=site_id)}}",
+                            data: {},
+                            success: function(b) {
+                                 $.unblockUI();
+                                if (b.status) {
+                                    toastr.options= toastr_options;
+                                    var $toast = toastr['success']("Success", b.msg);
+                                    window.location.href = "{{url_for('admin.admin_index')}}";                      
+                                }
+                                else{
+                                    toastr.options= toastr_options;
+                                    var $toast = toastr['error']("ERROR", b.msg);
+                                }                                               
+                            },
+                            timeout: 30000,
+                            error: function(xhr) {
+                                $.unblockUI();
+                                toastr.options= toastr_options;
+                                var $toast = toastr['error']("ERROR", "Network timeout!!,Please try again later");
+                            }
+                            
+                        });
+                    
+                    }
+                });
+            
+            });            
         {%endif%}
+
+
 
      });
 </script>

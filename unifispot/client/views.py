@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template,jsonify,request,current_app,abort,make_response
+from flask import Blueprint,render_template,jsonify,request,current_app,abort,make_response,flash
 from flask_security import login_required,current_user,roles_accepted
 from unifispot.extensions import db
 from functools import wraps
@@ -38,6 +38,9 @@ def client_index(siteid=None):
     #Validate SiteID
     if not siteid:
         wifisite        = Wifisite.query.filter_by(client_id=current_user.id).first()
+        if not wifisite:
+            flash('No Site configured for client')
+            abort(404) 
         siteid          = wifisite.id
     else:
         wifisite        = Wifisite.query.filter_by(id=siteid).first()
