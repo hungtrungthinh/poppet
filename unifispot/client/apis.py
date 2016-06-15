@@ -11,8 +11,8 @@ from unifispot.base.datatable import DataTablesServer
 from unifispot.extensions import db
 from unifispot.base.utils.forms import print_errors,get_errors
 from unifispot.models import User,user_datastore,Role
-from unifispot.guest.models import Guest,Guestsession,Device,Guesttrack
-
+from unifispot.guest.models import Guest,Guestsession,Device,Guesttrack,Smsdata
+from unifispot.analytics.models import Sitestat
 from functools import wraps
 from urlparse import urlparse
 from hashids import Hashids
@@ -135,7 +135,7 @@ class WifisiteAPI(UnifispotAPI):
 
     @validate_url
     def delete(self,id):
-        if not current_user.type == 'admin':
+        if not current_user.type == 'admin' or id is None:
             current_app.logger.debug("Client trying to access unauthorized URL %s "%(request.url))
             return jsonify({'status': 0,'msg':'Not Authorized'})          
         #delete all connected items
@@ -148,6 +148,8 @@ class WifisiteAPI(UnifispotAPI):
             [db.session.delete(item) for item in Guesttrack.query.filter_by(site_id=id).all()]
             [db.session.delete(item) for item in Sitefile.query.filter_by(site_id=id).all()]
             [db.session.delete(item) for item in Voucher.query.filter_by(site_id=id).all()]
+            [db.session.delete(item) for item in Smsdata.query.filter_by(site_id=id).all()]
+            [db.session.delete(item) for item in Sitestat.query.filter_by(site_id=id).all()]
             db.session.commit()
         except:
             current_app.logger.exception('Exception while trying to delete Wifisite ID:%s'%id)
