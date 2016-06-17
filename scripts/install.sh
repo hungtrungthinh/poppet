@@ -52,6 +52,7 @@ fi
 .env/bin/python manage.py db migrate
 .env/bin/python manage.py db upgrade
 .env/bin/python manage.py init_data
+.env/bin/python manage.py rebuild_daily_stat
 
 if [  -d /etc/init/uwsgi.conf ]; then
     echo '-------------Upstart UWSGI config found, removing and upgrading to supervisor--------------'

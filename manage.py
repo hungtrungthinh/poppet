@@ -233,7 +233,25 @@ def test_update_daily_stat():
                 daydate = today.replace(days=-i)
                 update_daily_stat(site.id,daydate)
 
-
+@manager.command
+def rebuild_daily_stat():
+    with app.app_context():
+        import arrow
+        from unifispot.client.models import Wifisite
+        from unifispot.analytics.models import Sitestat
+        from dateutil import tz
+        from unifispot.analytics.helpers import update_daily_stat
+        today     = arrow.now()
+        start_of_month = today.floor('month')
+        diff = (today - start_of_month).days
+        sites = Wifisite.query.all()
+        app.logger.info('----------rebuilding daily stats------')
+        for site in sites: 
+            tzinfo = tz.gettz(site.timezone) 
+            sitestats = Sitestat.query.filter_by(site_id=site.id).all()
+            for stats in sitestats:
+                daydate = arrow.get(stats.date,tzinfo=tzinfo)
+                update_daily_stat(site.id,daydate)
 
 @manager.command
 def reset_admin():
