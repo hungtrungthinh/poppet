@@ -40,7 +40,8 @@ def update_daily_stat(siteid,daydate):
         if track.fb_liked == 1:
             login_types['num_likes'] += 1         
         if track.fb_posted == 1:
-            login_types['num_checkins'] += 1     
+            login_types['num_checkins'] += 1  
+
 
 
     tracks = Guesttrack.query.filter(and_(Guesttrack.site_id==siteid,Guesttrack.timestamp>=day_start,
@@ -50,6 +51,8 @@ def update_daily_stat(siteid,daydate):
 
     #iterate through tracks and identify unique ones
     for track in tracks:
+        update_login_type(track)  #update_login_type needs to be run on each tracks
+        ###TODO---what if guest login twice during this time!
         #current_app.logger.debug('Processing guesttrack:%s timestamp:%s'%(track.id,track.timestamp))
         prv_track = tracks_dict.get(track.device_mac)
         if prv_track:
@@ -61,7 +64,7 @@ def update_daily_stat(siteid,daydate):
                 #more than 2 hrs difference
                 num_visits += 1
                 tracks_dict[track.device_mac] = new_time
-                update_login_type(track)
+                
             elif time_diff > 0:
                 #update mac time
                 tracks_dict[track.device_mac] = new_time
