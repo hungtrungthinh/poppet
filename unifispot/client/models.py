@@ -173,8 +173,9 @@ class Wifisite(db.Model):
             self.reports_type       = form.reports_type.data
             self.reports_list	    = form.reports_list.data
         self.emailformfields    = (form.get_lastname.data and FORM_FIELD_LASTNAME)  + (form.get_firstname.data and FORM_FIELD_FIRSTNAME) + \
-                (form.get_dob.data and FORM_FIELD_DOB) + (form.get_extra1.data and FORM_FIELD_EXTRA1 ) + (form.get_extra2.data and FORM_FIELD_EXTRA2)
-        self.mandatoryfields    = (form.mandate_lastname.data and MANDATE_FIELD_LASTNAME)  + \
+                (form.get_dob.data and FORM_FIELD_DOB) + (form.get_extra1.data and FORM_FIELD_EXTRA1 ) + \
+                (form.get_extra2.data and FORM_FIELD_EXTRA2) + (form.get_email.data and FORM_FIELD_EMAIL)
+        self.mandatoryfields    = (form.mandate_lastname.data and MANDATE_FIELD_LASTNAME)  + (form.mandate_email.data and MANDATE_FIELD_EMAIL)  +\
                                 (form.mandate_firstname.data and MANDATE_FIELD_FIRSTNAME) + \
                                 (form.mandate_dob.data and MANDATE_FIELD_DOB) + (form.mandate_extra1.data and MANDATE_FIELD_EXTRA1 ) + \
                                 (form.mandate_extra2.data and MANDATE_FIELD_EXTRA2)                
@@ -225,11 +226,13 @@ class Wifisite(db.Model):
             api_auth_field3 = self.api_auth_field3
         return dict_normalise_values({ 'name':self.name,'unifi_id':self.unifi_id, 'id':self.id, \
                 'template':self.template,
+                'get_email': (emailformfields &FORM_FIELD_EMAIL),\
                 'get_lastname': (emailformfields &FORM_FIELD_LASTNAME),\
                 'get_firstname': (emailformfields &FORM_FIELD_FIRSTNAME),\
                 'get_dob': (emailformfields &FORM_FIELD_DOB),\
                 'get_extra1': (emailformfields &FORM_FIELD_EXTRA1),\
                 'get_extra2': (emailformfields &FORM_FIELD_EXTRA2),\
+                'mandate_email': (mandatoryfields &MANDATE_FIELD_EMAIL),\
                 'mandate_lastname': (mandatoryfields &MANDATE_FIELD_LASTNAME),\
                 'mandate_firstname': (mandatoryfields &MANDATE_FIELD_FIRSTNAME),\
                 'mandate_dob': (mandatoryfields &MANDATE_FIELD_DOB),\
@@ -435,7 +438,10 @@ class  Voucher(db.Model):
     notes           = db.Column(db.String(50),index=True)
     duration_t      = db.Column(db.BigInteger())
     bytes_t         = db.Column(db.BigInteger())
+    speed_dl        = db.Column(db.BigInteger())
+    speed_ul        = db.Column(db.BigInteger())
     used            = db.Column(db.Boolean(),default=False,index=True)
+    multiuse        = db.Column(db.Boolean(),default=False,index=True)
     site_id         = db.Column(db.Integer, db.ForeignKey('wifisite.id'))
     duration        = db.Column(db.String(20),index=True)
     used_at         = db.Column(db.DateTime,index=True)   #used time in UTC,filled once voucher is used
@@ -443,8 +449,9 @@ class  Voucher(db.Model):
     sessions        = db.relationship('Guestsession', backref='voucher',lazy='dynamic') #to track sessions
 
     def populate_from_form(self,form):
-        self.notes = form.notes.data
-        self.bytes_t = form.bytes_t.data
+        self.notes      = form.notes.data
+        self.bytes_t    = form.bytes_t.data
+        self.multiuse   = form.multiuse.data
         #set duration accordingly
         if form.duration_t.data == 1:
             self.duration    = form.duration.data + ' Hours'
@@ -461,7 +468,7 @@ class  Voucher(db.Model):
 
         return {'site':self.site.name,'duration':self.duration,
                 'status':'<span class="label label-danger">Used</span>' if self.used else '<span class="label label-success">Initializing</span>',
-                'voucher':self.voucher,'note':self.notes,'bytes_t':self.bytes_t,
+                'voucher':self.voucher,'note':self.notes,'bytes_t':self.bytes_t,'multiuse':self.multiuse,
                 'id':self.id
                 }                 
 
@@ -513,11 +520,13 @@ class  Voucher(db.Model):
 
         return {'site':self.site.name,'duration':duration,
                 'status':'<span class="label label-danger">Used</span>' if self.used else '<span class="label label-primary">Available</span>',
-                'voucher':self.voucher,'note':self.notes,
+                'voucher':self.voucher,'note':self.notes,'multiuse':'Yes' if self.multiuse else 'No',
                 'id':self.id
                 }
 
     def check_validity(self):
+        #first check if voucher is already used and
+
         #first check if voucher's expiry time is over
         now = arrow.utcnow().timestamp 
         expiry = arrow.get(self.used_at).timestamp + self.duration_t

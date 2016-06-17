@@ -22,6 +22,7 @@ from unifispot.tasks import celery_export_api,celery_send_sms
 from unifispot.client.models import Wifisite,Voucher
 from functools import wraps
 import urllib
+import validators
 
 bp = Blueprint('guest', __name__,template_folder='templates')
 
@@ -86,13 +87,18 @@ def guest_portal(site_id):
 
 
     ###---------------TODO ADD Date/Time Limiting Code here----------------------------------------
+
+    ###--------------Handle SCAN2LOGIN
+    if landing_site.voucher_login_en() and orig_url and  validators.url(orig_url):
+        #get and validate voucher code
+        pass
     
 
     ###----------------Code to show landing page------------------------------------------------------
     if landing_site.auth_method == AUTH_TYPE_EMAIL:
         #AUTH mode is set to email show the landing page with configured landing page
         return redirect(url_for('guest.email_login',track_id=guest_track.track_id),code=302)
-        abort(404)   
+  
     elif landing_site.auth_method == AUTH_TYPE_VOUCHER:
         #AUTH mode is set to voucher
         return redirect(url_for('guest.voucher_login',track_id=guest_track.track_id),code=302)  
@@ -113,7 +119,6 @@ def validate_track(f):
     '''Decorator for validating guesttrack detials. It returns guest_track,wifisite and device objects
 
     '''
-    #Validate that client is trying to view only the sites owned by him
     @wraps(f)
     def decorated_function(*args, **kwargs):
 
@@ -639,8 +644,8 @@ def voucher_login(track_id,guest_track,landing_site,guest_device):
     voucher_form = generate_voucherform(landing_site)
     if voucher_form.validate_on_submit():
         #validate voucher
-        voucher = Voucher.query.filter(and_(Voucher.site_id== landing_site.id,Voucher.voucher==voucher_form.voucher.data,Voucher.used==False)).first()
-        if voucher:
+        voucher = Voucher.query.filter(and_(Voucher.site_id== landing_site.id,Voucher.voucher==voucher_form.voucher.data)).first()
+        if voucher and voucher.check_validity():
             #valid voucher available
             newguest = Guest()
             newguest.populate_from_email_form(voucher_form,landing_site.emailformfields)
@@ -670,6 +675,36 @@ def voucher_login(track_id,guest_track,landing_site,guest_device):
     landing_page = Landingpage.query.filter_by(id=landing_site.default_landing).first()
     return render_template('guest/%s/voucher_landing.html'%landing_site.template,landing_site=landing_site,landing_page=landing_page,voucher_form=voucher_form)   
     
+@bp.route('/scan2login/guest/<track_id>',methods = ['GET', 'POST'])
+@validate_track
+def scan2_login(track_id,guest_track,landing_site,guest_device):
+    ''' Function to called if voucher login is configured and scan2login URL is detected   
+    
+    '''
+    #validate voucher
+    voucher = Voucher.query.filter(and_(Voucher.site_id== landing_site.id,Voucher.voucher==voucher_code)).first()
+    if voucher and voucher.check_validity():
+        #valid voucher available
+        newguest = Guest()
+        newguest.site = landing_site
+        db.session.add(newguest)
+        db.session.commit()           
+        #mark sessions as authorized
+        guest_track.duration = voucher.time_available()
+        guest_track.state   = GUESTRACK_VOUCHER_AUTH
+        guest_device.guest  = newguest
+        newguest.demo        = guest_track.demo
+        newguest.devices.append(guest_device)
+        voucher.device_id = guest_device.id
+        voucher.used = True
+        voucher.used_at = arrow.utcnow().datetime
+        guest_device.state  = DEVICE_VOUCHER_AUTH
+        db.session.commit()
+        current_app.logger.debug('Wifiguest Log - Site ID:%s voucher_login MAC:%s new guest:%s  for track ID:%s'%(guest_track.site_id,guest_device.mac,newguest.id,guest_track.id))           
+        return redirect(url_for('guest.authorize_guest',track_id=guest_track.track_id),code=302)
+    else:           
+        current_app.logger.debug('Wifiguest Log - Site ID:%s voucher_login MAC:%s  in valid vouher value:%s for track ID:%s'%(guest_track.site_id,guest_device.mac,voucher_form.voucher.data,guest_track.id))
+        flash(u'Invalid Voucher ID', 'danger')
 
 @bp.route('/sms/guest/<track_id>',methods = ['GET', 'POST'])
 @validate_track

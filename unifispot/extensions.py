@@ -7,6 +7,7 @@ from flask_redis import Redis
 from functools import wraps
 import random
 from flask_session import Session
+from flask_qrcode import QRcode
    
 class FlaskCelery(Celery):
 
@@ -91,4 +92,5 @@ celery = FlaskCelery(__name__,broker='redis://localhost:6379/0')
 db = _SQLAlchemy()
 mail = Mail()
 redis = Redis()
+qrcode = QRcode()
 

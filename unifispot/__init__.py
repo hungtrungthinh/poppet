@@ -9,7 +9,7 @@ from base.utils.core import (load_blueprint_settings, load_blueprints,error_hand
 from assets import bundles
 import os
 import yaml
-from unifispot.extensions import db,mail,celery,redis
+from unifispot.extensions import db,mail,celery,redis,qrcode
 from unifispot.admin.models import Admin       
 from unifispot.superadmin.models import Account       
 from unifispot.client.models import Client      
@@ -48,6 +48,7 @@ def create_app(mode="development"):
     mail.init_app(app)
     celery.init_app(app)   
     redis.init_app(app)   
+    qrcode.init_app(app)   
     ##not going to use server side sessions
     #sess.init_app(app)
 

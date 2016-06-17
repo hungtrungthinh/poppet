@@ -37,6 +37,7 @@ class WifiSiteForm(Form):
     reports_type        = SelectField('Select Reports Frequency',coerce=int,choices=[],default=CLIENT_REPORT_WEEKLY)
     client_id           = SelectField('Select Client',coerce=int,choices=[],default=0)
     template            = SelectField('Choose Template',choices=[],default='template1')
+    get_email           = BooleanField('Email',default=1)
     get_firstname       = BooleanField('First Name',default=1)
     get_lastname        = BooleanField('Last Name',default=1)
     get_dob             = BooleanField('DOB',default=1)
@@ -56,6 +57,7 @@ class WifiSiteForm(Form):
     dob_field           = TextField('DOB Field')
     extra1_field        = TextField('Extra Field1')
     extra2_field        = TextField('Extra Field2')
+    mandate_email       = BooleanField('Email',default=1)
     mandate_firstname   = BooleanField('First Name',default=1)
     mandate_lastname    = BooleanField('Last Name',default=1)
     mandate_dob         = BooleanField('DOB',default=1)
@@ -207,6 +209,7 @@ class VoucherForm(Form):
     notes           = TextField("Note")
     number          = TextField("Create",validators = [Required()])
     bytes_t         = TextField("Total Data in Mb",validators = [Required()])
-    duration_t      = SelectField("Select",coerce=int,choices=[(1,'Hours'),(2,'Days'),(3,'Months')] )    
+    duration_t      = SelectField("Select",coerce=int,choices=[(1,'Hours'),(2,'Days'),(3,'Months')] )  
+    multiuse        = BooleanField("Multiuse")  
     def populate(self):
         pass

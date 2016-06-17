@@ -375,7 +375,7 @@
               
         </span> 
         
-        {{ field(class_="form-control ")}}
+        {{ field(class_="form-control ", placeholder=field.label.text)}}
         <span class="input-group-addon"> 
             {% if mandate %}
                 <input type="checkbox" name="{{ mandate.id }}" id="{{ mandate.id }}" value="1"  > *
@@ -464,7 +464,7 @@
                             <fieldset>
                                 <div class="row">
                                     <div class="col-lg-10">                                        
-                                        {{render_guestform_selection(form.email_field)}}
+                                        {{render_guestform_selection(form.email_field,form.get_email,form.mandate_email)}}
                                         {{render_guestform_selection(form.firstname_field,form.get_firstname,form.mandate_firstname)}}
                                         {{render_guestform_selection(form.lastname_field,form.get_lastname,form.mandate_lastname)}}
                                         {{render_guestform_selection(form.dob_field,form.get_dob,form.mandate_dob)}}
