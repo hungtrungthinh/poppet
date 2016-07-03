@@ -1,0 +1,36 @@
+{% macro render_voucher(voucherdesign,voucher) %}
+    <div class="contact-box">
+        {% if voucherdesign.showlogo %}
+        <div class="row logo" >
+            <img src="{{voucherdesign.logofile}}" class="img-responsive">
+        </div>
+        {%endif%}
+        </br>
+        <div class="row" >
+            <div class="col-xs-6 left-pad">
+                </br>
+                    <p style= "font-size: 16px" >Code:<strong>{{voucher.voucher}}</strong></p>
+                {% if voucherdesign.showdata %}
+                    <p style= "font-size: 12px" >Data Limit:<strong>{{voucher.bytes_t|toint}}Mb </strong></p>
+                {% endif %}
+                {% if voucherdesign.showduration %}
+                    <p style= "font-size: 12px" >Duration:<strong>{{voucher.duration_t}}</strong></p>
+                {% endif %}
+                {% if voucherdesign.showspeed %}
+                    <p style= "font-size: 12px" >Speed:<strong>{{voucher.speed_dl|toint}}</strong>Kbps/<strong>{{voucher.speed_ul|toint}}</strong>Kbps</p>
+                {% endif %}
+                {% if voucherdesign.shownotes %}
+                    <p style= "font-size: 12px" ><strong>{{voucher.notes|tostring}}</strong></p>
+                {% endif %}                
+            </div>
+            {% if voucherdesign.showqr %}
+            <div class="col-xs-6">
+                <p class="text-center">SCAN TO LOG IN</p>
+                <img src="{{ qrcode(voucher.voucher, box_size=5) }}" class="img-responsive">
+                <p class="text-center"style= "font-size: 12px">Or browse to: http://scan2log.in</p>
+            </div>
+            {%endif%}
+        </div>
+        <p class="text-center no-padding" style= "font-size: 10px">Powered by Unifispot(http://www.unifispot.com)</p>
+    </div>
+{%endmacro%}

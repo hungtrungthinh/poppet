@@ -170,7 +170,7 @@ class LandingPageForm(Form):
     middlebgcolor   = TextField('Middle Background Color')
     middletextcolor = TextField('Middle Text Color')
     middlefont      = SelectField('Bottom Base Font',coerce=int,default=2)
-    bottombgcolor   = TextField('Bottom Background Color')
+    bottombgcolor   = TextField('Bottom Background Color') 
     bottomtextcolor = TextField('Bottom Text Color')
     bottomfont      = SelectField('Base Font',coerce=int,default=2)
     footerbgcolor   = TextField('Footer Background Color')
@@ -210,6 +210,28 @@ class VoucherForm(Form):
     number          = TextField("Create",validators = [Required()])
     bytes_t         = TextField("Total Data in Mb",validators = [Required()])
     duration_t      = SelectField("Select",coerce=int,choices=[(1,'Hours'),(2,'Days'),(3,'Months')] )  
-    multiuse        = BooleanField("Multiuse")  
+    num_devices     = TextField("Devices Allowed")  
+    speed_dl        = TextField("Download Speed")
+    speed_ul        = TextField("Upload Speed")
     def populate(self):
         pass
+
+class VoucherDesignForm(Form):
+    site_id         = HiddenField('Site ID')
+    logofile        = HiddenField('Header File')   
+    bgcolor         = TextField('Background Color')
+    txtcolor        = TextField('Text Color')
+    bordercolor     = TextField('Border Color')
+    showlogo        = BooleanField('Show Logo',default=1)     
+    shownotes       = BooleanField('Show Notes',default=1)
+    showqr          = BooleanField('Show QRcode',default=1)
+    showduration    = BooleanField('Show Duration',default=1)
+    showdata        = BooleanField('Show Data Limit',default=1)
+    showspeed       = BooleanField('Show Speed Limit',default=1)
+    def populate(self):
+        pass    
+
+class VoucherFilesForm(Form):
+    logofile        = FileField('Logo File')
+    def populate(self):
+        pass    

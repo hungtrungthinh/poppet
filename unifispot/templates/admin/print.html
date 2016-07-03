@@ -1,137 +1,111 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>Vouchers</title>
+{%from 'form_macros.html' import modal_form,flash_message,render_wifisite with context%}
+{%from 'voucher_macros.html' import render_voucher with context%}
 
-        <style>
-            @page {
-                size: A4;
-                margin: 0;
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %} {% endblock %}</title>
+
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    {% assets "global_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" />
+    {% endassets %}
+
+
+    <!-- END GLOBAL MANDATORY STYLES -->
+    {% block css_block %}
+
+    <style>
+
+        body
+        {
+
+            font-family: Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
+            color:{{voucherdesign.txtcolor}};
+
+        }    
+        .img-responsive {
+            margin: 0 auto;
+            max-height:100px;
+        }
+        .contact-box {
+            background-color: {{voucherdesign.bgcolor}};
+            border: 1px solid {{voucherdesign.bordercolor}};
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+        .no-padding{
+            padding:0;
+            margin:0;
+        }
+        @media print {
+            div.lastrow {
+                page-break-after: always;
             }
-            @media print {
-                html, body {
-                    width: 210mm;
-                    height: 297mm;
-                    margin-left: auto;
-                    margin-right: auto;
-                }
-            }
-            @media screen {
-                html, body {
-                    width: 800px;
-                }
-            }
-            body
-            {
-                padding: 5mm;
-                margin:0;
-                margin-left: auto;
-                margin-right: auto;
-                font-size: 20px;
-                font-family: Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
-                line-height: 85%; 
-            }
+            .left-pad{
+                padding-left:5px;
 
-            #main-wrap {
-                background-color: #fff;
-                max-height: 327px;
-                text-align: center;
-                border: solid;
-                border-width: 1px;
-                display: inline-block;
+            }  
 
-            }
+        }      
+        .left-pad{
+            padding-left:50px;
 
+        }       
+        .logo{
+            
 
-            #main-wrap > div {
-                max-height: 317px;
+        }   
+    </style>
 
-            }
+    {%endblock%}
 
-            #main-wrap {
-                overflow: hidden;
-                width: 45%;
-                padding-top: 20px;
-                padding-bottom: 20px;
-            }
+</head>
 
-            #leftside {
-                display: inline-block;
-                width: 50%;
-                font-size: 22px;
-                line-height: 22px;
-                height: 220px;
-            }
+<body >
+<body class="white-bg">
+    <div class="wrapper wrapper-content">
+        {% for voucher in vouchers %}
+            {% if loop.index%2 == 1 %}
+                <div class="row {% if (loop.index-5)%6 == 0%} lastrow{%endif%} ">
+                
+            {%endif %}
+                <div class="col-xs-6 col-sm-4">
+                    {{render_voucher(voucherdesign,voucher)}}
 
-            #rightside {
-                display: inline-block;
-                width: 45%;
-                height: 220px;
-                font-size: 18px
+                </div>
 
-            } 
+            {% if loop.index%2 == 0 %}
+                </div>
+            {%endif %}
 
-            img.logo {
-                width: 100%;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .qrcode {
-                height: 150px;
-                width: 150px;
-            }
+        {%endfor%}
 
 
 
-        </style>
-    </head>
-    <body>
 
-        <div id="main-wrap">
-            <img class="logo" src="logo.png">
-            <div id="leftside"><br>
-                <strong>10Gb/10Days</strong><br><br>
-                <strong>Code:</strong> <br>GSG#A$#S$<br><br><br>               
 
-            </div>
-            <div id="rightside"><br>SCAN TO LOG IN<br>
-                <div class="qrcode" class="test"><img src="{{ qrcode('http://scan2log.in', box_size=5, border=5) }}"></div>
-                <span style= "font-size: 12px">Or browse to: <br>http://scan2log.in<br></span>
-            </div>
-            <div class="bottom">
-                Ask your host for more information</br>
-                <span style= "font-size: 12px">Or browse to: <br>http://scan2log.in<br></span>
-            </div>   
-        </div>
 
-        {% assets "core_js" %}
-            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
 
-        {% endassets %}
-        {% assets "qr_js" %}
-            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
 
-        {% endassets %}        
-    <script>
-        $(document).ready(function() {   
-        
-            $('.test').qrcode(
-                        {
-                            "render": 'div',
-                            "size": 150,
-                            "minVersion": 5,
-                            "maxVersion": 5,
-                            "ecLevel": 'L',
-                            "mode": 0,
-                            "text": "test",
-                            "quiet": 0,
-                        }
 
-                    );
+    </div>
 
-        }); 
-    </script>    
-    </body>
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+{% assets "core_js" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+
+{% endassets %}
+
+<!-- END CORE PLUGINS -->
+{% block js_block %}
+
+{%endblock%}
+</body>
+
 </html>

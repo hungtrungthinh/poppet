@@ -264,4 +264,25 @@ def reset_admin():
         db.session.commit()
 
 
+@manager.command
+def migrate_vouchers():
+    with app.app_context():
+        from unifispot.client.models import Voucher,Wifisite,Voucherdesign
+        from unifispot.guest.models import Device
+        for voucher in Voucher.query.all():
+            if voucher.device_id:
+                device = Device.query.filter_by(id=voucher.device_id).first()
+                voucher.devices.append(device)
+                voucher.device_id = None 
+                voucher.num_devices = 1
+                device.voucher_id = voucher.id
+                db.session.commit()
+        for site in Wifisite.query.all():
+            if not Voucherdesign.query.filter_by(site_id=site.id).first():
+                design = Voucherdesign()
+                design.site = site
+                db.session.add(design)
+                db.session.commit()
+
+
 manager.run()

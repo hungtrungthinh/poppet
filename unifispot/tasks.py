@@ -109,7 +109,7 @@ def celery_session_monitor(*args, **kwargs):
                             if not voucher:
                                 current_app.logger.error('MAC:%s in site:%s no_voucher found '%(mac,site.name))
                                 continue
-                            if data_mb > voucher.data_available():
+                            if voucher.bytes_t and data_mb > voucher.data_available():
                                 current_app.logger.debug('MAC:%s in site:%s seems to have exceeded voucher:%s limit \
                                     hence disconnecting'%(mac,site.name,voucher.id))   
                         #if not voucher authorized check if device exceeded session limit if session limit is enabled

@@ -20,8 +20,9 @@ from unifispot.guest.views import get_landing_page
 from unifispot.guest.models import Guestsession
 from unifispot.guest.forms import FacebookTrackForm,generate_emailform,generate_voucherform,generate_smsform
 
-from unifispot.client.models import Wifisite,Landingpage,Voucher
+from unifispot.client.models import Wifisite,Landingpage,Voucher,Voucherdesign
 from unifispot.client.forms import WifiSiteForm,LandingPageForm,SimpleLandingPageForm,LandingFilesForm,VoucherForm
+from unifispot.client.forms import VoucherDesignForm,VoucherFilesForm
 
 bp = Blueprint('admin', __name__,template_folder='templates')
 
@@ -31,6 +32,7 @@ register_api(bp,AdminAPI,'admin_api','/admins/api/',login_required)
 register_api(bp,UserAPI,'user_api','/user/api/',login_required)
 register_api(bp,AccesspointAPI,'ap_api','/ap/api/',login_required)
 register_api(bp,DevicesAPI,'device_api','/device/api/',login_required)
+
 
 
 
@@ -211,9 +213,32 @@ def client_vouchers(site_id=None):
     return render_template("admin/vouchers.html",site_id=site_id,site_form=site_form,user_form=user_form,wifisite=wifisite,voucher_form=voucher_form)
 
 
-@bp.route('/vouchers/<site_id>/print')
+@bp.route('/designer/<site_id>')
 @admin_required
-def client_print(site_id=None):
+def client_vouchers_designer(site_id=None):
+    #Validate SiteID
+    wifisite        = Wifisite.query.filter_by(id=site_id).first()
+    if not wifisite:
+        current_app.logger.debug("Site Manage URL called with invalid paramters site_id:%s userid:%s"%(site_id,current_user.id))
+        abort(404)
+
+    user_form = UserForm()
+    voucherdesign_form = VoucherDesignForm()
+    fakevoucher = Voucher(bytes_t=1000,voucher='GSG#A$#S$',duration_t="1 Hr",speed_dl=256,speed_ul=100)
+    voucherdesign = Voucherdesign.query.filter_by(site_id=site_id).first()
+    site_form = WifiSiteForm()
+    site_form.populate()    
+    voucherfilesform = VoucherFilesForm()
+    return render_template("admin/voucher_designer.html",site_id=site_id,site_form=site_form,user_form=user_form,
+            wifisite=wifisite,voucherdesign_form=voucherdesign_form,voucherfilesform=voucherfilesform,
+            fakevoucher=fakevoucher,voucherdesign=voucherdesign)
+
+
+
+@bp.route('/vouchers/<site_id>/print/')
+@bp.route('/vouchers/<site_id>/print/<voucher_id>')
+@admin_required
+def client_print(site_id=None,voucher_id=None):
     #Validate SiteID
     wifisite        = Wifisite.query.filter_by(id=site_id).first()
     if not wifisite:
@@ -222,8 +247,13 @@ def client_print(site_id=None):
     if wifisite.account_id != current_user.account_id:
         current_app.logger.debug("User ID:%s trying to access Site ID:%s vouchers which donot belong to him"%(current_user.id,site_id))   
         abort(401)
-    vouchers = Voucher.query.filter(and_(Voucher.site_id==site_id,Voucher.used == False)).all()
-    return render_template("admin/print.html",vouchers=vouchers)
+    if voucher_id:
+         vouchers = Voucher.query.filter(and_(Voucher.site_id==site_id,Voucher.used == False,
+            Voucher.id==voucher_id)).all()
+    else: 
+        vouchers = Voucher.query.filter(and_(Voucher.site_id==site_id,Voucher.used == False)).all()
+    voucherdesign = Voucherdesign.query.filter_by(site_id=site_id).first()
+    return render_template("admin/print.html",vouchers=vouchers,voucherdesign=voucherdesign)
 
 
 @bp.route('/guestsession/<site_id>')

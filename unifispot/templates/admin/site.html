@@ -30,11 +30,16 @@
      <li  >
         <a href="{{url_for('admin.admin_sessions',site_id=site_id)}}"><i class="fa fa-calendar-o"></i> <span class="nav-label">Guest Sessions</span></a>
     </li>      
-    {% if wifisite.voucher_login_en() %}
-     <li >
-        <a href="{{url_for('admin.client_vouchers',site_id=site_id)}}"><i class="fa fa-diamond"></i> <span class="nav-label">Vouchers</span></a>
+   {% if wifisite.voucher_login_en() %}
+     <li>
+            <a href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Vouchers</span><span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+                <li ><a href="{{url_for('admin.client_vouchers',site_id=site_id)}}">View</a></li>
+                <li><a href="{{url_for('admin.client_vouchers_designer',site_id=site_id)}}">Design</a></li>
+            </ul>        
+        
     </li>
-    {% endif %}    
+    {% endif %}   
 
 {%endblock%}
 

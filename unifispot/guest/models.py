@@ -163,9 +163,10 @@ class Device(db.Model):
     site_id     = db.Column(db.Integer, db.ForeignKey('wifisite.id'))
     sessions    = db.relationship('Guestsession', backref='device',lazy='dynamic')
     smsdatas    = db.relationship('Smsdata', backref='device',lazy='dynamic')
-    expires_at  = db.Column(db.DateTime)          #Expiry time for last used voucher  , valid only if state is Device_voucher_auth
+    expires_at  = db.Column(db.DateTime)          #Expiry time for last used voucher  
     demo        = db.Column(db.Integer,default=0,index=True)
     sms_confirm = db.Column(db.Integer,default=0,index=True) #used to verify if the device's phone number is confirmed
+    voucher_id  = db.Column(db.Integer, db.ForeignKey('voucher.id')) #last used voucher id
 
     def get_monthly_usage(self):
         '''Returns the total monthly free data usage for this device
@@ -190,6 +191,17 @@ class Device(db.Model):
 
         '''
         return ';'.join([x.phonenumber for x in self.smsdatas])
+
+    def get_voucher(self):
+        '''Returns a valid voucher id if any associated with this device, if nothing found returns None
+
+        '''
+        for voucher in self.vouchers:
+            if voucher.check_validity():
+                return voucher.id
+
+        return None
+
 
 
 class Guestsession(db.Model):
