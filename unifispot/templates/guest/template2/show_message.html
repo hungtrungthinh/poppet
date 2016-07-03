@@ -1,4 +1,5 @@
 {% from "guest/template2/macros.html" import render_guest %}
+{% from 'form_macros.html' import flash_message %}
 <!DOCTYPE html>
 <html>
 
@@ -118,6 +119,7 @@
 
             </div>
             </br>
+            {{flash_message()}}
             
             <p>
                 If you are not redirected automatically, please <a href="{{redirect_url|safe}}">click</a>

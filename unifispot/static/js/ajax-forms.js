@@ -1,7 +1,7 @@
 /**
 Core script to handle ajax forms. It can handle both posting data for creating/updation as well parsing data from get request.
 **/
-var AjaxForm = function(formid,url) {
+var AjaxForm = function(formid,url,reload=false) {
 
     var toastr_options = {
         "closeButton": true,
@@ -81,6 +81,9 @@ var AjaxForm = function(formid,url) {
                 if(data.status){
                     toastr.options= toastr_options;
                     var $toast = toastr['success']("Success", data.msg);
+                    if(reload){
+                        location.reload(); 
+                    }
                 }
                 else{
                     toastr.options= toastr_options;

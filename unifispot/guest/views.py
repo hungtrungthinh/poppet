@@ -22,6 +22,8 @@ from unifispot.tasks import celery_export_api,celery_send_sms
 from unifispot.client.models import Wifisite,Voucher
 from functools import wraps
 import urllib
+import validators
+from urlparse import urlparse,parse_qs
 
 bp = Blueprint('guest', __name__,template_folder='templates')
 
@@ -86,13 +88,18 @@ def guest_portal(site_id):
 
 
     ###---------------TODO ADD Date/Time Limiting Code here----------------------------------------
+
+    ###--------------Handle SCAN2LOGIN
+    if landing_site.voucher_login_en() and orig_url and  validate_scan2login(orig_url):
+        #get and validate voucher code
+        return redirect(url_for('guest.scan2_login',track_id=guest_track.track_id),code=302) 
     
 
     ###----------------Code to show landing page------------------------------------------------------
     if landing_site.auth_method == AUTH_TYPE_EMAIL:
         #AUTH mode is set to email show the landing page with configured landing page
         return redirect(url_for('guest.email_login',track_id=guest_track.track_id),code=302)
-        abort(404)   
+  
     elif landing_site.auth_method == AUTH_TYPE_VOUCHER:
         #AUTH mode is set to voucher
         return redirect(url_for('guest.voucher_login',track_id=guest_track.track_id),code=302)  
@@ -113,7 +120,6 @@ def validate_track(f):
     '''Decorator for validating guesttrack detials. It returns guest_track,wifisite and device objects
 
     '''
-    #Validate that client is trying to view only the sites owned by him
     @wraps(f)
     def decorated_function(*args, **kwargs):
 
@@ -162,7 +168,7 @@ def validate_datause(f):
         if not guest_device or not landing_site:
             current_app.logger.error("Called validate_datause wihtout guest_device/landing_site ")
             abort(404)     
-        if guest_device.get_monthly_usage() >= landing_site.monthly_data_limit:
+        if landing_site.enable_session_limit and guest_device.get_monthly_usage() >= landing_site.monthly_data_limit:
             current_app.logger.debug('Wifiguest Log - Site ID:%s guest_device MAC:%s exceeded the monthly data limit:%s'%(landing_site.id,guest_device.mac,landing_site.monthly_data_limit))
             return 'Looks like you have exceed your monthly free bandwidth'
         return f(*args, **kwargs)
@@ -181,19 +187,28 @@ def authorize_guest(track_id,guest_track,landing_site,guest_device):
     if  not guest_track.is_authorized():
         current_app.logger.error('Wifiguest Log - Site ID:%s guest_device MAC:%s tried to \
             %s without being authorized'%(landing_site.id,guest_track.device_mac,request.url))
-        abort(404)
+        flash("Something went wrong, please try again")
+        return redirect(url_for('guest.multi_login',track_id=guest_track.track_id),code=302)
     
-
+    speed_ul = 0
+    speed_dl = 0
+    bytes_t  = 0
     
     if guest_track.state == GUESTRACK_VOUCHER_AUTH:
-        voucher = Voucher.query.filter(and_(Voucher.device_id==guest_device.id,Voucher.site_id==landing_site.id)).first()
+        voucher = Voucher.query.filter(and_(Voucher.id ==guest_device.voucher_id,Voucher.site_id==landing_site.id)).first()
         if not voucher:
             current_app.logger.error('Wifiguest Log - Site ID:%s guest_device MAC:%s tried to \
                 %s with GUESTRACK_VOUCHER_AUTH but no proper voucher '%(landing_site.id,guest_track.device_mac,request.url))
-            abort(404) 
+            flash("Something went wrong, please try again")
+            return redirect(url_for('guest.multi_login',track_id=guest_track.track_id),code=302)
         duration = guest_track.duration
+        speed_ul = voucher.speed_ul or 0
+        speed_dl = voucher.speed_dl or 0
+        bytes_t  = voucher.data_available()
     else:
-        duration = landing_site.session_timelimit or 60         
+        duration = landing_site.session_timelimit or 60   
+        if landing_site.enable_session_limit:
+            bytes_t = landing_site.daily_data_limit    
 
 
     #create a new session
@@ -215,7 +230,8 @@ def authorize_guest(track_id,guest_track,landing_site,guest_device):
         settings = account.get_settings()
         try:
             c =  Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],'8443','v4',guest_track.site.unifi_id)       
-            c.authorize_guest(guest_track.device_mac,duration,ap_mac=guest_track.ap_mac)    
+            c.authorize_guest(guest_track.device_mac,duration,ap_mac=guest_track.ap_mac,up_bandwidth=speed_ul,
+                down_bandwidth=speed_dl,byte_quota=bytes_t)    
         except:
             current_app.logger.exception('Wifiguest Log - Site ID:%s guest_device MAC:%s tried to \
                 %s with  but exception while connecting to controller '%(landing_site.id,guest_track.device_mac,request.url))
@@ -618,11 +634,11 @@ def voucher_login(track_id,guest_track,landing_site,guest_device):
     '''
         
     #Check if the device already has a valid auth
-    if  guest_device.state == DEVICE_VOUCHER_AUTH and guest_device.demo == False:
-        #Device has a guest element and is authorized before
+    if  guest_device.voucher_id and guest_device.demo == False:
+        #Device has a voucher element and is authorized before
         #check if the voucher is valid still
         #get latest voucher 
-        voucher = Voucher.query.filter(and_(Voucher.device_id==guest_device.id,Voucher.site_id==landing_site.id)).first()
+        voucher = Voucher.query.filter(and_(Voucher.id==guest_device.voucher_id,Voucher.site_id==landing_site.id)).first()
         if voucher and voucher.check_validity() :
             guest_track.duration = voucher.time_available()
             guest_track.state   = GUESTRACK_VOUCHER_AUTH
@@ -639,8 +655,8 @@ def voucher_login(track_id,guest_track,landing_site,guest_device):
     voucher_form = generate_voucherform(landing_site)
     if voucher_form.validate_on_submit():
         #validate voucher
-        voucher = Voucher.query.filter(and_(Voucher.site_id== landing_site.id,Voucher.voucher==voucher_form.voucher.data,Voucher.used==False)).first()
-        if voucher:
+        voucher = Voucher.query.filter(and_(Voucher.site_id== landing_site.id,Voucher.voucher==voucher_form.voucher.data)).first()
+        if voucher and voucher.uses_available() > 0 and voucher.check_validity():
             #valid voucher available
             newguest = Guest()
             newguest.populate_from_email_form(voucher_form,landing_site.emailformfields)
@@ -655,21 +671,75 @@ def voucher_login(track_id,guest_track,landing_site,guest_device):
             guest_device.guest  = newguest
             newguest.demo        = guest_track.demo
             newguest.devices.append(guest_device)
-            voucher.device_id = guest_device.id
+            voucher.devices.append(guest_device)
+            guest_device.voucher_id = voucher.id
             voucher.used = True
-            voucher.used_at = arrow.utcnow().datetime
+            voucher.used_at = arrow.utcnow().naive
             guest_device.state  = DEVICE_VOUCHER_AUTH
             db.session.commit()
             current_app.logger.debug('Wifiguest Log - Site ID:%s voucher_login MAC:%s new guest:%s  for track ID:%s'%(guest_track.site_id,guest_device.mac,newguest.id,guest_track.id))           
             return redirect(url_for('guest.authorize_guest',track_id=guest_track.track_id),code=302)
         else:           
             current_app.logger.debug('Wifiguest Log - Site ID:%s voucher_login MAC:%s  in valid vouher value:%s for track ID:%s'%(guest_track.site_id,guest_device.mac,voucher_form.voucher.data,guest_track.id))
-            flash(u'Invalid Voucher ID', 'danger')
-       
+            flash(u'Invalid Voucher ID', 'danger')       
     
     landing_page = Landingpage.query.filter_by(id=landing_site.default_landing).first()
     return render_template('guest/%s/voucher_landing.html'%landing_site.template,landing_site=landing_site,landing_page=landing_page,voucher_form=voucher_form)   
     
+@bp.route('/scan2login/guest/<track_id>',methods = ['GET', 'POST'])
+@validate_track
+def scan2_login(track_id,guest_track,landing_site,guest_device):
+    ''' Function to called if voucher login is configured and scan2login URL is detected   
+    
+    '''
+    #Check if the device already has a valid auth
+    if  guest_device.voucher_id and guest_device.demo == False:
+        #Device has a voucher element and is authorized before
+        #check if the voucher is valid still
+        #get latest voucher 
+        voucher = Voucher.query.filter(and_(Voucher.id==guest_device.voucher_id,Voucher.site_id==landing_site.id)).first()
+        if voucher and voucher.check_validity() :
+            guest_track.duration = voucher.time_available()
+            guest_track.state   = GUESTRACK_VOUCHER_AUTH
+            db.session.commit()
+            #redirect to authorize_guest
+            current_app.logger.debug('Wifiguest Log - Site ID:%s voucher_login MAC:%s already authenticated voucher for track ID:%s'%(guest_track.site_id,guest_device.mac,guest_track.id))
+            return redirect(url_for('guest.authorize_guest',track_id=guest_track.track_id),code=302)
+        else:
+            current_app.logger.debug('Wifiguest Log - Site ID:%s voucher_login MAC:%s expired previous voucher for track ID:%s'%(guest_track.site_id,guest_device.mac,guest_track.id))
+            guest_device.state = DEVICE_INIT
+            db.session.commit()
+            flash("Looks like your Voucher have expired", 'danger')
+
+    voucher_code = validate_scan2login(guest_track.orig_url)
+    #validate voucher
+    voucher = Voucher.query.filter(and_(Voucher.site_id==landing_site.id,Voucher.voucher==voucher_code)).first()
+    if voucher and voucher.uses_available() > 0 and voucher.check_validity():
+        #valid voucher available
+        newguest = Guest()
+        newguest.site = landing_site
+        db.session.add(newguest)
+        db.session.commit()           
+        #mark sessions as authorized
+        guest_track.duration = voucher.time_available()
+        guest_track.state   = GUESTRACK_VOUCHER_AUTH
+        guest_device.guest  = newguest
+        newguest.demo        = guest_track.demo
+        newguest.devices.append(guest_device)
+        voucher.device_id = guest_device.id
+        voucher.used = True
+        voucher.used_at = arrow.utcnow().datetime
+        guest_device.state  = DEVICE_VOUCHER_AUTH
+        db.session.commit()
+        current_app.logger.debug('Wifiguest Log - Site ID:%s voucher_login MAC:%s new guest:%s  for track ID:%s'%(guest_track.site_id,guest_device.mac,newguest.id,guest_track.id))           
+        return redirect(url_for('guest.authorize_guest',track_id=guest_track.track_id),code=302)
+    else:           
+        current_app.logger.debug('Wifiguest Log - Site ID:%s voucher_login MAC:%s  in valid vouher value:%s for track ID:%s'%(guest_track.site_id,guest_device.mac,voucher_form.voucher.data,guest_track.id))
+        flash(u'Invalid Voucher ID', 'danger')
+
+    landing_page = Landingpage.query.filter_by(id=landing_site.default_landing).first()
+    return render_template('guest/%s/voucher_landing.html'%landing_site.template,landing_site=landing_site,landing_page=landing_page,voucher_form=voucher_form)   
+
 
 @bp.route('/sms/guest/<track_id>',methods = ['GET', 'POST'])
 @validate_track
@@ -849,3 +919,27 @@ def get_landing_page(site_id,landing_page=None,landing_site=None,**kwargs):
     else:
         return render_template('guest/%s/multi_landing.html'%landing_site.template,landing_site=landing_site,landing_page=landing_page,**kwargs)          
  
+
+
+def validate_scan2login(url):
+    '''Function to validate client's URL and check if its scan2login URL
+
+    '''
+    if not validators.url(url):
+        return False
+
+    parsed = urlparse(url)
+
+    if not parsed.netloc == 'scan2log.in':
+        return False
+
+    voucher_code =  parse_qs(parsed.query).get('voucher')
+
+    if voucher_code:
+        return voucher_code
+    else:
+        return False
+
+
+
+

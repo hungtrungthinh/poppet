@@ -1,56 +1,111 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-    <meta http-equiv="x-ua-compatible" content="IE=8">
-    <title>Vouchers</title>
-<style type="text/css">
-body {
-    font-size: 1.4em; 
-    font-family: "Times New Roman", Times, serif !important;
-}
+{%from 'form_macros.html' import modal_form,flash_message,render_wifisite with context%}
+{%from 'voucher_macros.html' import render_voucher with context%}
 
-div.voucher {
-    display:inline-block;
-    margin: 2px;
-    padding: 10px;
-    text-align: center;
-    border: 1px dashed #000;
-}
+<!DOCTYPE html>
+<html>
 
-div.voucher p {
-    margin: 0;
-}
+<head>
 
-p.valid { 
-    text-decoration:underline; 
-    color: #666666; 
-}
-p.code { 
-    font-weight:bold;
-    padding-top: 10px;
-    font-size:larger;
-}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-</style>
-<style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
-.en-markup-crop-options {
-    top: 18px !important;
-    left: 50% !important;
-    margin-left: -100px !important;
-    width: 200px !important;
-    border: 2px rgba(255,255,255,.38) solid !important;
-    border-radius: 4px !important;
-}
+    <title>{% block title %} {% endblock %}</title>
 
-.en-markup-crop-options div div:first-of-type {
-    margin-left: 0px !important;
-}
-</style></head>
-<body onload="self.focus(); window.print()">
-{% for item in vouchers %}
-<div class="voucher">
-    <p class="valid">Valid for {{item.duration}}</p>
-    <p class="code">{{item.voucher}}</p>
-</div>
-{% endfor%}
-</body></html>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    {% assets "global_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" />
+    {% endassets %}
+
+
+    <!-- END GLOBAL MANDATORY STYLES -->
+    {% block css_block %}
+
+    <style>
+
+        body
+        {
+
+            font-family: Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
+            color:{{voucherdesign.txtcolor}};
+
+        }    
+        .img-responsive {
+            margin: 0 auto;
+            max-height:100px;
+        }
+        .contact-box {
+            background-color: {{voucherdesign.bgcolor}};
+            border: 1px solid {{voucherdesign.bordercolor}};
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+        .no-padding{
+            padding:0;
+            margin:0;
+        }
+        @media print {
+            div.lastrow {
+                page-break-after: always;
+            }
+            .left-pad{
+                padding-left:5px;
+
+            }  
+
+        }      
+        .left-pad{
+            padding-left:50px;
+
+        }       
+        .logo{
+            
+
+        }   
+    </style>
+
+    {%endblock%}
+
+</head>
+
+<body >
+<body class="white-bg">
+    <div class="wrapper wrapper-content">
+        {% for voucher in vouchers %}
+            {% if loop.index%2 == 1 %}
+                <div class="row {% if (loop.index-5)%6 == 0%} lastrow{%endif%} ">
+                
+            {%endif %}
+                <div class="col-xs-6 col-sm-4">
+                    {{render_voucher(voucherdesign,voucher)}}
+
+                </div>
+
+            {% if loop.index%2 == 0 %}
+                </div>
+            {%endif %}
+
+        {%endfor%}
+
+
+
+
+
+
+
+
+
+    </div>
+
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+{% assets "core_js" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+
+{% endassets %}
+
+<!-- END CORE PLUGINS -->
+{% block js_block %}
+
+{%endblock%}
+</body>
+
+</html>

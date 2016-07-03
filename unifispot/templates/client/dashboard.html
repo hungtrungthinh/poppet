@@ -25,7 +25,14 @@
     </li>      
     {% if wifisite.voucher_login_en() %}
      <li>
-        <a href="{{url_for('client.client_vouchers',siteid=siteid)}}"><i class="fa fa-diamond"></i> <span class="nav-label">Vouchers</span></a>
+        <a href="#">
+            <i class="fa fa-diamond"></i> <span class="nav-label">Vouchers</span><span class="fa arrow"></span>
+        </a>
+        <ul class="nav nav-second-level collapse">
+            <li ><a href="{{url_for('client.client_vouchers',siteid=siteid)}}">View</a></li>
+            <li  ><a href="{{url_for('client.client_vouchers_designer',siteid=siteid)}}">Design</a></li>
+        </ul>            
+
     </li>
     {% endif %}
 

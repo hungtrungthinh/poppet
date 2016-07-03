@@ -1,0 +1,149 @@
+{% extends "client/base.html" %}
+{%from 'form_macros.html' import modal_form_voucher%}
+{%from "form_macros.html" import render,full_modal_iframe,render_vertical %}
+{%from 'voucher_macros.html' import render_voucher with context%}
+{% block css_block %}
+    {% assets "landing_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" />
+    {% endassets %}
+
+    {% assets "fileupload_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" />
+    {% endassets %}
+
+    <style>
+
+        #preview-frame{
+
+            font-family: Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
+            color:{{voucherdesign.txtcolor}};
+
+        }    
+        .img-responsive {
+            margin: 0 auto;
+
+        }
+        .contact-box {
+            background-color: {{voucherdesign.bgcolor}};
+            border: 1px solid {{voucherdesign.bordercolor}};
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+        .no-padding{
+            padding:0;
+            margin:0;
+        }
+        @media print {
+            div.lastrow {
+                page-break-after: always;
+            }
+        .left-pad{
+            padding-left:5px;
+
+        }              
+        }      
+        .left-pad{
+            padding-left:50px;
+
+        }  
+
+    </style>   
+{%endblock%}
+
+{% block title %}
+    Guest Data
+{%endblock %}
+
+{% block left_menu %}
+    <li >
+        <a href="{{url_for('client.client_index',siteid=siteid)}}"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
+    </li>
+     <li>
+        <a href="{{url_for('client.client_data',siteid=siteid)}}"><i class="fa fa-desktop"></i> <span class="nav-label">Guest Info</span></a>
+    </li>
+     <li >
+        <a href="{{url_for('client.client_session',siteid=siteid)}}"><i class="fa fa-calendar-o"></i> <span class="nav-label">Guest Sessions</span></a>
+    </li>     
+    {% if wifisite.voucher_login_en() %}
+     <li  class="active">
+        <a href="#">
+            <i class="fa fa-diamond"></i> <span class="nav-label">Vouchers</span><span class="fa arrow"></span>
+        </a>
+        <ul class="nav nav-second-level collapse">
+            <li ><a href="{{url_for('client.client_vouchers',siteid=siteid)}}">View</a></li>
+            <li class="active" ><a href="{{url_for('client.client_vouchers_designer',siteid=siteid)}}">Design</a></li>
+        </ul>            
+
+    </li>
+    {% endif %}
+ 
+
+{%endblock%}
+
+{%block main_content %}
+  
+    <div class="row">
+        <div class="col-md-5">       
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Voucher Design</h5>
+                    <div class="ibox-tools">
+                        <a class="btn btn-primary" id="voucherdesign_form-save">Save </a>
+                        
+                    </div>
+                </div>
+                <div class="ibox-content scrollable">
+                    <form role="form" id="voucherfilesform" method="post">
+                         
+                         {{ render_vertical(voucherfilesform) }}
+                    </form>              
+                    <form role="form" id="voucherdesign_form" method="post">      
+                        {{render_vertical(voucherdesign_form)}}
+                    <form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7" id="preview-frame"> 
+            <div class="row" >
+                {{render_voucher(voucherdesign,fakevoucher)}}
+            </div>
+        </div>
+
+    </div>
+
+{%endblock%}
+
+
+{% block js_block %}
+    {% assets "fileupload_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+
+    {% assets "landing_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}      
+
+        <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function() {
+          // $('.dataTables-example').DataTable();
+            create_client_site_menu(siteid={{siteid}});
+
+            var voucherdesign_form = new AjaxForm('voucherdesign_form',"{{url_for('client.voucherdesign_api',siteid=siteid)}}",1);    
+
+            var logofileupload = new FilesUpload('logofile',"{{url_for('client.sitefile_api',siteid=siteid)}}",'logofile','voucherdesign_form');
+
+            $('#bgcolor').colorpicker().on('changeColor.colorpicker', function(event){
+                //redraw_preview();
+            });
+            $('#txtcolor').colorpicker().on('changeColor.colorpicker', function(event){
+                //redraw_preview();
+            });
+            $('#bordercolor').colorpicker().on('changeColor.colorpicker', function(event){
+                //redraw_preview();
+            });
+
+        
+         });
+    </script>
+{%endblock%}

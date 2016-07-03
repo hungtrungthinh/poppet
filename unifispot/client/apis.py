@@ -2,8 +2,8 @@ from flask import jsonify,abort,request,current_app
 from flask_security import current_user
 from sqlalchemy.exc import IntegrityError
 
-from .models import Wifisite,Landingpage,Sitefile,Client,Voucher
-from .forms import WifiSiteForm,LandingPageForm,SiteFileForm,VoucherForm
+from .models import Wifisite,Landingpage,Sitefile,Client,Voucher,Voucherdesign
+from .forms import WifiSiteForm,LandingPageForm,SiteFileForm,VoucherForm,VoucherDesignForm
 
 from unifispot.base.api import UnifispotAPI
 from unifispot.base.file import FileAPI
@@ -293,13 +293,15 @@ class SiteFileAPI(FileAPI):
             id =  request.view_args.get('id')
             siteid =  request.view_args.get('siteid')            
             #perform additional permission checks
-            if not  current_app.config['LOGIN_DISABLED']:
-                if not current_user.check_admin():
-                    return jsonify({'status': 0,'msg':'Not Authorized'}) 
             wifisite = Wifisite.query.filter_by(id=siteid).first()
             if not wifisite:
                 current_app.logger.debug("Trying to acess unknown site ID:%s "%(request.url))
-                abort(404)     
+                abort(404)  
+
+            if not  current_app.config['LOGIN_DISABLED']:
+               if not current_user.type == 'admin':                        
+                    if not wifisite.client_id == current_user.id:
+                        current_app.logger.debug("Client trying to access unauthorized URL %s "%(request.url))
             #check if File ID is belongs to the site
             if id is not None:
                 filetocheck = Sitefile.query.filter_by(id=id).first()
@@ -419,7 +421,7 @@ class GuestdataAPI(UnifispotAPI):
 
 class VoucherAPI(UnifispotAPI):
 
-    ''' API class to deal with LandingPage entries
+    ''' API class to deal with Voucher entries
     
     '''
     def __init__(self):
@@ -447,6 +449,9 @@ class VoucherAPI(UnifispotAPI):
                 #function to add custom column if needed
                 button_row = '''<a class="btn btn-red btn-sm delete" href="#" id="%s" alt="Delete">
                                 <i class="fa fa-times"></i>Delete</a>'''%(row['id'])
+                if not row['used'] :
+                    button_row = button_row + '''<a class="btn btn-red btn-sm print" href="#" id="%s" alt="Delete">
+                                <i class="fa fa-print"></i>Print</a>'''%(row['id'])
                 return button_row
         return VoucherDataTableServer(request,columns,index_column,db,modal_obj,modal_filter)
         
@@ -514,6 +519,67 @@ class VoucherAPI(UnifispotAPI):
         return super(VoucherAPI, self).delete(id)
                          
 
+class VoucherdesignerAPI(UnifispotAPI):
+
+    ''' API class to deal with Voucherdesigner entries
+    
+    '''
+    def __init__(self):
+        super(self.__class__, self).__init__()
+        self.columns = []
+        self.entity_name = 'Voucherdesigner'
+        
+    def get_template_name(self):
+        return ''
+
+    def get_modal_obj(self):
+        return Voucherdesign()
+
+    def get_form_obj(self):
+        return VoucherDesignForm()
+
+    def api_path(self):
+        return '/clients/site/<int:siteid>/voucherdesign/api/'
+        
+    def datatable_obj(self,request,columns,index_column,db,modal_obj,modal_filter):
+        return None
+        
+    def validate_url(f):
+        #Validate that client is trying to view only the sites owned by him
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            id =  request.view_args.get('id')
+            siteid =  request.view_args.get('siteid')  
+            wifisite = Wifisite.query.filter_by(id=siteid).first()
+            if not wifisite:
+                current_app.logger.debug("Client  is trying to unknown site ID:%s "%(request.url))
+                abort(404)   
+            #admin user can have full access
+            #perform additional permission checks
+            if not  current_app.config['LOGIN_DISABLED']:
+                if not current_user.check_admin() and wifisite.client_id != current_user.id:
+                    return jsonify({'status': 0,'msg':'Not Authorized'}) 
+
+            if not id:
+                voucherdesign = Voucherdesign.query.filter_by(site_id=siteid).first()
+                if not voucherdesign:
+                    current_app.logger.debug("Client  is trying to unknown voucherdesign ID:%s "%(request.url))
+                    abort(404)           
+                kwargs['id'] = voucherdesign.id           
+            return f(*args, **kwargs)
+        return decorated_function
+    #
+    @validate_url   
+    def get(self,siteid,id): 
+        return super(VoucherdesignerAPI, self).get(id)
+    @validate_url
+    def post(self,siteid,id):             
+        return super(VoucherdesignerAPI, self).post(id)
+    @validate_url
+    def delete(self,siteid,id):     
+        return jsonify({'status':0,'err': 'Voucherdesign deleteing is not allowed'})
+                         
+
 
 class GuestsessionAPI(UnifispotAPI):
 
@@ -551,7 +617,6 @@ class GuestsessionAPI(UnifispotAPI):
                 return jsonify({'status': 0,'msg':'Unknown Site ID'})
             #perform additional permission checks
             if not  current_app.config['LOGIN_DISABLED']:
-
                 wifisite = Wifisite.query.filter_by(id=id).first()
                 if not wifisite:
                     current_app.logger.debug("Unknown Site ID: %s "%(request.url))

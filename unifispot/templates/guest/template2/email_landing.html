@@ -1,4 +1,5 @@
 {% from "guest/template2/macros.html" import render_guest %}
+{% from 'form_macros.html' import flash_message %}
 <!DOCTYPE html>
 <html>
 
@@ -119,6 +120,7 @@
             </br>
             
             <form class="m-t" role="form" method="POST" id='email_form'>
+                {{flash_message()}}
             <div id="email">
                 {{render_guest(email_form)}}    
 

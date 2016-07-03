@@ -157,3 +157,25 @@ def notifications(user):
         </div>'''%(notify.get_type(),notify.id,notify.id,notify.content)
 
     return notify_text
+
+@current_app.template_filter()
+def toint(value):
+    '''Return the value if its not None else return 0
+
+    useful when displaying numbers
+    '''
+    if value:
+        return value
+    else:
+        return 0
+    
+@current_app.template_filter()
+def tostring(value):
+    '''Return the value if its not None else return emptry string
+
+    useful when displaying strings
+    '''   
+    if value:
+        return value
+    else:
+        return ''  

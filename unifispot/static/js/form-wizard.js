@@ -193,7 +193,7 @@
                             get_email: {
                                 required:{
                                     depends:function(element) {
-                                        return $('#wifisitemodal-form #auth_method option:selected').val()  == 3;
+                                        return $('#wifisitemodal-form #auth_email').is(':checked');
                                     }
                                  }  
                             }                               
@@ -207,9 +207,14 @@
                               required: "Please Enter a Valid URL including http:// or https://"
                             },
                             get_email: {
-                              required: "Please select atleast Email field for EMail Authentication"
+                              required: "Please configure Email field in Fields"
                             }                                 
-                      }
+                        },
+                        errorPlacement: function (error, element) {
+                           // alert(error.text());
+                            toastr.options= toastr_options;
+                            var $toast = toastr['error']("ERROR", error.text());
+                        }
                     }
 
         $(document).ready(function(){       

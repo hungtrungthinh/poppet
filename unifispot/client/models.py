@@ -102,6 +102,7 @@ class Wifisite(db.Model):
     facebookauths       = db.relationship('Facebookauth', backref='site',lazy='dynamic')    
     vouchers            = db.relationship('Voucher', backref='site',lazy='dynamic')    
     sitestats           = db.relationship('Sitestat', backref='site',lazy='dynamic')    
+    voucherdesign       = db.relationship('Voucherdesign', backref='site',lazy='dynamic')    
     template            = db.Column(db.String(50),default='template1')    
     emailformfields     = db.Column(db.Integer,default=(FORM_FIELD_LASTNAME+FORM_FIELD_FIRSTNAME))    
     auth_method         = db.Column(db.Integer,default=AUTH_TYPE_ALL)
@@ -173,8 +174,9 @@ class Wifisite(db.Model):
             self.reports_type       = form.reports_type.data
             self.reports_list	    = form.reports_list.data
         self.emailformfields    = (form.get_lastname.data and FORM_FIELD_LASTNAME)  + (form.get_firstname.data and FORM_FIELD_FIRSTNAME) + \
-                (form.get_dob.data and FORM_FIELD_DOB) + (form.get_extra1.data and FORM_FIELD_EXTRA1 ) + (form.get_extra2.data and FORM_FIELD_EXTRA2)
-        self.mandatoryfields    = (form.mandate_lastname.data and MANDATE_FIELD_LASTNAME)  + \
+                (form.get_dob.data and FORM_FIELD_DOB) + (form.get_extra1.data and FORM_FIELD_EXTRA1 ) + \
+                (form.get_extra2.data and FORM_FIELD_EXTRA2) + (form.get_email.data and FORM_FIELD_EMAIL)
+        self.mandatoryfields    = (form.mandate_lastname.data and MANDATE_FIELD_LASTNAME)  + (form.mandate_email.data and MANDATE_FIELD_EMAIL)  +\
                                 (form.mandate_firstname.data and MANDATE_FIELD_FIRSTNAME) + \
                                 (form.mandate_dob.data and MANDATE_FIELD_DOB) + (form.mandate_extra1.data and MANDATE_FIELD_EXTRA1 ) + \
                                 (form.mandate_extra2.data and MANDATE_FIELD_EXTRA2)                
@@ -225,11 +227,13 @@ class Wifisite(db.Model):
             api_auth_field3 = self.api_auth_field3
         return dict_normalise_values({ 'name':self.name,'unifi_id':self.unifi_id, 'id':self.id, \
                 'template':self.template,
+                'get_email': (emailformfields &FORM_FIELD_EMAIL),\
                 'get_lastname': (emailformfields &FORM_FIELD_LASTNAME),\
                 'get_firstname': (emailformfields &FORM_FIELD_FIRSTNAME),\
                 'get_dob': (emailformfields &FORM_FIELD_DOB),\
                 'get_extra1': (emailformfields &FORM_FIELD_EXTRA1),\
                 'get_extra2': (emailformfields &FORM_FIELD_EXTRA2),\
+                'mandate_email': (mandatoryfields &MANDATE_FIELD_EMAIL),\
                 'mandate_lastname': (mandatoryfields &MANDATE_FIELD_LASTNAME),\
                 'mandate_firstname': (mandatoryfields &MANDATE_FIELD_FIRSTNAME),\
                 'mandate_dob': (mandatoryfields &MANDATE_FIELD_DOB),\
@@ -426,6 +430,9 @@ class Sitefile(db.Model):
         file_path = Sitefile.query.filter_by(id=fileid).first()
         return file_path
 
+vouchers_devices = db.Table('vouchers_devices',
+    db.Column('voucher_id', db.Integer(), db.ForeignKey('voucher.id')),
+    db.Column('device_id', db.Integer(), db.ForeignKey('device.id')))
 
 #Store vouchers
 class  Voucher(db.Model):
@@ -433,18 +440,25 @@ class  Voucher(db.Model):
     batchid         = db.Column(db.String(40),index=True)
     voucher         = db.Column(db.String(20),index=True)
     notes           = db.Column(db.String(50),index=True)
-    duration_t      = db.Column(db.BigInteger())
-    bytes_t         = db.Column(db.BigInteger())
+    duration_t      = db.Column(db.BigInteger(),default=3600)
+    bytes_t         = db.Column(db.BigInteger(),default=1000)
+    speed_dl        = db.Column(db.BigInteger(),default=256)
+    speed_ul        = db.Column(db.BigInteger(),default=256)
     used            = db.Column(db.Boolean(),default=False,index=True)
+    num_devices     = db.Column(db.Integer,default=1,index=True)
     site_id         = db.Column(db.Integer, db.ForeignKey('wifisite.id'))
-    duration        = db.Column(db.String(20),index=True)
+    duration        = db.Column(db.String(20),index=True,default='1 Hours')
     used_at         = db.Column(db.DateTime,index=True)   #used time in UTC,filled once voucher is used
     device_id       = db.Column(db.Integer, db.ForeignKey('device.id'))
     sessions        = db.relationship('Guestsession', backref='voucher',lazy='dynamic') #to track sessions
+    devices         = db.relationship("Device",secondary=vouchers_devices,backref="vouchers")
 
     def populate_from_form(self,form):
-        self.notes = form.notes.data
-        self.bytes_t = form.bytes_t.data
+        self.notes      = form.notes.data
+        self.bytes_t    = form.bytes_t.data
+        self.num_devices= form.num_devices.data
+        self.speed_ul   = form.speed_ul.data
+        self.speed_dl   = form.speed_dl.data
         #set duration accordingly
         if form.duration_t.data == 1:
             self.duration    = form.duration.data + ' Hours'
@@ -461,11 +475,11 @@ class  Voucher(db.Model):
 
         return {'site':self.site.name,'duration':self.duration,
                 'status':'<span class="label label-danger">Used</span>' if self.used else '<span class="label label-success">Initializing</span>',
-                'voucher':self.voucher,'note':self.notes,'bytes_t':self.bytes_t,
+                'voucher':self.voucher,'note':self.notes,'bytes_t':self.bytes_t,'num_devices':self.num_devices,
                 'id':self.id
                 }                 
 
-        return dict_server
+
 
     #Search option with paging and sorting, uses LIKE on INDEXED fields 
     #and return num of total results  as well as number of rows controlled by paging
@@ -513,11 +527,13 @@ class  Voucher(db.Model):
 
         return {'site':self.site.name,'duration':duration,
                 'status':'<span class="label label-danger">Used</span>' if self.used else '<span class="label label-primary">Available</span>',
-                'voucher':self.voucher,'note':self.notes,
+                'voucher':self.voucher,'note':self.notes,'num_devices':self.num_devices ,'used':self.used,
                 'id':self.id
                 }
 
     def check_validity(self):
+        #first check if voucher is already used and
+
         #first check if voucher's expiry time is over
         now = arrow.utcnow().timestamp 
         expiry = arrow.get(self.used_at).timestamp + self.duration_t
@@ -525,14 +541,15 @@ class  Voucher(db.Model):
             return False
 
         #check if data limit us expired
-        data_consumed = 0
-        for session in self.sessions:
-            data_consumed += int(session.data_used)
+        if self.bytes_t:
+            data_consumed = 0
+            for session in self.sessions:
+                data_consumed += int(session.data_used)
 
-        data_mb = int(math.ceil((data_consumed/1024000.0)))
+            data_mb = int(math.ceil((data_consumed/1024000.0)))
 
-        if data_mb > self.bytes_t:
-            return False
+            if data_mb > self.bytes_t:
+                return False
 
         return True
 
@@ -548,12 +565,59 @@ class  Voucher(db.Model):
         '''Retuns remaining data in a voucher in Mb
 
         '''
-        data_consumed = 0
-        for session in self.sessions:
-            data_consumed += int(session.data_used)    
+        if self.bytes_t:
+            data_consumed = 0
+            for session in self.sessions:
+                data_consumed += int(session.data_used)    
 
-        data_mb = int(math.ceil((data_consumed/1024000.0)))
-        return self.bytes_t - data_mb
+            data_mb = int(math.ceil((data_consumed/1024000.0)))
+            return self.bytes_t - data_mb
+        else:
+            return 0
+
+    def uses_available(self):
+        '''Retuns number of uses available in this voucher
+
+        '''
+        free = int(self.num_devices) - len(self.devices)
+        return free
+
+
+class Voucherdesign(db.Model):
+    ''' Class to represent Voucher design
+
+    '''
+    id              = db.Column(db.Integer, primary_key=True)
+    site_id         = db.Column(db.Integer, db.ForeignKey('wifisite.id'))
+    logofile        = db.Column(db.String(200),default='/static/img/logo.png')
+    showlogo        = db.Column(db.Integer,default=1)
+    shownotes       = db.Column(db.Integer,default=1)
+    showqr          = db.Column(db.Integer,default=1)
+    showduration    = db.Column(db.Integer,default=1)
+    showdata        = db.Column(db.Integer,default=1)
+    showspeed       = db.Column(db.Integer,default=1)
+    bgcolor         = db.Column(db.String(10),default='#ffffff')
+    txtcolor        = db.Column(db.String(10),default='#000000')
+    bordercolor     = db.Column(db.String(10),default='#000000')
 
 
 
+    def to_dict(self):
+        return {'site_id':self.site_id,
+                'logofile':self.logofile,'showlogo':self.showlogo,'shownotes':self.shownotes,'showqr':self.showqr,
+                'showduration':self.showduration,'showdata':self.showdata,'showspeed':self.showspeed,
+                'bgcolor':self.bgcolor,'txtcolor':self.txtcolor,'bordercolor':self.bordercolor,
+                'id':self.id
+                }   
+
+    def populate_from_form(self,form):
+        self.logofile       = form.logofile.data                
+        self.showlogo       = form.showlogo.data                
+        self.shownotes      = form.shownotes.data                
+        self.showqr         = form.showqr.data                
+        self.showduration   = form.showduration.data                
+        self.showdata       = form.showdata.data                
+        self.showspeed      = form.showspeed.data                
+        self.bgcolor        = form.bgcolor.data                
+        self.txtcolor       = form.txtcolor.data                
+        self.bordercolor    = form.bordercolor.data                

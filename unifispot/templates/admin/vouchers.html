@@ -35,7 +35,12 @@
     </li>      
    {% if wifisite.voucher_login_en() %}
      <li class="active">
-        <a href="{{url_for('admin.client_vouchers',site_id=site_id)}}"><i class="fa fa-diamond"></i> <span class="nav-label">Vouchers</span></a>
+            <a href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Vouchers</span><span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+                <li class="active"><a href="{{url_for('admin.client_vouchers',site_id=site_id)}}">View</a></li>
+                <li><a href="{{url_for('admin.client_vouchers_designer',site_id=site_id)}}">Design</a></li>
+            </ul>        
+        
     </li>
     {% endif %}  
 
@@ -98,5 +103,11 @@
                     "/client/site/{{site_id}}/voucher/api/",
                     'vouchermodal');           
          });
+        //handle single voucher printing 
+        $('#vouchertable').on( 'click', 'a.print', function (e) {
+            e.preventDefault(); 
+            window.open("{{url_for('admin.client_print',site_id=site_id)}}"+this.id);            
+
+        });        
     </script>
 {%endblock%}

@@ -93,7 +93,7 @@
 
         </div>
 {% elif field.type == 'BooleanField' %}
-    <div class="col-md-8">
+    <div class="col-md-1">
         <div class="checkbox-list">
         <label>
                 <input type="checkbox" name="{{ field.id }}" id="{{ field.id }}" value="1"> 
@@ -276,14 +276,25 @@
                                 <div class="col-md-2">{{ form.duration(class_="form-control ")}}</div>
                                 <div class="col-md-4">{{ form.duration_t(class_="form-control ")}}</div>
                             </div>    
-                            <div class="form-group" id="notes-form-group">
-                                <label class="col-md-4  control-label" >{{ form.notes.label(for=form.notes.id) }}</label>
-                                <div class="col-md-8">{{ form.notes(class_="form-control ")}}</div>
-                            </div>
+
                             <div class="form-group" id="bytes_t-form-group">
                                 <label class="col-md-4  control-label" >{{ form.bytes_t.label(for=form.bytes_t.id) }}</label>
                                 <div class="col-md-2">{{ form.bytes_t(class_="form-control ")}}</div>
-                            </div>                                                                                    
+                               
+                            
+                                <label class="col-md-3  control-label" >{{ form.num_devices.label(for=form.num_devices.id) }}</label>
+                                <div class="col-md-3">{{ form.num_devices(class_="form-control ")}}</div>
+                            </div>
+                            <div class="form-group" id="num_devices-form-group">
+                                <label class="col-md-4  control-label" >Speed in Kbps</label>
+                                <div class="col-md-4">{{ form.speed_dl(class_="form-control ",placeholder="Download")}}</div>  
+                                <div class="col-md-4">{{ form.speed_ul(class_="form-control ",placeholder="Upload")}}</div> 
+
+                            </div>   
+                            <div class="form-group" id="notes-form-group">
+                                <label class="col-md-4  control-label" >{{ form.notes.label(for=form.notes.id) }}</label>
+                                <div class="col-md-8">{{ form.notes(class_="form-control ")}}</div>
+                            </div>                                                                                                           
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -375,7 +386,7 @@
               
         </span> 
         
-        {{ field(class_="form-control ")}}
+        {{ field(class_="form-control ", placeholder=field.label.text)}}
         <span class="input-group-addon"> 
             {% if mandate %}
                 <input type="checkbox" name="{{ mandate.id }}" id="{{ mandate.id }}" value="1"  > *
@@ -464,7 +475,7 @@
                             <fieldset>
                                 <div class="row">
                                     <div class="col-lg-10">                                        
-                                        {{render_guestform_selection(form.email_field)}}
+                                        {{render_guestform_selection(form.email_field,form.get_email,form.mandate_email)}}
                                         {{render_guestform_selection(form.firstname_field,form.get_firstname,form.mandate_firstname)}}
                                         {{render_guestform_selection(form.lastname_field,form.get_lastname,form.mandate_lastname)}}
                                         {{render_guestform_selection(form.dob_field,form.get_dob,form.mandate_dob)}}

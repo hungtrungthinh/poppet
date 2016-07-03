@@ -1,4 +1,5 @@
 {% from "guest/template2/macros.html" import render_guest %}
+{% from 'form_macros.html' import flash_message %}
 <!DOCTYPE html>
 <html>
 
@@ -118,6 +119,7 @@
             </div>
             </br>
             <h3>Please checkin for WiFi</h3>
+            {{flash_message()}}
             <form class="m-t" role="form" method="POST" id='fb-form' 
                         action="{{url_for('guest.social_action_checkin',track_id=track_id)}}">
                 {{form1.hidden_tag() }}
