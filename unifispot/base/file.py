@@ -49,7 +49,7 @@ class FileAPI(MethodView):
             file.save(full_file_name)
             rel_filepath = '/static/'+self.upload_folder +'/'+ filename
             #upload to S3
-            self.push_file_to_s3(full_file_name,rel_filepath)
+            #self.push_file_to_s3(full_file_name,rel_filepath)
             filetype = self.check_file_typ(filename)
             if filetype == FILE_TYPE_IMAGE: 
                 pass         

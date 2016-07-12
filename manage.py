@@ -50,7 +50,7 @@ def demo_init():
         from unifispot.models import User  
         from unifispot.superadmin.models import Account
         from unifispot.admin.models import Admin       
-        from unifispot.client.models import Client,Wifisite,Landingpage 
+        from unifispot.client.models import Client,Wifisite,Landingpage,Voucherdesign
         from unifispot.guest.models import Guest
         import arrow
         from random import randint 
@@ -91,7 +91,10 @@ def demo_init():
                 site1.landingpages.append(landing1) 
                 db.session.add(landing1)
                 db.session.commit()    
-                site1.default_landing = landing1.id                  
+                site1.default_landing = landing1.id   
+                design1 = Voucherdesign()
+                design1.site = site1
+                db.session.add(design1)               
                 db.session.commit()
                 site2           = Wifisite(name='Client1 Site2',unifi_id='site1',auth_fb_like=1,timezone="Europe/Copenhagen",
                                         auth_method= AUTH_TYPE_ALL,smsauth=1)    
@@ -103,6 +106,9 @@ def demo_init():
                 site1.landingpages.append(landing2) 
                 db.session.add(landing2)
                 db.session.commit()    
+                design2 = Voucherdesign()
+                design2.site = site2
+                db.session.add(design2)                   
                 site1.default_landing = landing2.id                  
                 db.session.commit()
                 ##-----------------------Stats for site1

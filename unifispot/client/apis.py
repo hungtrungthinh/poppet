@@ -106,7 +106,10 @@ class WifisiteAPI(UnifispotAPI):
                     db.session.add(newlanding)                   
                     db.session.commit()
                     newlanding.site = newitem
-                    newitem.default_landing = newlanding.id                     
+                    newitem.default_landing = newlanding.id      
+                    newvoucherdesign = Voucherdesign()
+                    newvoucherdesign.site =  newitem
+                    db.session.add(newvoucherdesign)             
                     db.session.commit()
                 except IntegrityError:
                     return jsonify({'status': 0,'msg':'Value already exists in the database for :%s'%self.entity_name})
@@ -150,6 +153,7 @@ class WifisiteAPI(UnifispotAPI):
             [db.session.delete(item) for item in Voucher.query.filter_by(site_id=id).all()]
             [db.session.delete(item) for item in Smsdata.query.filter_by(site_id=id).all()]
             [db.session.delete(item) for item in Sitestat.query.filter_by(site_id=id).all()]
+            [db.session.delete(item) for item in Voucherdesign.query.filter_by(site_id=id).all()]
             db.session.commit()
         except:
             current_app.logger.exception('Exception while trying to delete Wifisite ID:%s'%id)
