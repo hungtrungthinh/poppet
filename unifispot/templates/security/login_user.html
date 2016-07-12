@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <title>Login</title>
+    <title>{{ _('Login')}}</title>
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     {% assets "global_css" %}
@@ -27,24 +27,24 @@
                 <h1 class="logo-name"></h1>
 
             </div>
-            <h3>Welcome to Unifispot</h3>
-            <p>Hotspot Management System.
+            <h3>{{_('Welcome to Unifispot')}}</h3>
+            <p>{{_('Hotspot Management System.')}}
                 <!--Continually expanded and constantly improved Inspinia Admin Them (IN+)-->
             </p>
-            <p>Login in. To see it in action.</p>
+            <p>{{_('Login in. To see it in action.')}}</p>
             <form class="m-t" role="form" action="{{ url_for_security('login') }}" method="post">
                 {{ login_user_form.hidden_tag() }}
                 {{ fields_errors(login_user_form.email, login_user_form.password) }}
                 <div class="form-group">
-                    <input type="email" class="form-control" placeholder="Username" required="" name="email" id="email">
+                    <input type="email" class="form-control" placeholder="{{_('Username') }}" required="" name="email" id="email">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" required="" name="password" id="password">
+                    <input type="password" class="form-control" placeholder="{{ _('Password')}}" required="" name="password" id="password">
                 </div>
-                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
-                <p class='login-text'><small>Powered By <a href="http://unifispot.com"title="Captive portal with Socil Login and Data collection" target="_blank">Unifispot</a></small></p>
+                <button type="submit" class="btn btn-primary block full-width m-b">{{ _('Login') }}</button>
+                <p class='login-text'><small>{{ _('Powered By')}} <a href="http://unifispot.com"title="Captive portal with Socil Login and Data collection" target="_blank">{{ _('Unifispot') }}</a></small></p>
                 <a href="{{ url_for_security('forgot_password') }}">
-                            <small>Forgot password?</small>
+                <small>{{ _('Forgot password?') }}</small>
                         </a>
             </form>
             

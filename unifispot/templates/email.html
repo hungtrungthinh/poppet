@@ -15,11 +15,11 @@
         </h2>
         %(summary)s
         <div style="font-size: 15px; color: #555; margin: 20px 13px;">
-            The debugger caught an exception in your WSGI application. You can now look at the traceback which led to
-            the error.
+            {{_('The debugger caught an exception in your WSGI application. You can now look at the traceback which led to
+            the error.')}}
         </div>
         <div style="font-size: 13px; text-align: right; color: #86989B; margin: 30px 0;">
-            Brought to you by <strong>DON'T PANIC</strong>, your friendly Werkzeug powered traceback interpreter.
+            {{_('Brought to you by ')}}<strong>{{_('DONT PANIC')}}</strong>,{{_(' your friendly Werkzeug powered traceback interpreter.')}}
         </div>
     </div>
     </body>

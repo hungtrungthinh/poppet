@@ -122,7 +122,7 @@
             <form class="m-t" role="form" method="POST" id='fb-form'>
                 <div class="fb-page" data-href="{{fb_page|safe}}" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="false">
                     <div class="fb-xfbml-parse-ignore">
-                        <blockquote cite="{{fb_page|safe}}"><a href="{{fb_page|safe}}">Facebook</a></blockquote>
+                        <blockquote cite="{{fb_page|safe}}"><a href="{{fb_page|safe}}">{{_('Facebook')}}</a></blockquote>
                     </div>
                 </div>
                 <div style="display:none;">
@@ -131,13 +131,13 @@
                 </div>
                 <div id="nothanks">
                     
-                    <a href="#" class="nothanks_link"> No Thanks, I will skip this</a>
+                    <a href="#" class="nothanks_link"> {{_('No Thanks, I will skip this')}}</a>
             
                 </div>                
             </form>
             </br>
-            <p class='login-text'><small>Powered By <a href="http://unifispot.com"title="Captive portal with Socil Login and Data collection" target="_blank">Unifispot</a></small></p>
-            <p class="m-t"> <small>By Logging In You agree to our <a href="{{landing_page.tosfile}}"> Terms and Condisions</a> And <a href="{{landing_page.tosfile}}">Privacy Policy</a></small> </p>
+            <p class='login-text'><small>{{_('Powered By')}} <a href="http://unifispot.com"title="Captive portal with Socil Login and Data collection" target="_blank">{{_('Unifispot')}}</a></small></p>
+            <p class="m-t"> <small>{{_('By Logging In You agree to our')}} <a href="{{landing_page.tosfile}}"> {{_('Terms and Condisions')}}</a> {{_('And')}} <a href="{{landing_page.tosfile}}">{{_('Privacy Policy')}}</a></small> </p>
             
         </div>
     </div>

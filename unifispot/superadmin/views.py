@@ -1,5 +1,6 @@
 from flask import Blueprint,render_template,jsonify,request,current_app,abort,redirect,url_for
 from flask_security import login_required,current_user,roles_accepted
+
 from unifispot.extensions import db
 from functools import wraps
 from unifispot.base.utils.helper import register_api
@@ -8,6 +9,8 @@ from .forms import UserForm,AccountForm,AdminForm
 from .apis import AccountAPI,AdminAPI,NotificationAPI
 from unifispot.base.utils.roles import superadmin_required,admin_required
 from unifispot.admin.forms import SettingsForm
+
+from flask.ext.babel import gettext
 
 bp = Blueprint('superadmin', __name__,template_folder='templates')
 

@@ -173,7 +173,7 @@ ul{
 		</div><!-- //header-->
 		<div class="row row-top-content">
 			<div class="col-top-content">				
-                <p class="midle-top-cont text-center">Please Enter Your Mobile Number</p>
+                <p class="midle-top-cont text-center">{{_('Please Enter Your Mobile Number')}}</p>
                 <p class="midle-top-cont text-center">{{flash_message()}}</p>
 			</div>
 		</div><!-- //top content-->
@@ -185,15 +185,15 @@ ul{
 		<div class="row row-bottom">			
 			<div id="login-buttons">	
 					<p class="text-center login-button">
-                        <button type="submit" class="btn btn-guest " id='loginsms' >Login</button>
-	                    <button  class="btn btn-guest " id='getcode' >Send Code</button>
+                        <button type="submit" class="btn btn-guest " id='loginsms' >{{_('Login')}}</button>
+	                    <button  class="btn btn-guest " id='getcode' >{{_('Send Code')}}</button>
 					</p>          
             </div>
 			<div class="col-xs-offset-2 col-sm-offset-3 col-md-offset-3">
-					<p class="bottom-text">I understand, agree and ACCEPT the terms of the
+					<p class="bottom-text">{{_('I understand, agree and ACCEPT the terms of the')}}
 					{% if landing_page.tosfile %} 
-					<a href="{{landing_page.tosfile}}"><u>USER AGREEMENT</u></a>
-					{% else %}USER AGREEMENT{%endif%}</p><p class="bottom-text" ></p>
+					<a href="{{landing_page.tosfile}}"><u>{{_('USER AGREEMENT')}}</u></a>
+					{% else %}{{_('USER AGREEMENT')}}{%endif%}</p><p class="bottom-text" ></p>
 			</div>
 		</div><!-- //bottom content-->
 		<div class="row row-footer">
@@ -202,7 +202,7 @@ ul{
 			</ul>
             <!-- License start you are free to modify the source as long as below content is kept untouched -->
             <div class=" text-center page-footer-inner">
-             Powered by <a href="http://www.unifispot.com" title="Captive portal with Socil Login and Data collection" target="_blank">Unifispot</a>
+             {{_('Powered by')}} <a href="http://www.unifispot.com" title="Captive portal with Socil Login and Data collection" target="_blank">{{_('Unifispot')}}</a>
             </div>
 		</div><!-- //footer content-->
 

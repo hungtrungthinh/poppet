@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Welcome To Our Hotspot</title>
+    <title>{{_('Welcome To Our Hotspot')}}</title>
 
     <style>
     html {
@@ -124,14 +124,14 @@
             <div id="email">
                 {{render_guest(sms_form)}}    
                 <button type="submit"  class="btn btn-email block full-width m-b" href="#" id="email-login">
-                    <strong> Login </strong>
+                    <strong> {{_('Login')}} </strong>
                 </button>          
                                   
             </div>
             </form>
             
-            <p class='login-text'><small>Powered By <a href="http://unifispot.com"title="Captive portal with Socil Login and Data collection" target="_blank">Unifispot</a></small></p>
-            <p class="m-t"> <small>By Logging In You agree to our <a href="{{landing_page.tosfile}}"> Terms and Condisions</a> And <a href="{{landing_page.tosfile}}">Privacy Policy</a></small> </p>
+            <p class='login-text'><small>{{_('Powered By')}} <a href="http://unifispot.com"title="Captive portal with Socil Login and Data collection" target="_blank">{{_('Unifispot')}}</a></small></p>
+            <p class="m-t"> <small>{{_('By Logging In You agree to our')}} <a href="{{landing_page.tosfile}}"> {{_('Terms and Condisions')}}</a> {{_('And')}} <a href="{{landing_page.tosfile}}">{{_('Privacy Policy')}}</a></small> </p>
             
         </div>
     </div>

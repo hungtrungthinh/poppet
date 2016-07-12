@@ -74,10 +74,10 @@
     </li>      
    {% if wifisite.voucher_login_en() %}
      <li class="active">
-            <a href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Vouchers</span><span class="fa arrow"></span></a>
+            <a href="#"><i class="fa fa-diamond"></i> <span class="nav-label">{{_('Vouchers')}}</span><span class="fa arrow"></span></a>
             <ul class="nav nav-second-level collapse">
-                <li><a href="{{url_for('admin.client_vouchers',site_id=site_id)}}">View</a></li>
-                <li class="active"><a href="{{url_for('admin.client_vouchers_designer',site_id=site_id)}}">Design</a></li>
+                <li ><a href="{{url_for('admin.client_vouchers',site_id=site_id)}}">{{_('View')}}</a></li>
+                <li class="active"><a href="{{url_for('admin.client_vouchers_designer',site_id=site_id)}}">{{_('Design')}}</a></li>
             </ul>        
         
     </li>
@@ -92,7 +92,7 @@
                 <div class="ibox-title">
                     <h5>Voucher Design</h5>
                     <div class="ibox-tools">
-                        <a class="btn btn-primary" id="voucherdesign_form-save">Save </a>
+                        <a class="btn btn-primary" id="voucherdesign_form-save">{{_('Save')}} </a>
                         
                     </div>
                 </div>
