@@ -25,6 +25,8 @@ import urllib
 import validators
 from urlparse import urlparse,parse_qs
 
+from flask.ext.babel import gettext
+
 bp = Blueprint('guest', __name__,template_folder='templates')
 
 

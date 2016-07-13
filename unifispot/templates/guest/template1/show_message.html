@@ -138,13 +138,13 @@ ul{
 		</div><!-- //header-->
 		<div class="row row-top-content">
 			<div class="col-top-content">				
-				<p class="midle-top-cont text-center">Please Wait <img src='{{url_for('static',filename='img/ajax_loader.gif')}}' /></p>
+				<p class="midle-top-cont text-center">{{_('Please Wait')}} <img src='{{url_for('static',filename='img/ajax_loader.gif')}}' /></p>
 			</div>
 		</div><!-- //top content-->
         <div class="row row-middle-content ">
 
             <div class="col-xs-offset-2 col-sm-offset-3 col-md-offset-3 col-xs-8 col-sm-6 col-md-6">
-                If you are not redirected automatically, please <a href="{{redirect_url|safe}}">click</a>
+                {{_('If you are not redirected automatically, please')}} <a href="{{redirect_url|safe}}">click</a>
             </div>
 
 
@@ -159,7 +159,7 @@ ul{
 			</ul>
             <!-- License start you are free to modify the source as long as below content is kept untouched -->
             <div class=" text-center page-footer-inner">
-             Powered by <a href="http://www.unifispot.com" title="Captive portal with Socil Login and Data collection" target="_blank">Unifispot</a>
+             Powered by <a href="http://www.unifispot.com" title="Captive portal with Socil Login and Data collection" target="_blank">{{_('Unifispot')}}</a>
             </div>
 		</div><!-- //footer content-->
 

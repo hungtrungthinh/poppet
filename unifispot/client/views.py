@@ -17,6 +17,8 @@ from .forms import WifiSiteForm,LandingPageForm,VoucherForm,VoucherDesignForm,Vo
 from unifispot.admin.forms import UserForm
 from unifispot.guest.models import Guesttrack,Guest,Device,Guestsession
 
+from flask.ext.babel import gettext
+
 bp = Blueprint('client', __name__,template_folder='templates')
 
 

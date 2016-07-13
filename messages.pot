@@ -1,0 +1,1041 @@
+# Translations template for PROJECT.
+# Copyright (C) 2016 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2016-07-12 21:12+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: unifispot/templates/email.html:18
+msgid ""
+"The debugger caught an exception in your WSGI application. You can now "
+"look at the traceback which led to\n"
+"            the error."
+msgstr ""
+
+#: unifispot/templates/email.html:22
+msgid "Brought to you by "
+msgstr ""
+
+#: unifispot/templates/email.html:22
+msgid "DONT PANIC"
+msgstr ""
+
+#: unifispot/templates/email.html:22
+msgid " your friendly Werkzeug powered traceback interpreter."
+msgstr ""
+
+#: unifispot/templates/admin/admins.html:10
+#: unifispot/templates/admin/admins.html:15
+#: unifispot/templates/admin/clients.html:10
+#: unifispot/templates/admin/clients.html:15
+#: unifispot/templates/admin/dashboard.html:13
+#: unifispot/templates/admin/dashboard.html:18
+#: unifispot/templates/admin/data.html:18
+#: unifispot/templates/admin/landing.html:28
+#: unifispot/templates/admin/sessions.html:18
+#: unifispot/templates/admin/settings.html:11
+#: unifispot/templates/admin/settings.html:16
+#: unifispot/templates/admin/site.html:13
+#: unifispot/templates/admin/site.html:18
+#: unifispot/templates/admin/vouchers.html:21
+#: unifispot/templates/client/dashboard.html:13
+#: unifispot/templates/client/dashboard.html:18
+#: unifispot/templates/client/data.html:18
+#: unifispot/templates/client/sessions.html:18
+#: unifispot/templates/client/settings.html:11
+#: unifispot/templates/client/settings.html:16
+#: unifispot/templates/client/vouchers.html:21
+#: unifispot/templates/errors/500.html:28
+#: unifispot/templates/superadmin/accounts.html:13
+#: unifispot/templates/superadmin/accounts.html:18
+#: unifispot/templates/superadmin/admins.html:10
+#: unifispot/templates/superadmin/admins.html:15
+#: unifispot/templates/superadmin/dashboard.html:10
+#: unifispot/templates/superadmin/dashboard.html:15
+msgid "Dashboard"
+msgstr ""
+
+#: unifispot/templates/admin/admins.html:19
+#: unifispot/templates/admin/admins.html:37
+#: unifispot/templates/admin/clients.html:18
+#: unifispot/templates/admin/dashboard.html:21
+#: unifispot/templates/admin/settings.html:19
+msgid "Clients"
+msgstr ""
+
+#: unifispot/templates/admin/admins.html:22
+#: unifispot/templates/admin/clients.html:21
+#: unifispot/templates/admin/dashboard.html:24
+#: unifispot/templates/admin/settings.html:22
+#: unifispot/templates/superadmin/accounts.html:24
+#: unifispot/templates/superadmin/admins.html:21
+#: unifispot/templates/superadmin/admins.html:32
+#: unifispot/templates/superadmin/dashboard.html:21
+msgid "Admins"
+msgstr ""
+
+#: unifispot/templates/admin/admins.html:25
+#: unifispot/templates/admin/clients.html:24
+#: unifispot/templates/admin/dashboard.html:27
+#: unifispot/templates/admin/settings.html:25
+#: unifispot/templates/admin/settings.html:36
+#: unifispot/templates/client/settings.html:20
+#: unifispot/templates/client/settings.html:30
+msgid "Settings"
+msgstr ""
+
+#: unifispot/templates/admin/admins.html:39
+#: unifispot/templates/superadmin/admins.html:34
+msgid "New Admin"
+msgstr ""
+
+#: unifispot/templates/admin/admins.html:47
+#: unifispot/templates/admin/clients.html:46
+#: unifispot/templates/superadmin/admins.html:42
+msgid "Displayname"
+msgstr ""
+
+#: unifispot/templates/admin/admins.html:48
+#: unifispot/templates/admin/clients.html:47
+#: unifispot/templates/admin/data.html:86
+#: unifispot/templates/client/data.html:80
+#: unifispot/templates/superadmin/admins.html:43
+msgid "Email"
+msgstr ""
+
+#: unifispot/templates/admin/admins.html:49
+#: unifispot/templates/admin/clients.html:48
+#: unifispot/templates/superadmin/admins.html:45
+msgid "Actions"
+msgstr ""
+
+#: unifispot/templates/admin/base.html:40
+#: unifispot/templates/client/base.html:40
+#: unifispot/templates/guest/template1/fb_checkin.html:135
+#: unifispot/templates/guest/template2/fb_checkin.html:135
+#: unifispot/templates/superadmin/base.html:40
+#: unifispot/templates/superadmin/firstrun.html:54
+msgid "Logout"
+msgstr ""
+
+#: unifispot/templates/admin/base.html:49
+#: unifispot/templates/superadmin/base.html:49
+msgid "Main view"
+msgstr ""
+
+#: unifispot/templates/admin/base.html:52
+#: unifispot/templates/superadmin/base.html:52
+msgid "Minor view"
+msgstr ""
+
+#: unifispot/templates/admin/base.html:68
+#: unifispot/templates/client/base.html:63
+#: unifispot/templates/superadmin/base.html:68
+#: unifispot/templates/superadmin/firstrun.html:77
+msgid "Welcome to UnifiSpot"
+msgstr ""
+
+#: unifispot/templates/admin/base.html:72
+msgid "DEL"
+msgstr ""
+
+#: unifispot/templates/admin/base.html:84
+#: unifispot/templates/client/base.html:74
+#: unifispot/templates/superadmin/base.html:79
+#: unifispot/templates/superadmin/firstrun.html:88
+msgid "Log out"
+msgstr ""
+
+#: unifispot/templates/admin/base.html:105
+#: unifispot/templates/client/base.html:94
+msgid "Unifispot is software licensed under the AGPL 3"
+msgstr ""
+
+#: unifispot/templates/admin/base.html:106
+#: unifispot/templates/client/base.html:95
+#: unifispot/templates/superadmin/base.html:99
+msgid "Copyright"
+msgstr ""
+
+#: unifispot/templates/admin/base.html:106
+#: unifispot/templates/client/base.html:95
+msgid "2015-2016 - Unifispot http://www.unifispot.com"
+msgstr ""
+
+#: unifispot/templates/admin/clients.html:38
+msgid "New Client"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:40
+#: unifispot/templates/admin/site.html:46
+#: unifispot/templates/client/dashboard.html:40
+msgid "April 26, 2016 - May 25, 2016"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:53
+#: unifispot/templates/admin/site.html:59
+#: unifispot/templates/client/dashboard.html:53
+#: unifispot/templates/superadmin/dashboard.html:42
+msgid "Visits"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:66
+#: unifispot/templates/admin/site.html:72
+#: unifispot/templates/client/dashboard.html:66
+msgid "Logins"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:79
+#: unifispot/templates/admin/site.html:85
+#: unifispot/templates/client/dashboard.html:79
+msgid "Likes"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:92
+#: unifispot/templates/admin/site.html:98
+#: unifispot/templates/client/dashboard.html:92
+msgid "Checkins"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:104
+#: unifispot/templates/admin/site.html:110
+#: unifispot/templates/client/dashboard.html:104
+msgid "Activity"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:126
+#: unifispot/templates/admin/site.html:132
+#: unifispot/templates/client/dashboard.html:126
+msgid "Login Types"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:140
+#: unifispot/templates/admin/site.html:146
+#: unifispot/templates/client/dashboard.html:140
+msgid "Social"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:162
+#: unifispot/templates/admin/site.html:167
+#: unifispot/templates/client/dashboard.html:163
+msgid "Access Points"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:177
+#: unifispot/templates/admin/site.html:182
+#: unifispot/templates/client/dashboard.html:178
+msgid "AP MAC"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:178
+#: unifispot/templates/admin/site.html:183
+#: unifispot/templates/client/dashboard.html:179
+msgid "AP Name"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:179
+#: unifispot/templates/admin/dashboard.html:210
+#: unifispot/templates/admin/site.html:184
+#: unifispot/templates/admin/site.html:215
+#: unifispot/templates/admin/vouchers.html:61
+#: unifispot/templates/client/dashboard.html:180
+#: unifispot/templates/client/dashboard.html:211
+#: unifispot/templates/client/vouchers.html:57
+msgid "Site"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:180
+#: unifispot/templates/admin/site.html:185
+#: unifispot/templates/client/dashboard.html:181
+msgid "State"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:195
+#: unifispot/templates/admin/site.html:200
+#: unifispot/templates/client/dashboard.html:196
+#: unifispot/templates/superadmin/dashboard.html:53
+msgid "Guests"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:211
+#: unifispot/templates/admin/site.html:216
+#: unifispot/templates/client/dashboard.html:212
+msgid "AP"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:212
+#: unifispot/templates/admin/site.html:217
+#: unifispot/templates/client/dashboard.html:213
+msgid "Device MAC"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:213
+#: unifispot/templates/admin/site.html:218
+#: unifispot/templates/client/dashboard.html:214
+msgid "RSSI"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:214
+#: unifispot/templates/admin/site.html:219
+#: unifispot/templates/client/dashboard.html:215
+msgid "Uptime"
+msgstr ""
+
+#: unifispot/templates/admin/dashboard.html:215
+#: unifispot/templates/admin/site.html:220
+#: unifispot/templates/admin/vouchers.html:64
+#: unifispot/templates/client/dashboard.html:216
+#: unifispot/templates/client/vouchers.html:60
+msgid "Status"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:13
+#: unifispot/templates/admin/data.html:28
+#: unifispot/templates/admin/landing.html:38
+#: unifispot/templates/admin/sessions.html:13
+#: unifispot/templates/admin/sessions.html:28
+#: unifispot/templates/admin/site.html:28
+#: unifispot/templates/admin/vouchers.html:31
+#: unifispot/templates/client/dashboard.html:21
+#: unifispot/templates/client/data.html:21
+#: unifispot/templates/client/sessions.html:21
+#: unifispot/templates/client/vouchers.html:24
+msgid "Guest Info"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:21
+#: unifispot/templates/admin/landing.html:23
+#: unifispot/templates/admin/landing.html:31
+#: unifispot/templates/admin/landing.html:57
+#: unifispot/templates/admin/sessions.html:21
+#: unifispot/templates/admin/site.html:21
+#: unifispot/templates/admin/vouchers.html:24
+msgid "Landing Page"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:25
+#: unifispot/templates/admin/landing.html:35
+#: unifispot/templates/admin/sessions.html:25
+#: unifispot/templates/admin/site.html:25
+#: unifispot/templates/admin/vouchers.html:28
+msgid "Manage"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:31
+#: unifispot/templates/admin/landing.html:41
+#: unifispot/templates/admin/sessions.html:31
+#: unifispot/templates/admin/sessions.html:48
+#: unifispot/templates/admin/site.html:31
+#: unifispot/templates/admin/vouchers.html:34
+#: unifispot/templates/client/dashboard.html:24
+#: unifispot/templates/client/data.html:24
+#: unifispot/templates/client/sessions.html:24
+#: unifispot/templates/client/sessions.html:42
+#: unifispot/templates/client/vouchers.html:27
+msgid "Guest Sessions"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:35
+#: unifispot/templates/admin/landing.html:45
+#: unifispot/templates/admin/print.html:5
+#: unifispot/templates/admin/sessions.html:35
+#: unifispot/templates/admin/site.html:35
+#: unifispot/templates/admin/vouchers.html:16
+#: unifispot/templates/admin/vouchers.html:38
+#: unifispot/templates/admin/vouchers.html:50
+#: unifispot/templates/client/dashboard.html:28
+#: unifispot/templates/client/data.html:28
+#: unifispot/templates/client/print.html:5
+#: unifispot/templates/client/sessions.html:28
+#: unifispot/templates/client/vouchers.html:31
+#: unifispot/templates/client/vouchers.html:45
+msgid "Vouchers"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:48
+#: unifispot/templates/client/data.html:13
+#: unifispot/templates/client/data.html:42
+#: unifispot/templates/client/sessions.html:13
+msgid "Guest Data"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:63
+#: unifispot/templates/admin/sessions.html:63
+#: unifispot/templates/client/data.html:56
+#: unifispot/templates/client/sessions.html:56
+msgid "Select Daterange"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:68
+#: unifispot/templates/admin/sessions.html:68
+msgid "to"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:73
+#: unifispot/templates/admin/sessions.html:73
+#: unifispot/templates/client/data.html:67
+#: unifispot/templates/client/sessions.html:67
+msgid "Show"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:74
+#: unifispot/templates/admin/sessions.html:74
+#: unifispot/templates/client/data.html:68
+#: unifispot/templates/client/sessions.html:68
+msgid "Download"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:82
+#: unifispot/templates/client/data.html:76
+msgid "First Name"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:83
+#: unifispot/templates/client/data.html:77
+msgid "Last Name"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:84
+#: unifispot/templates/client/data.html:78
+msgid "Gender"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:85
+#: unifispot/templates/admin/sessions.html:86
+#: unifispot/templates/client/data.html:79
+#: unifispot/templates/client/sessions.html:80
+#: unifispot/templates/guest/template2/multi_landing.html:130
+msgid "Phone Number"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:87
+#: unifispot/templates/client/data.html:81
+msgid "Created On"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:88
+#: unifispot/templates/client/data.html:82
+msgid "Newsletter"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:89
+#: unifispot/templates/client/data.html:83
+msgid "DOB"
+msgstr ""
+
+#: unifispot/templates/admin/data.html:90
+#: unifispot/templates/client/data.html:84
+msgid "Details"
+msgstr ""
+
+#: unifispot/templates/admin/landing.html:59
+msgid "Save"
+msgstr ""
+
+#: unifispot/templates/admin/landing.html:60
+msgid "Demo"
+msgstr ""
+
+#: unifispot/templates/admin/landing.html:70
+msgid "More"
+msgstr ""
+
+#: unifispot/templates/admin/print.html:52
+msgid "Valid for"
+msgstr ""
+
+#: unifispot/templates/admin/sessions.html:82
+#: unifispot/templates/client/sessions.html:76
+msgid "Start Time"
+msgstr ""
+
+#: unifispot/templates/admin/sessions.html:83
+#: unifispot/templates/client/sessions.html:77
+msgid "End Time"
+msgstr ""
+
+#: unifispot/templates/admin/sessions.html:84
+#: unifispot/templates/client/sessions.html:78
+msgid "MAC"
+msgstr ""
+
+#: unifispot/templates/admin/sessions.html:85
+#: unifispot/templates/client/sessions.html:79
+msgid "Data Used(Mb)"
+msgstr ""
+
+#: unifispot/templates/admin/vouchers.html:52
+#: unifispot/templates/client/vouchers.html:47
+msgid "Create"
+msgstr ""
+
+#: unifispot/templates/admin/vouchers.html:53
+#: unifispot/templates/client/vouchers.html:49
+msgid "Print Unused"
+msgstr ""
+
+#: unifispot/templates/admin/vouchers.html:62
+#: unifispot/templates/client/vouchers.html:58
+#: unifispot/templates/guest/template2/multi_landing.html:140
+msgid "Voucher"
+msgstr ""
+
+#: unifispot/templates/admin/vouchers.html:63
+#: unifispot/templates/client/vouchers.html:59
+msgid "Duration"
+msgstr ""
+
+#: unifispot/templates/admin/vouchers.html:65
+#: unifispot/templates/client/vouchers.html:61
+msgid "Note"
+msgstr ""
+
+#: unifispot/templates/client/settings.html:40
+msgid "Save changes"
+msgstr ""
+
+#: unifispot/templates/errors/400.html:10
+msgid "Unifispot | 400 Error"
+msgstr ""
+
+#: unifispot/templates/errors/400.html:24
+msgid "Bad Request"
+msgstr ""
+
+#: unifispot/templates/errors/400.html:27
+msgid "The request had bad syntax or was inherently impossible to be satisfied."
+msgstr ""
+
+#: unifispot/templates/errors/401.html:10
+msgid "Unifispot | 401 Error"
+msgstr ""
+
+#: unifispot/templates/errors/401.html:24
+msgid "Unauthorized"
+msgstr ""
+
+#: unifispot/templates/errors/401.html:27
+msgid ""
+"The parameter to this message gives a specification of authorization "
+"schemes which are acceptable. The client should retry the request with a "
+"suitable Authorization header"
+msgstr ""
+
+#: unifispot/templates/errors/403.html:10
+msgid "Unifispot | 403 Error"
+msgstr ""
+
+#: unifispot/templates/errors/403.html:24
+msgid "Forbidden"
+msgstr ""
+
+#: unifispot/templates/errors/403.html:27
+msgid "The request is for something forbidden. Authorization will not help."
+msgstr ""
+
+#: unifispot/templates/errors/404.html:10
+msgid "Unifispot | 404 Error"
+msgstr ""
+
+#: unifispot/templates/errors/404.html:24
+msgid "Page Not Found"
+msgstr ""
+
+#: unifispot/templates/errors/404.html:27
+msgid ""
+"Sorry, but the page you are looking for has note been found. Try checking"
+" the URL for error, then hit the refresh button on your browser."
+msgstr ""
+
+#: unifispot/templates/errors/500.html:9
+msgid "Unifispot | 500 Error"
+msgstr ""
+
+#: unifispot/templates/errors/500.html:23
+msgid "Internal Server Error"
+msgstr ""
+
+#: unifispot/templates/errors/500.html:26
+msgid ""
+"The server encountered something unexpected that did not allow it to "
+"complete the request. We apologize."
+msgstr ""
+
+#: unifispot/templates/errors/500.html:27
+msgid "You can go back to main page:"
+msgstr ""
+
+#: unifispot/templates/guest/show_message.html:86
+msgid "Please wait while we process your data"
+msgstr ""
+
+#: unifispot/templates/guest/show_message.html:96
+msgid "Enjoy Your Internet"
+msgstr ""
+
+#: unifispot/templates/guest/fb/like.html:173
+#: unifispot/templates/guest/template1/fb_like.html:173
+msgid "Please Like Us on Facebook and show your love"
+msgstr ""
+
+#: unifispot/templates/guest/fb/like.html:183
+#: unifispot/templates/guest/template1/fb_checkin.html:127
+#: unifispot/templates/guest/template1/fb_like.html:184
+#: unifispot/templates/guest/template2/fb_checkin.html:127
+#: unifispot/templates/guest/template2/fb_like.html:124
+#: unifispot/templates/guest/template2/multi_landing.html:135
+#: unifispot/templates/guest/template2/social_landing.html:125
+msgid "Facebook"
+msgstr ""
+
+#: unifispot/templates/guest/fb/like.html:196
+#: unifispot/templates/guest/template2/fb_like.html:133
+msgid "No Thanks, I will skip this"
+msgstr ""
+
+#: unifispot/templates/guest/fb/like.html:208
+#: unifispot/templates/guest/template1/email_landing.html:214
+#: unifispot/templates/guest/template1/fb_like.html:208
+#: unifispot/templates/guest/template1/multi_landing.html:182
+#: unifispot/templates/guest/template1/sms_auth.html:205
+#: unifispot/templates/guest/template1/sms_landing.html:207
+#: unifispot/templates/guest/template1/social_landing.html:199
+#: unifispot/templates/guest/template1/voucher_landing.html:205
+msgid "Powered by"
+msgstr ""
+
+#: unifispot/templates/guest/fb/like.html:208
+#: unifispot/templates/guest/template1/email_landing.html:214
+#: unifispot/templates/guest/template1/fb_checkin.html:138
+#: unifispot/templates/guest/template1/fb_like.html:208
+#: unifispot/templates/guest/template1/multi_landing.html:182
+#: unifispot/templates/guest/template1/show_message.html:162
+#: unifispot/templates/guest/template1/sms_auth.html:205
+#: unifispot/templates/guest/template1/sms_landing.html:207
+#: unifispot/templates/guest/template1/social_landing.html:199
+#: unifispot/templates/guest/template1/voucher_landing.html:205
+#: unifispot/templates/guest/template2/email_landing.html:137
+#: unifispot/templates/guest/template2/fb_checkin.html:138
+#: unifispot/templates/guest/template2/fb_like.html:138
+#: unifispot/templates/guest/template2/multi_landing.html:146
+#: unifispot/templates/guest/template2/show_message.html:126
+#: unifispot/templates/guest/template2/sms_auth.html:138
+#: unifispot/templates/guest/template2/sms_landing.html:131
+#: unifispot/templates/guest/template2/social_landing.html:131
+#: unifispot/templates/guest/template2/voucher_landing.html:131
+#: unifispot/templates/security/forgot_password.html:48
+#: unifispot/templates/security/login_user.html:45
+#: unifispot/templates/security/reset_password.html:48
+msgid "Unifispot"
+msgstr ""
+
+#: unifispot/templates/guest/template1/email_landing.html:197
+#: unifispot/templates/guest/template1/sms_auth.html:188
+#: unifispot/templates/guest/template1/sms_landing.html:190
+#: unifispot/templates/guest/template1/voucher_landing.html:188
+#: unifispot/templates/guest/template2/email_landing.html:131
+#: unifispot/templates/guest/template2/sms_auth.html:128
+#: unifispot/templates/guest/template2/sms_landing.html:125
+#: unifispot/templates/guest/template2/voucher_landing.html:125
+#: unifispot/templates/security/login_user.html:11
+#: unifispot/templates/security/login_user.html:44
+msgid "Login"
+msgstr ""
+
+#: unifispot/templates/guest/template1/email_landing.html:202
+#: unifispot/templates/guest/template1/sms_auth.html:193
+msgid "I understand, agree and ACCEPT the terms of the"
+msgstr ""
+
+#: unifispot/templates/guest/template1/email_landing.html:204
+#: unifispot/templates/guest/template1/email_landing.html:205
+#: unifispot/templates/guest/template1/multi_landing.html:171
+#: unifispot/templates/guest/template1/multi_landing.html:172
+#: unifispot/templates/guest/template1/sms_auth.html:195
+#: unifispot/templates/guest/template1/sms_auth.html:196
+#: unifispot/templates/guest/template1/sms_landing.html:197
+#: unifispot/templates/guest/template1/sms_landing.html:198
+#: unifispot/templates/guest/template1/social_landing.html:189
+#: unifispot/templates/guest/template1/social_landing.html:190
+#: unifispot/templates/guest/template1/voucher_landing.html:195
+#: unifispot/templates/guest/template1/voucher_landing.html:196
+msgid "USER AGREEMENT"
+msgstr ""
+
+#: unifispot/templates/guest/template1/fb_checkin.html:10
+#: unifispot/templates/guest/template2/email_landing.html:10
+#: unifispot/templates/guest/template2/multi_landing.html:9
+#: unifispot/templates/guest/template2/show_message.html:11
+#: unifispot/templates/guest/template2/sms_auth.html:11
+#: unifispot/templates/guest/template2/sms_landing.html:10
+#: unifispot/templates/guest/template2/social_landing.html:10
+#: unifispot/templates/guest/template2/voucher_landing.html:10
+msgid "Welcome To Our Hotspot"
+msgstr ""
+
+#: unifispot/templates/guest/template1/fb_checkin.html:120
+#: unifispot/templates/guest/template2/fb_checkin.html:120
+msgid "Please checkin for WiFi"
+msgstr ""
+
+#: unifispot/templates/guest/template1/fb_checkin.html:130
+#: unifispot/templates/guest/template2/fb_checkin.html:130
+msgid "Optional Message"
+msgstr ""
+
+#: unifispot/templates/guest/template1/fb_checkin.html:134
+msgid "Checkin"
+msgstr ""
+
+#: unifispot/templates/guest/template1/fb_checkin.html:138
+#: unifispot/templates/guest/template2/email_landing.html:137
+#: unifispot/templates/guest/template2/fb_checkin.html:138
+#: unifispot/templates/guest/template2/fb_like.html:138
+#: unifispot/templates/guest/template2/multi_landing.html:146
+#: unifispot/templates/guest/template2/show_message.html:126
+#: unifispot/templates/guest/template2/sms_auth.html:138
+#: unifispot/templates/guest/template2/sms_landing.html:131
+#: unifispot/templates/guest/template2/social_landing.html:131
+#: unifispot/templates/guest/template2/voucher_landing.html:131
+#: unifispot/templates/security/forgot_password.html:48
+#: unifispot/templates/security/login_user.html:45
+#: unifispot/templates/security/reset_password.html:48
+msgid "Powered By"
+msgstr ""
+
+#: unifispot/templates/guest/template1/fb_checkin.html:139
+#: unifispot/templates/guest/template2/email_landing.html:138
+#: unifispot/templates/guest/template2/fb_checkin.html:139
+#: unifispot/templates/guest/template2/fb_like.html:139
+#: unifispot/templates/guest/template2/multi_landing.html:147
+#: unifispot/templates/guest/template2/show_message.html:127
+#: unifispot/templates/guest/template2/sms_auth.html:139
+#: unifispot/templates/guest/template2/sms_landing.html:132
+#: unifispot/templates/guest/template2/social_landing.html:132
+msgid "By Logging In You agree to our"
+msgstr ""
+
+#: unifispot/templates/guest/template1/fb_checkin.html:139
+#: unifispot/templates/guest/template2/email_landing.html:138
+#: unifispot/templates/guest/template2/fb_checkin.html:139
+#: unifispot/templates/guest/template2/fb_like.html:139
+#: unifispot/templates/guest/template2/multi_landing.html:147
+#: unifispot/templates/guest/template2/show_message.html:127
+#: unifispot/templates/guest/template2/sms_auth.html:139
+#: unifispot/templates/guest/template2/sms_landing.html:132
+#: unifispot/templates/guest/template2/social_landing.html:132
+#: unifispot/templates/guest/template2/voucher_landing.html:132
+msgid "Terms and Condisions"
+msgstr ""
+
+#: unifispot/templates/guest/template1/fb_checkin.html:139
+#: unifispot/templates/guest/template2/email_landing.html:138
+#: unifispot/templates/guest/template2/fb_checkin.html:139
+#: unifispot/templates/guest/template2/fb_like.html:139
+#: unifispot/templates/guest/template2/show_message.html:127
+#: unifispot/templates/guest/template2/sms_auth.html:139
+#: unifispot/templates/guest/template2/sms_landing.html:132
+#: unifispot/templates/guest/template2/social_landing.html:132
+#: unifispot/templates/guest/template2/voucher_landing.html:132
+msgid "And"
+msgstr ""
+
+#: unifispot/templates/guest/template1/fb_checkin.html:139
+#: unifispot/templates/guest/template2/email_landing.html:138
+#: unifispot/templates/guest/template2/fb_checkin.html:139
+#: unifispot/templates/guest/template2/fb_like.html:139
+#: unifispot/templates/guest/template2/multi_landing.html:147
+#: unifispot/templates/guest/template2/show_message.html:127
+#: unifispot/templates/guest/template2/sms_auth.html:139
+#: unifispot/templates/guest/template2/sms_landing.html:132
+#: unifispot/templates/guest/template2/social_landing.html:132
+#: unifispot/templates/guest/template2/voucher_landing.html:132
+msgid "Privacy Policy"
+msgstr ""
+
+#: unifispot/templates/guest/template1/fb_like.html:196
+msgid " No Thanks, I will skip this"
+msgstr ""
+
+#: unifispot/templates/guest/template1/multi_landing.html:148
+msgid "Login Using Email"
+msgstr ""
+
+#: unifispot/templates/guest/template1/multi_landing.html:152
+msgid "Login Using Phone"
+msgstr ""
+
+#: unifispot/templates/guest/template1/multi_landing.html:156
+msgid "Login Using FB"
+msgstr ""
+
+#: unifispot/templates/guest/template1/multi_landing.html:160
+msgid "Login Using Voucher"
+msgstr ""
+
+#: unifispot/templates/guest/template1/multi_landing.html:169
+msgid "By Logging in you are agreeing to our"
+msgstr ""
+
+#: unifispot/templates/guest/template1/newmacros.html:12
+msgid "Male"
+msgstr ""
+
+#: unifispot/templates/guest/template1/newmacros.html:12
+msgid "Female"
+msgstr ""
+
+#: unifispot/templates/guest/template1/show_message.html:141
+msgid "Please Wait"
+msgstr ""
+
+#: unifispot/templates/guest/template1/show_message.html:147
+#: unifispot/templates/guest/template2/show_message.html:123
+msgid "If you are not redirected automatically, please"
+msgstr ""
+
+#: unifispot/templates/guest/template1/sms_auth.html:176
+msgid "Please Enter Your Mobile Number"
+msgstr ""
+
+#: unifispot/templates/guest/template1/sms_auth.html:189
+msgid "Send Code"
+msgstr ""
+
+#: unifispot/templates/guest/template1/sms_landing.html:195
+msgid "By Clicking you are agreeing to our"
+msgstr ""
+
+#: unifispot/templates/guest/template1/social_landing.html:1
+msgid ""
+"<html>\n"
+"<head>\n"
+"    <title>"
+msgstr ""
+
+#: unifispot/templates/guest/template1/social_landing.html:182
+msgid "Login Using Facebook"
+msgstr ""
+
+#: unifispot/templates/guest/template1/social_landing.html:187
+msgid "By Logging in you are agreeing to our "
+msgstr ""
+
+#: unifispot/templates/guest/template1/voucher_landing.html:193
+msgid "By Clicking you are agreeing to our "
+msgstr ""
+
+#: unifispot/templates/guest/template2/fb_checkin.html:124
+msgid "Check Into"
+msgstr ""
+
+#: unifispot/templates/guest/template2/fb_checkin.html:134
+msgid "Post To Facebook"
+msgstr ""
+
+#: unifispot/templates/guest/template2/multi_landing.html:122
+msgid "Please Choose a Login Method"
+msgstr ""
+
+#: unifispot/templates/guest/template2/multi_landing.html:125
+msgid "Email Address"
+msgstr ""
+
+#: unifispot/templates/guest/template2/show_message.html:123
+msgid "click"
+msgstr ""
+
+#: unifispot/templates/guest/template2/sms_auth.html:131
+msgid "Get Code"
+msgstr ""
+
+#: unifispot/templates/guest/template2/voucher_landing.html:132
+msgid "By Logging In You agree to ou"
+msgstr ""
+
+#: unifispot/templates/security/forgot_password.html:10
+#: unifispot/templates/security/reset_password.html:10
+msgid "Unifispot | Forgot password"
+msgstr ""
+
+#: unifispot/templates/security/forgot_password.html:28
+msgid "Forgot password"
+msgstr ""
+
+#: unifispot/templates/security/forgot_password.html:31
+msgid ""
+"Enter your email address and your password will be reset and emailed to "
+"you."
+msgstr ""
+
+#: unifispot/templates/security/forgot_password.html:59
+msgid "Copyright Unifispot"
+msgstr ""
+
+#: unifispot/templates/security/login_user.html:30
+#: unifispot/templates/superadmin/firstrun.html:10
+msgid "Welcome to Unifispot"
+msgstr ""
+
+#: unifispot/templates/security/login_user.html:31
+msgid "Hotspot Management System."
+msgstr ""
+
+#: unifispot/templates/security/login_user.html:34
+msgid "Login in. To see it in action."
+msgstr ""
+
+#: unifispot/templates/security/login_user.html:39
+msgid "Username"
+msgstr ""
+
+#: unifispot/templates/security/login_user.html:42
+msgid "Password"
+msgstr ""
+
+#: unifispot/templates/security/login_user.html:47
+msgid "Forgot password?"
+msgstr ""
+
+#: unifispot/templates/security/reset_password.html:28
+msgid "Reset password"
+msgstr ""
+
+#: unifispot/templates/security/reset_password.html:39
+msgid "Enter New Password"
+msgstr ""
+
+#: unifispot/templates/security/reset_password.html:43
+msgid "Re Enter New Password"
+msgstr ""
+
+#: unifispot/templates/superadmin/accounts.html:21
+#: unifispot/templates/superadmin/accounts.html:35
+#: unifispot/templates/superadmin/admins.html:18
+#: unifispot/templates/superadmin/dashboard.html:18
+msgid "Accounts"
+msgstr ""
+
+#: unifispot/templates/superadmin/accounts.html:37
+msgid "New Account"
+msgstr ""
+
+#: unifispot/templates/superadmin/accounts.html:45
+msgid "Name"
+msgstr ""
+
+#: unifispot/templates/superadmin/accounts.html:46
+msgid "Allowed Sites"
+msgstr ""
+
+#: unifispot/templates/superadmin/accounts.html:47
+msgid "Expiry"
+msgstr ""
+
+#: unifispot/templates/superadmin/accounts.html:48
+msgid "Type"
+msgstr ""
+
+#: unifispot/templates/superadmin/admins.html:44
+msgid "Account"
+msgstr ""
+
+#: unifispot/templates/superadmin/base.html:99
+msgid " Unifispot &copy; 2015-2016"
+msgstr ""
+
+#: unifispot/templates/superadmin/dashboard.html:30
+msgid "Total"
+msgstr ""
+
+#: unifispot/templates/superadmin/dashboard.html:31
+msgid "Sites"
+msgstr ""
+
+#: unifispot/templates/superadmin/dashboard.html:34
+#: unifispot/templates/superadmin/dashboard.html:45
+#: unifispot/templates/superadmin/dashboard.html:56
+#: unifispot/templates/superadmin/dashboard.html:67
+msgid "N/A"
+msgstr ""
+
+#: unifispot/templates/superadmin/dashboard.html:41
+msgid "Today"
+msgstr ""
+
+#: unifispot/templates/superadmin/dashboard.html:52
+#: unifispot/templates/superadmin/dashboard.html:63
+msgid "Monthly"
+msgstr ""
+
+#: unifispot/templates/superadmin/dashboard.html:64
+msgid "Devices"
+msgstr ""
+
+#: unifispot/templates/superadmin/firstrun.html:107
+msgid "License Agreement"
+msgstr ""
+
+#: unifispot/templates/superadmin/firstrun.html:111
+msgid ""
+"Poppet is released under the AGPL, however copyright license and author "
+"information must be displayed wherever it is shown in the original "
+"version."
+msgstr ""
+
+#: unifispot/templates/superadmin/firstrun.html:115
+msgid "Reffer to"
+msgstr ""
+
+#: unifispot/templates/superadmin/firstrun.html:115
+msgid "License.txt"
+msgstr ""
+
+#: unifispot/templates/superadmin/firstrun.html:115
+msgid "for full licensing conditions."
+msgstr ""
+
+#: unifispot/templates/superadmin/firstrun.html:121
+msgid " I agree with the Terms and Conditions."
+msgstr ""
+
+#: unifispot/templates/superadmin/firstrun.html:142
+msgid "Finish"
+msgstr ""
+
+#: unifispot/templates/superadmin/firstrun.html:146
+msgid "Follow Us"
+msgstr ""
+
+#: unifispot/templates/superadmin/firstrun.html:149
+msgid "Follow @unifispot"
+msgstr ""
+
+#: unifispot/templates/superadmin/firstrun.html:151
+msgid "Star"
+msgstr ""
+
+#: unifispot/templates/superadmin/firstrun.html:153
+msgid "Watch"
+msgstr ""
+
+#: unifispot/templates/superadmin/firstrun.html:156
+msgid "Join Our Community"
+msgstr ""
+
+#: unifispot/templates/superadmin/firstrun.html:158
+msgid "Join"
+msgstr ""
+

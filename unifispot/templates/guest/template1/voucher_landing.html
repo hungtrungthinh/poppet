@@ -185,15 +185,15 @@ ul{
 		<div class="row row-bottom">			
 			<div id="login-buttons">	
 					<p class="text-center login-button">
-	                    <button type="submit" class="btn btn-guest " id='loginemail' >Login</button>
+	                    <button type="submit" class="btn btn-guest " id='loginemail' >{{_('Login')}}</button>
 					</p>          
             </div>
 			<div class="col-xs-offset-2 col-sm-offset-3 col-md-offset-3">
 					<p class="bottom-text"> <input type="checkbox" id="agreetos" value="">
-					By Clicking you are agreeing to our 
+					{{_('By Clicking you are agreeing to our ')}}'
 					{% if landing_page.tosfile %} 
-					<a href="{{landing_page.tosfile}}"><u>USER AGREEMENT</u></a>
-					{% else %}USER AGREEMENT{%endif%}</p><p class="bottom-text" ></p>
+					<a href="{{landing_page.tosfile}}"><u>{{_('USER AGREEMENT')}}</u></a>
+					{% else %}{{_('USER AGREEMENT')}}{%endif%}</p><p class="bottom-text" ></p>
 			</div>
 		</div><!-- //bottom content-->
 		<div class="row row-footer">
@@ -202,7 +202,7 @@ ul{
 			</ul>
             <!-- License start you are free to modify the source as long as below content is kept untouched -->
             <div class=" text-center page-footer-inner">
-             Powered by <a href="http://www.unifispot.com" title="Captive portal with Socil Login and Data collection" target="_blank">Unifispot</a>
+             {{_('Powered by')}} <a href="http://www.unifispot.com" title="Captive portal with Socil Login and Data collection" target="_blank">{{_('Unifispot')}}</a>
             </div>
 		</div><!-- //footer content-->
 

@@ -1,6 +1,6 @@
-<html>
+{{_('<html>
 <head>
-    <title></title>
+    <title>')}}</title>
     <meta name="viewport" content="width=device-width, target-densitydpi=device-dpi, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <!-- These are Open Graph tags.-->
     <meta property="fb:app_id" content="{{ app_id }}" />
@@ -179,15 +179,15 @@ ul{
 		<div class="row row-bottom">			
 			<div id="login-buttons">	
 					<p class="text-center login-button">
-	                    <button type="submit" class="btn btn-guest " id='loginfb' >Login Using Facebook</button>
+	                    <button type="submit" class="btn btn-guest " id='loginfb' >{{_('Login Using Facebook')}}</button>
 					</p>          
             </div>
 			<div class="col-xs-offset-2 col-sm-offset-3 col-md-offset-3">
                     <p class="bottom-text">
-                    By Logging in you are agreeing to our 
+                    {{_('By Logging in you are agreeing to our ')}}
                     {% if landing_page.tosfile %} 
-                    <a href="{{landing_page.tosfile}}"><u>USER AGREEMENT</u></a>
-                    {% else %}USER AGREEMENT{%endif%} </p>
+                    <a href="{{landing_page.tosfile}}"><u>{{_('USER AGREEMENT')}}</u></a>
+                    {% else %}{{_('USER AGREEMENT')}}{%endif%} </p>
 			</div>
 		</div><!-- //bottom content-->
 		<div class="row row-footer">
@@ -196,7 +196,7 @@ ul{
 			</ul>
                         <!-- License start you are free to modify the source as long as below content is kept untouched -->
             <div class="page-footer-inner text-center">
-             Powered by <a href="http://www.unifispot.com" title="Captive portal with Socil Login and Data collection" target="_blank">Unifispot</a>
+             {{_('Powered by')}} <a href="http://www.unifispot.com" title="Captive portal with Socil Login and Data collection" target="_blank">{{_('Unifispot')}}</a>
             </div>
 		</div><!-- //footer content-->
 

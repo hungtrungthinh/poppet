@@ -145,19 +145,19 @@ ul{
                 {% if landing_site.email_login_en() %}
 
                 <a class="btn btn-guest full-width m-b " href="{{url_for('guest.email_login',track_id=track_id)}}"  id="email-select">
-                    <i class="fa fa-envelope"> </i> Login Using Email</a>
+                    <i class="fa fa-envelope"> </i> {{_('Login Using Email')}}</a>
                 {%endif%}
                 {% if landing_site.phone_login_en() %}
                 <a class="btn btn-guest full-width m-b " href="{{url_for('guest.sms_login',track_id=track_id)}}" id="phone-select" >
-                    <i class="fa fa-phone-square"> </i> Login Using Phone
+                    <i class="fa fa-phone-square"> </i> {{_('Login Using Phone')}}
                 {%endif%}
                 {% if landing_site.fb_login_en() %}
                 <a class="btn btn-guest full-width m-b " href="{{url_for('guest.social_login',track_id=track_id)}}" id="fb-select" >
-                    <i class="fa fa-facebook-square"> </i> Login Using FB</a>
+                    <i class="fa fa-facebook-square"> </i> {{_('Login Using FB')}}</a>
                 {%endif%}
                 {% if landing_site.voucher_login_en() %}
                 <a class="btn btn-guest full-width m-b " href="{{url_for('guest.voucher_login',track_id=track_id)}}" id="voucher-select" >
-                    <i class="fa fa-money"> </i> Login Using Voucher</a>
+                    <i class="fa fa-money"> </i> {{_('Login Using Voucher')}}</a>
                 {%endif%}
             </div>
             
@@ -166,10 +166,10 @@ ul{
 
 			<div class="col-xs-offset-2 col-sm-offset-3 col-md-offset-3">
 					<p class="bottom-text">
-					By Logging in you are agreeing to our 
+					{{_('By Logging in you are agreeing to our')}} 
 					{% if landing_page.tosfile %} 
-					<a href="{{landing_page.tosfile}}"><u>USER AGREEMENT</u></a>
-					{% else %}USER AGREEMENT{%endif%} </p>
+					<a href="{{landing_page.tosfile}}"><u>{{_('USER AGREEMENT')}}</u></a>
+					{% else %}{{_('USER AGREEMENT')}}{%endif%} </p>
                     <p class="bottom-text" ></p>
 			</div>
 		</div><!-- //bottom content-->
@@ -179,7 +179,7 @@ ul{
 			</ul>
             <!-- License start you are free to modify the source as long as below content is kept untouched -->
             <div class=" text-center page-footer-inner">
-             Powered by <a href="http://www.unifispot.com" title="Captive portal with Socil Login and Data collection" target="_blank">Unifispot</a>
+             {{_('Powered by')}} <a href="http://www.unifispot.com" title="Captive portal with Socil Login and Data collection" target="_blank">{{_('Unifispot')}}</a>
             </div>
 		</div><!-- //footer content-->
 

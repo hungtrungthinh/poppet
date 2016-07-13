@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Welcome to Unifispot</title>
+    <title>{{_('Welcome to Unifispot')}}</title>
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     {% assets "global_css" %}
@@ -51,7 +51,7 @@
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{current_user.displayname}}</strong>
                              </span> <span class="text-muted text-xs block">{{current_user.email}}<b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="{{url_for('security.logout')}}">Logout</a></li>
+                                <li><a href="{{url_for('security.logout')}}">{{_('Logout')}}</a></li>
                             </ul>
                     </div>
                     <div class="logo-element">
@@ -74,7 +74,7 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
-                        <span class="m-r-sm text-muted welcome-message">Welcome to UnifiSpot</span>
+                        <span class="m-r-sm text-muted welcome-message">{{_('Welcome to UnifiSpot')}}</span>
                     </li>
                     <li class="dropdown " id='site-list'>
                         {%block site_select %}
@@ -85,7 +85,7 @@
                     </li>
                     <li>
                         <a href="{{url_for('security.logout')}}">
-                            <i class="fa fa-sign-out"></i> Log out
+                            <i class="fa fa-sign-out"></i> {{_('Log out')}}
                         </a>
                     </li>
                 </ul>
@@ -104,21 +104,21 @@
                     <div class="row">
                         <form class="wizard-big form-horizontal" role="form" id="firstrun-form" action="">
                             {{settings_form.hidden_tag() }}
-                            <h1>License Agreement</h1>
+                            <h1>{{_('License Agreement')}}</h1>
                             <fieldset>
                         <div class="scroll_content">
                             <p>
-                                Poppet is released under the AGPL, however copyright license and author information must be displayed wherever it is shown in the original version.
+                                {{_('Poppet is released under the AGPL, however copyright license and author information must be displayed wherever it is shown in the original version.')}}
                             </p>
 
                             <p>
-                                Reffer to <a href="https://raw.githubusercontent.com/unifispot/poppet/master/LICENSE.txt">License.txt</a> for full licensing conditions.
+                                {{_('Reffer to')}}<a href="https://raw.githubusercontent.com/unifispot/poppet/master/LICENSE.txt">{{_('License.txt')}}</a> {{_('for full licensing conditions.')}}
                             </p>
 
                             <p>
                                
                                     
-                                        <div class="i-checks"><label> <input type="checkbox" id='accept_tos' name='accept_tos'><i></i> I agree with the Terms and Conditions.</label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" id='accept_tos' name='accept_tos'><i></i>{{_(' I agree with the Terms and Conditions.')}}</label></div>
                                     
                                
                             </p>
@@ -139,23 +139,23 @@
                                 </div>
                             </fieldset>      
 
-                            <h1>Finish</h1>
+                            <h1>{{_('Finish')}}</h1>
                             <fieldset>
                                 <div class="white_bg">
 
-                                    <h2> Follow Us<h2>
+                                    <h2> {{_('Follow Us')}}<h2>
                                     <div class="text-center">
                                         
-                                        <a class="github-button" href="https://github.com/unifispot" data-style="mega" data-count-href="/unifispot/followers" data-count-api="/users/unifispot#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @unifispot on GitHub">Follow @unifispot</a>
+                                        <a class="github-button" href="https://github.com/unifispot" data-style="mega" data-count-href="/unifispot/followers" data-count-api="/users/unifispot#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @unifispot on GitHub">{{_('Follow @unifispot')}}</a>
                                         
-                                        <a class="github-button" href="https://github.com/unifispot/poppet" data-icon="octicon-star" data-style="mega" data-count-href="/unifispot/poppet/stargazers" data-count-api="/repos/unifispot/poppet#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star unifispot/poppet on GitHub">Star</a>
+                                        <a class="github-button" href="https://github.com/unifispot/poppet" data-icon="octicon-star" data-style="mega" data-count-href="/unifispot/poppet/stargazers" data-count-api="/repos/unifispot/poppet#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star unifispot/poppet on GitHub">{{_('Star')}}</a>
 
-                                        <a class="github-button" href="https://github.com/unifispot/poppet" data-icon="octicon-eye" data-style="mega" data-count-href="/unifispot/poppet/watchers" data-count-api="/repos/unifispot/poppet#subscribers_count" data-count-aria-label="# watchers on GitHub" aria-label="Watch unifispot/poppet on GitHub">Watch</a>
+                                        <a class="github-button" href="https://github.com/unifispot/poppet" data-icon="octicon-eye" data-style="mega" data-count-href="/unifispot/poppet/watchers" data-count-api="/repos/unifispot/poppet#subscribers_count" data-count-aria-label="# watchers on GitHub" aria-label="Watch unifispot/poppet on GitHub">{{_('Watch')}}</a>
                                     </div>
 
-                                    <h2> Join Our Community<h2>
+                                    <h2> {{_('Join Our Community')}}<h2>
                                     <div class="text-center">
-                                        <a class="" href="https://discuss.unifispot.com" target="_blank">Join</a>
+                                        <a class="" href="https://discuss.unifispot.com" target="_blank">{{_('Join')}}</a>
 
                                     </div>
 

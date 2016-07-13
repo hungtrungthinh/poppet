@@ -7,18 +7,18 @@
 {%endblock%}
 
 {% block title %}
-    Dashboard
+    {{_('Dashboard')}}
 {%endblock %}
 
 {% block left_menu %}
     <li >
-        <a href="{{url_for('superadmin.superadmin_index')}}"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
+        <a href="{{url_for('superadmin.superadmin_index')}}"><i class="fa fa-dashboard"></i> <span class="nav-label">{{_('Dashboard')}}</span></a>
     </li>
     <li  >
-         <a href="{{url_for('superadmin.superadmin_accounts')}}"><i class="fa fa-flask"></i> <span class="nav-label">Accounts</span> </a>
+         <a href="{{url_for('superadmin.superadmin_accounts')}}"><i class="fa fa-flask"></i> <span class="nav-label">{{_('Accounts')}}</span> </a>
     </li>       
     <li class="active" >
-         <a href="{{url_for('superadmin.superadmin_admins')}}"><i class="fa fa-diamond"></i> <span class="nav-label">Admins</span> </a>
+         <a href="{{url_for('superadmin.superadmin_admins')}}"><i class="fa fa-diamond"></i> <span class="nav-label">{{_('Admins')}}</span> </a>
     </li>    
 
 {%endblock%}
@@ -29,9 +29,9 @@
         <div class="col-md-9">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Admins</h5>
+                    <h5>{{_('Admins')}}</h5>
                     <div class="ibox-tools">
-                        <a class="btn btn-primary" id="admineditmodal-add-new">New Admin </a>
+                        <a class="btn btn-primary" id="admineditmodal-add-new">{{_('New Admin')}} </a>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -39,10 +39,10 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="admins-table" >
                             <thead>
                                 <tr>
-                                    <th>Displayname</th>
-                                    <th>Email</th>
-                                    <th>Account</th>
-                                    <th>Actions</th>
+                                    <th>{{_('Displayname')}}</th>
+                                    <th>{{_('Email')}}</th>
+                                    <th>{{_('Account')}}</th>
+                                    <th>{{_('Actions')}}</th>
                                 </tr>
                             </thead>
                             <tbody>

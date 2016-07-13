@@ -1,4 +1,4 @@
-
+from flask.ext.babel import gettext
 from flask import current_app
 
 def check_view_anonymous_user_not_allowed(url):

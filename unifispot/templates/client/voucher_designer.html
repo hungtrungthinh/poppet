@@ -65,14 +65,14 @@
         <a href="{{url_for('client.client_session',siteid=siteid)}}"><i class="fa fa-calendar-o"></i> <span class="nav-label">Guest Sessions</span></a>
     </li>     
     {% if wifisite.voucher_login_en() %}
-     <li  class="active">
+     <li class="active">
         <a href="#">
-            <i class="fa fa-diamond"></i> <span class="nav-label">Vouchers</span><span class="fa arrow"></span>
+            <i class="fa fa-diamond"></i> <span class="nav-label">{{_('Vouchers')}}</span><span class="fa arrow"></span>
         </a>
         <ul class="nav nav-second-level collapse">
-            <li ><a href="{{url_for('client.client_vouchers',siteid=siteid)}}">View</a></li>
-            <li class="active" ><a href="{{url_for('client.client_vouchers_designer',siteid=siteid)}}">Design</a></li>
-        </ul>            
+            <li ><a href="{{url_for('client.client_vouchers',siteid=siteid)}}">{{_('View')}}</a></li>
+            <li class="active" ><a href="{{url_for('client.client_vouchers_designer',siteid=siteid)}}">{{_('Design')}}</a></li>
+        </ul>          
 
     </li>
     {% endif %}
@@ -88,7 +88,7 @@
                 <div class="ibox-title">
                     <h5>Voucher Design</h5>
                     <div class="ibox-tools">
-                        <a class="btn btn-primary" id="voucherdesign_form-save">Save </a>
+                        <a class="btn btn-primary" id="voucherdesign_form-save">{{_('Save')}} </a>
                         
                     </div>
                 </div>

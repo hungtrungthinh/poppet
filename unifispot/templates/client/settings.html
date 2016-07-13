@@ -8,16 +8,16 @@
 {%endblock%}
 
 {% block title %}
-    Dashboard
+    {{_('Dashboard')}}
 {%endblock %}
 
 {% block left_menu %}
     <li >
-        <a href="{{url_for('client.client_index')}}"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
+        <a href="{{url_for('client.client_index')}}"><i class="fa fa-dashboard"></i> <span class="nav-label">{{_('Dashboard')}}</span></a>
     </li>
      
     <li class="active">
-         <a href="{{url_for('client.client_settings')}}"><i class="fa fa-edit"></i> <span class="nav-label">Settings</span> </a>
+         <a href="{{url_for('client.client_settings')}}"><i class="fa fa-edit"></i> <span class="nav-label">{{_('Settings')}}</span> </a>
     </li>
 
 {%endblock%}
@@ -27,7 +27,7 @@
         <div class="col-md-12">       
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Settings</h5>
+                    <h5>{{_('Settings')}}</h5>
                     <div class="ibox-tools">
                     </div>
                 </div>
@@ -36,7 +36,8 @@
                         {{ render(settingsform) }}
                         <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-2">                                       
-                                <button class="btn btn-primary" type="submit" id="settingsform-save">Save changes</button>
+                                <button class="btn btn-primary" type="submit" id="settingsform-save">
+                                {{_('Save changes')}}</button>
                             </div>
                         </div>
                     </form>

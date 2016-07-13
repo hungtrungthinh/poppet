@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Welcome To Our Hotspot</title>
+    <title>{{_('Welcome To Our Hotspot')}}</title>
 
     <style>
     html {
@@ -119,32 +119,32 @@
             
             <form class="m-t" role="form">
             <div id="first">
-                    <p class='login-text'><strong>Please Choose a Login Method</strong></p>
+                    <p class='login-text'><strong>{{_('Please Choose a Login Method')}}</strong></p>
                     {% if landing_site.email_login_en() %}
                     <a  class="btn btn-email block full-width m-b" href="{{url_for('guest.email_login',track_id=track_id)}}" id="email-select">
-                        <i class="fa fa-envelope"> </i><strong> Email Address </strong>
+                        <i class="fa fa-envelope"> </i><strong> {{_('Email Address')}} </strong>
                     </a>
                     {% endif %}
                     {% if landing_site.phone_login_en() %}
                     <a  class="btn btn-phone block full-width m-b" id="phone-select" href="{{url_for('guest.sms_login',track_id=track_id)}}">
-                        <i class="fa fa-phone-square"> </i> <strong>Phone Number</strong>
+                        <i class="fa fa-phone-square"> </i> <strong>{{_('Phone Number')}}</strong>
                     </a>
                     {% endif %}
                     {% if landing_site.fb_login_en() %}
                     <a  class="btn btn-fb block full-width m-b" id="fb-select"  href="{{url_for('guest.social_login',track_id=track_id)}}"  >
-                        <i class="fa fa-facebook-square"> </i> <strong>Facebook</strong>
+                        <i class="fa fa-facebook-square"> </i> <strong>{{_('Facebook')}}</strong>
                     </a>
                     {% endif %}
                     {% if landing_site.voucher_login_en() %}
                     <a  class="btn btn-voucher block full-width m-b" id="voucher-select"  href="{{url_for('guest.voucher_login',track_id=track_id)}}">
-                        <i class="fa fa-money"> </i> <strong>Voucher</strong>
+                        <i class="fa fa-money"> </i> <strong>{{_('Voucher')}}</strong>
                     </a>    
                     {% endif %}            
             </div>
             </form>
             
-            <p class='login-text'><small>Powered By <a href="http://unifispot.com"title="Captive portal with Socil Login and Data collection" target="_blank">Unifispot</a></small></p>
-            <p class="m-t"> <small>By Logging In You agree to our <a href="{{landing_page.tosfile}}"> Terms and Condisions</a> And <a href="{{landing_page.tosfile}}">Privacy Policy</a></small> </p>
+            <p class='login-text'><small>{{_('Powered By')}} <a href="http://unifispot.com"title="Captive portal with Socil Login and Data collection" target="_blank">{{_('Unifispot')}}</a></small></p>
+            <p class="m-t"> <small>{{_('By Logging In You agree to our')}} <a href="{{landing_page.tosfile}}"> {{_('Terms and Condisions')}}</a> And <a href="{{landing_page.tosfile}}">{{_('Privacy Policy')}}</a></small> </p>
             
         </div>
     </div>

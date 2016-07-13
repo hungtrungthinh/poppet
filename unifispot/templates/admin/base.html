@@ -37,7 +37,7 @@
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{current_user.displayname}}</strong>
                              </span> <span class="text-muted text-xs block">{{current_user.email}}<b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="{{url_for('security.logout')}}">Logout</a></li>
+                                <li><a href="{{url_for('security.logout')}}">{{_('Logout')}}</a></li>
                             </ul>
                     </div>
                     <div class="logo-element">
@@ -46,10 +46,10 @@
                 </li>
                 {% block left_menu %}
                 <li class="active">
-                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Main view</span></a>
+                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">{{_('Main view')}}</span></a>
                 </li>
                 <li>
-                    <a href="minor.html"><i class="fa fa-th-large"></i> <span class="nav-label">Minor view</span> </a>
+                    <a href="minor.html"><i class="fa fa-th-large"></i> <span class="nav-label">{{_('Minor view')}}</span> </a>
                 </li>
                 {% endblock %}
             </ul>
@@ -65,11 +65,11 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
-                        <span class="m-r-sm text-muted welcome-message">Welcome to UnifiSpot</span>
+                        <span class="m-r-sm text-muted welcome-message">{{_('Welcome to UnifiSpot')}}</span>
                     </li>
                     {% if site_id %}
                     <li>
-                        <button id="{{site_id}}" class="btn btn-xs btn-danger site-del">DEL</a>
+                        <button id="{{site_id}}" class="btn btn-xs btn-danger site-del">{{_('DEL')}}</a>
                     </li>   
                     {%endif%}                 
                     <li class="dropdown " id='site-list'>
@@ -81,7 +81,7 @@
                     </li>
                     <li>
                         <a href="{{url_for('security.logout')}}">
-                            <i class="fa fa-sign-out"></i> Log out
+                            <i class="fa fa-sign-out"></i> {{_('Log out')}}
                         </a>
                     </li>
                 </ul>
@@ -102,8 +102,8 @@
                  {{"Version"|print_version}}
             </div>
             <div>
-                Unifispot is software licensed under the AGPL 3
-                <strong>Copyright</strong> &copy; 2015-2016 - Unifispot http://www.unifispot.com
+                {{_('Unifispot is software licensed under the AGPL 3')}}
+                <strong>{{_('Copyright')}}</strong> &copy; {{_('2015-2016 - Unifispot http://www.unifispot.com')}}
             </div>
         </div>
 

@@ -10,29 +10,28 @@
 {%endblock%}
 
 {% block title %}
-    Guest Data
+    {{_('Guest Data')}}
 {%endblock %}
 
 {% block left_menu %}
     <li >
-        <a href="{{url_for('client.client_index',siteid=siteid)}}"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
+        <a href="{{url_for('client.client_index',siteid=siteid)}}"><i class="fa fa-dashboard"></i> <span class="nav-label">{{_('Dashboard')}}</span></a>
     </li>
      <li>
-        <a href="{{url_for('client.client_data',siteid=siteid)}}"><i class="fa fa-desktop"></i> <span class="nav-label">Guest Info</span></a>
+        <a href="{{url_for('client.client_data',siteid=siteid)}}"><i class="fa fa-desktop"></i> <span class="nav-label">{{_('Guest Info')}}</span></a>
     </li>
      <li class="active">
-        <a href="{{url_for('client.client_session',siteid=siteid)}}"><i class="fa fa-calendar-o"></i> <span class="nav-label">Guest Sessions</span></a>
+        <a href="{{url_for('client.client_session',siteid=siteid)}}"><i class="fa fa-calendar-o"></i> <span class="nav-label">{{_('Guest Sessions')}}</span></a>
     </li>    
     {% if wifisite.voucher_login_en() %}
      <li>
         <a href="#">
-            <i class="fa fa-diamond"></i> <span class="nav-label">Vouchers</span><span class="fa arrow"></span>
+            <i class="fa fa-diamond"></i> <span class="nav-label">{{_('Vouchers')}}</span><span class="fa arrow"></span>
         </a>
         <ul class="nav nav-second-level collapse">
-            <li ><a href="{{url_for('client.client_vouchers',siteid=siteid)}}">View</a></li>
-            <li  ><a href="{{url_for('client.client_vouchers_designer',siteid=siteid)}}">Design</a></li>
-        </ul>            
-
+            <li ><a href="{{url_for('client.client_vouchers',siteid=siteid)}}">{{_('View')}}</a></li>
+            <li  ><a href="{{url_for('client.client_vouchers_designer',siteid=siteid)}}">{{_('Design')}}</a></li>
+        </ul>  
     </li>
     {% endif %}
          
@@ -46,7 +45,7 @@
         <div class="col-md-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Guest Sessions</h5>
+                    <h5>{{_('Guest Sessions')}}</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -60,7 +59,7 @@
                     <div class="row">
                         <form id="guestform" action="{{url_for('client.client_session_download',siteid=siteid)}}">
                             <div class="col-sm-2 m-b-xs">
-                                <label class="control-label">Select Daterange</label>
+                                <label class="control-label">{{_('Select Daterange')}}</label>
                             </div>
                             <div class="col-sm-4 m-b-xs ">
                                 <div class="input-daterange input-group" id="datepicker">
@@ -71,8 +70,8 @@
                                 </div>
                             </div>
                             <div class="col-sm-4 m-b-xs">
-                                <button class="btn btn-sm btn-primary " id="rfsh-dt"><strong>Show</strong></button>
-                                <button class="btn btn-sm btn-primary " type="submit" id="sessionform-download"><strong>Download</strong></button>
+                                <button class="btn btn-sm btn-primary " id="rfsh-dt"><strong>{{_('Show')}}</strong></button>
+                                <button class="btn btn-sm btn-primary " type="submit" id="sessionform-download"><strong>{{_('Download')}}</strong></button>
                             </div>
                         </form>
                     </div>
@@ -80,11 +79,11 @@
                         <table class="table table-striped table-bordered table-hover  dataTables-example" id="guesttable" >
                             <thead>
                                 <tr>
-                                    <th>Start Time</th>
-                                    <th>End Time</th>
-                                    <th>MAC</th>
-                                    <th>Data Used(Mb)</th>
-                                    <th>Phone Number</th>
+                                    <th>{{_('Start Time')}}</th>
+                                    <th>{{_('End Time')}}</th>
+                                    <th>{{_('MAC')}}</th>
+                                    <th>{{_('Data Used(Mb)')}}</th>
+                                    <th>{{_('Phone Number')}}</th>
                                 </tr>
                             </thead>
                             <tbody>

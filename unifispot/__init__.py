@@ -2,6 +2,7 @@ from flask import render_template,redirect,url_for,Flask,Config,abort
 from flask_security import Security,SQLAlchemyUserDatastore
 from flask_security import login_required,current_user
 from flask_assets import Environment
+from flask.ext.babel import gettext
 import re
 #import basic utlities
 from base.utils.core import (load_blueprint_settings, load_blueprints,error_handler,)
@@ -9,10 +10,10 @@ from base.utils.core import (load_blueprint_settings, load_blueprints,error_hand
 from assets import bundles
 import os
 import yaml
-from unifispot.extensions import db,mail,celery,redis,qrcode
+from unifispot.extensions import db,mail,celery,redis,qrcode,babel
 from unifispot.admin.models import Admin       
 from unifispot.superadmin.models import Account       
-from unifispot.client.models import Client      
+from unifispot.client.models import Client 
 
 def create_app(mode="development"):
     """Create webapp instance."""
@@ -30,6 +31,9 @@ def create_app(mode="development"):
 
     # Load the configuration from the instance folder
     app.config.from_pyfile('config.py')
+
+
+    
  
 
     # Load the file specified by the config_filename environment variable
@@ -61,6 +65,11 @@ def create_app(mode="development"):
     # simple load all blueprints, enabled in config
     load_blueprints(app,blueprint_path='unifispot')
 
+
+    # Langauge Transalation
+    from flask.ext.babel import Babel
+    babel.init_app(app)  
+
     #check for default values required before starting app
     with app.app_context():
         from importlib import import_module
@@ -87,4 +96,3 @@ def create_app(mode="development"):
             abort(400)
 
     return app
-

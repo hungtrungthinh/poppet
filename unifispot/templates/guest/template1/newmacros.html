@@ -9,7 +9,7 @@
      <label class="control-label col-xs-4 col-xs-offset-1  col-md-3 col-md-offset-2 form-label">{{ field.label(for=field.id) }}</label>
       {% if field.id   in [ 'gender',] %}
       <div class="col-xs-3 col-md-2 form-input">
-              <select class="form-control input-guest" id="gender-select" > <option value="1" >Male</option><option value="2" >Female</option></select>
+              <select class="form-control input-guest" id="gender-select" > <option value="1" >{{_('Male')}}</option><option value="2" >{{_('Female')}}</option></select>
         </div><!-- //form-input-->
       <div style="display:none;">
                 {{field( **{'value':'1'} )}}

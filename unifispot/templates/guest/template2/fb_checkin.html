@@ -118,27 +118,27 @@
 
             </div>
             </br>
-            <h3>Please checkin for WiFi</h3>
+            <h3>{{_('Please checkin for WiFi')}}</h3>
             {{flash_message()}}
             <form class="m-t" role="form" method="POST" id='fb-form' 
                         action="{{url_for('guest.social_action_checkin',track_id=track_id)}}">
                 {{form1.hidden_tag() }}
-                <p> Check Into<strong>{{location}}</strong></p>
+                <p> {{_('Check Into')}}<strong>{{location}}</strong></p>
                 <div class="fb-page" data-href="{{fb_page|safe}}" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="false">
                     <div class="fb-xfbml-parse-ignore">
-                        <blockquote cite="{{fb_page|safe}}"><a href="{{fb_page|safe}}">Facebook</a></blockquote>
+                        <blockquote cite="{{fb_page|safe}}"><a href="{{fb_page|safe}}">{{_('Facebook')}}</a></blockquote>
                     </div>
                 </div>
-                <p> Optional Message</p>
+                <p> {{_('Optional Message')}}</p>
                 <div class="form-group">
                     {{ form1.message(class_="form-control",rows=2)}}
                 </div>                
-                <button type="submit" class="btn btn-primary block full-width m-b"> Post To Facebook </button>
-                <a  class="btn btn-guest full-width m-b" href="{{url_for('guest.multi_login',track_id=track_id)}}">Logout</a>
+                <button type="submit" class="btn btn-primary block full-width m-b"> {{_('Post To Facebook')}} </button>
+                <a  class="btn btn-guest full-width m-b" href="{{url_for('guest.multi_login',track_id=track_id)}}">{{_('Logout')}}</a>
             </form>
             </br>
-            <p class='login-text'><small>Powered By <a href="http://unifispot.com"title="Captive portal with Socil Login and Data collection" target="_blank">Unifispot</a></small></p>
-            <p class="m-t"> <small>By Logging In You agree to our <a href="{{landing_page.tosfile}}"> Terms and Condisions</a> And <a href="{{landing_page.tosfile}}">Privacy Policy</a></small> </p>
+            <p class='login-text'><small>{{_('Powered By')}} <a href="http://unifispot.com"title="Captive portal with Socil Login and Data collection" target="_blank">{{_('Unifispot')}}</a></small></p>
+            <p class="m-t"> <small>{{_('By Logging In You agree to our')}} <a href="{{landing_page.tosfile}}"> {{_('Terms and Condisions')}}</a> {{_('And')}} <a href="{{landing_page.tosfile}}">{{_('Privacy Policy')}}</a></small> </p>
             
         </div>
     </div>
