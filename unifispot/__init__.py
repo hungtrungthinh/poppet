@@ -10,23 +10,10 @@ from base.utils.core import (load_blueprint_settings, load_blueprints,error_hand
 from assets import bundles
 import os
 import yaml
-from unifispot.extensions import db,mail,celery,redis,qrcode
+from unifispot.extensions import db,mail,celery,redis,qrcode,babel
 from unifispot.admin.models import Admin       
 from unifispot.superadmin.models import Account       
 from unifispot.client.models import Client 
-
-
-## Language Transalation
-
-
-
-# from app import babel
-# from config import LANGUAGES
-
-# @babel.localeselector
-# def get_locale():
-#     return request.accept_languages.best_match(LANGUAGES.keys())
-
 
 def create_app(mode="development"):
     """Create webapp instance."""
@@ -81,7 +68,7 @@ def create_app(mode="development"):
 
     # Langauge Transalation
     from flask.ext.babel import Babel
-    babel = Babel(app)  
+    babel.init_app(app)  
 
     #check for default values required before starting app
     with app.app_context():

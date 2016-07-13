@@ -8,6 +8,7 @@ from functools import wraps
 import random
 from flask_session import Session
 from flask_qrcode import QRcode
+from flask_babel import Babel
    
 class FlaskCelery(Celery):
 
@@ -93,4 +94,4 @@ db = _SQLAlchemy()
 mail = Mail()
 redis = Redis()
 qrcode = QRcode()
-
+babel = Babel()
