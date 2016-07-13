@@ -166,7 +166,7 @@ class Device(db.Model):
     expires_at  = db.Column(db.DateTime)          #Expiry time for last used voucher  
     demo        = db.Column(db.Integer,default=0,index=True)
     sms_confirm = db.Column(db.Integer,default=0,index=True) #used to verify if the device's phone number is confirmed
-    voucher_id  = db.Column(db.Integer, db.ForeignKey('voucher.id')) #last used voucher id
+    voucher_id  = db.Column(db.Integer,index=True) #last used voucher id
 
     def get_monthly_usage(self):
         '''Returns the total monthly free data usage for this device
