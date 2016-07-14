@@ -204,7 +204,7 @@ def celery_monthly_report(*args, **kwargs):
             end_of_month = day.ceil('month')
             generate_report(site.id,start_of_month,end_of_month)
 
-@periodic_task(run_every=(crontab(hour="*/1")))
+@periodic_task(run_every=(crontab(minute=0,hour="*/1")))
 def celery_update_stat(*args, **kwargs):
     current_app.logger.info('-----------Running celery_update_stat-----------------------')
     sites = Wifisite.query.all()
@@ -219,7 +219,7 @@ def celery_update_stat(*args, **kwargs):
             update_daily_stat(site.id,yesterday)
 
 
-@periodic_task(run_every=(crontab(hour="*/1")))
+@periodic_task(run_every=(crontab(minute=0,hour="*/1")))
 def celery_get_notification(*args, **kwargs):
     '''Connect to https://notify.unifispot.com/notify.json and get notifications
 
