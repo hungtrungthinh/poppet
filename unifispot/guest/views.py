@@ -91,7 +91,7 @@ def guest_portal(site_id):
 
     ###---------------TODO ADD Date/Time Limiting Code here----------------------------------------
 
-    ###--------------Handle SCAN2LOGIN
+    ###--------------Handle scan2login
     if landing_site.voucher_login_en() and orig_url and  validate_scan2login(orig_url):
         #get and validate voucher code
         return redirect(url_for('guest.scan2_login',track_id=guest_track.track_id),code=302) 
@@ -730,8 +730,9 @@ def scan2_login(track_id,guest_track,landing_site,guest_device):
         newguest.devices.append(guest_device)
         voucher.device_id = guest_device.id
         voucher.used = True
-        voucher.used_at = arrow.utcnow().datetime
+        voucher.used_at = arrow.utcnow().naive
         guest_device.state  = DEVICE_VOUCHER_AUTH
+        guest_device.voucher_id = voucher.id
         db.session.commit()
         current_app.logger.debug('Wifiguest Log - Site ID:%s voucher_login MAC:%s new guest:%s  for track ID:%s'%(guest_track.site_id,guest_device.mac,newguest.id,guest_track.id))           
         return redirect(url_for('guest.authorize_guest',track_id=guest_track.track_id),code=302)
@@ -931,6 +932,7 @@ def validate_scan2login(url):
         return False
 
     parsed = urlparse(url)
+
 
     if not parsed.netloc == 'scan2log.in':
         return False
