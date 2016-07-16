@@ -289,6 +289,15 @@ def migrate_vouchers():
                 design.site = site
                 db.session.add(design)
                 db.session.commit()
+@manager.command
+def set_unifiport():
+    with app.app_context():
+        from unifispot.superadmin.models import Account
+        for account in Account.query.all():
+            if not account.unifi_port:
+                account.unifi_port=8443
+                db.session.commit()
+
 
 
 manager.run()

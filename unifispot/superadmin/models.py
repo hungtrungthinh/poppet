@@ -46,7 +46,8 @@ class Account(db.Model):
     unifi_server    = db.Column(db.String(255),index=True,default="localhost")    
     unifi_server_ip = db.Column(db.String(255),index=True,default="127.0.0.1")    
     unifi_user      = db.Column(db.String(255),index=True,default="ubnt")    
-    unifi_pass      = db.Column(db.String(255),index=True,default="ubnt")    
+    unifi_pass      = db.Column(db.String(255),index=True,default="ubnt")   
+    unifi_port      = db.Column(db.Integer,index=True,default=8443)  
     sites_allowed   = db.Column(db.Integer, default=100)     
     account_type    = db.Column(db.Integer,index=True,default=ACCOUNT_TYPE_FREE)
     expiresat       = db.Column(db.DateTime,index=True) 
@@ -73,12 +74,13 @@ class Account(db.Model):
         self.unifi_server_ip        = form.unifi_server_ip.data
         self.unifi_user             = form.unifi_user.data
         self.unifi_pass             = form.unifi_pass.data 
+        self.unifi_port             = form.unifi_port.data 
         self.firstrun               = 0
 
 
     def get_settings(self):
         return dict_normalise_values({ 'unifi_server':self.unifi_server,'unifi_user':self.unifi_user, 'id':self.id, \
-                    'unifi_pass':self.unifi_pass,'unifi_server_ip':self.unifi_server_ip}  )
+                    'unifi_pass':self.unifi_pass,'unifi_server_ip':self.unifi_server_ip,'unifi_port':self.unifi_port}  )
 
     def populate_from_form(self,form):
         expiresat = datetime.datetime.strptime(form.expiresat.data , "%m/%d/%Y").date()
@@ -86,6 +88,7 @@ class Account(db.Model):
         self.unifi_server_ip        = form.unifi_server_ip.data
         self.unifi_user             = form.unifi_user.data
         self.unifi_pass             = form.unifi_pass.data        
+        self.unifi_port             = form.unifi_port.data        
         self.name                   = form.name.data        
         self.sites_allowed          = form.sites_allowed.data        
         self.account_type           = form.account_type.data        
@@ -105,7 +108,8 @@ class Account(db.Model):
                     'unifi_pass':self.unifi_pass,'name':self.name,'sites_allowed':self.sites_allowed,'account_type':self.account_type,\
                     'expiresat':expiresat,'en_api_export':self.en_api_export,'en_reporting':self.en_reporting,\
                     'en_analytics':self.en_analytics,'en_advertisement':self.en_advertisement,'en_footer_change':self.en_footer_change,\
-                    'en_fbauth_change':self.en_fbauth_change,'logins_allowed':self.logins_allowed
+                    'en_fbauth_change':self.en_fbauth_change,'logins_allowed':self.logins_allowed,
+                    'unifi_port':self.unifi_port
                     }  )
 
 

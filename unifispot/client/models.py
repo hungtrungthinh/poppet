@@ -148,10 +148,10 @@ class Wifisite(db.Model):
         self.auth_method	    = (form.auth_fb.data and AUTH_TYPE_SOCIAL) + (form.auth_phone.data and AUTH_TYPE_SMS) + (form.auth_voucher.data and AUTH_TYPE_VOUCHER)+ (form.auth_email.data and AUTH_TYPE_EMAIL)
         self.auth_fb_like	    = form.auth_fb_like.data
         self.auth_fb_post       = form.auth_fb_post.data
-        self.daily_data_limit   = form.daily_data_limit.data
+        self.daily_data_limit   = form.daily_data_limit.data or 0
         self.enable_session_limit= form.enable_session_limit.data
-        self.monthly_data_limit = form.monthly_data_limit.data
-        self.session_timelimit  = form.session_timelimit.data
+        self.monthly_data_limit = form.monthly_data_limit.data or 0
+        self.session_timelimit  = form.session_timelimit.data or 0
         self.smsauth            = form.smsauth.data
         self.email_field        = form.email_field.data
         self.firstname_field    = form.firstname_field.data

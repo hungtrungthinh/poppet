@@ -56,7 +56,7 @@ def guest_portal(site_id):
         abort(404)       
 
     #apple CNA bypass
-    if landing_site.fb_login_en():
+    if landing_site.fb_login_en() and current_app.config['BYPASS_CNA_SOCIAL']:
         ua = request.headers.get('User-Agent')
         if ua and 'CaptiveNetworkSupport' in ua:
             current_app.logger.debug('Wifiguest Log - Site ID:%s apple CNA detected, serve success page Guest with MAC:%s just visited from AP:%s'%(landing_site.id,device_mac,ap_mac))
@@ -91,7 +91,7 @@ def guest_portal(site_id):
 
     ###---------------TODO ADD Date/Time Limiting Code here----------------------------------------
 
-    ###--------------Handle SCAN2LOGIN
+    ###--------------Handle scan2login
     if landing_site.voucher_login_en() and orig_url and  validate_scan2login(orig_url):
         #get and validate voucher code
         return redirect(url_for('guest.scan2_login',track_id=guest_track.track_id),code=302) 
@@ -231,7 +231,7 @@ def authorize_guest(track_id,guest_track,landing_site,guest_device):
         account = Account().query.filter_by(id=guest_session.site.account_id).first()
         settings = account.get_settings()
         try:
-            c =  Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],'8443','v4',guest_track.site.unifi_id)       
+            c =  Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],settings['unifi_port'],'v4',guest_track.site.unifi_id)       
             c.authorize_guest(guest_track.device_mac,duration,ap_mac=guest_track.ap_mac,up_bandwidth=speed_ul,
                 down_bandwidth=speed_dl,byte_quota=bytes_t)    
         except:
@@ -310,7 +310,7 @@ def temp_authorize_guest(track_id):
         settings = account.get_settings()   
 
         try:
-            c =  Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],'8443','v4',guest_track.site.unifi_id)  
+            c =  Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],settings['unifi_port'],'v4',guest_track.site.unifi_id)  
             c.authorize_guest(guest_track.device_mac,5,ap_mac=guest_track.ap_mac)    
         except:
             current_app.logger.exception('Exception occured while trying to authorize User')
@@ -730,8 +730,9 @@ def scan2_login(track_id,guest_track,landing_site,guest_device):
         newguest.devices.append(guest_device)
         voucher.device_id = guest_device.id
         voucher.used = True
-        voucher.used_at = arrow.utcnow().datetime
+        voucher.used_at = arrow.utcnow().naive
         guest_device.state  = DEVICE_VOUCHER_AUTH
+        guest_device.voucher_id = voucher.id
         db.session.commit()
         current_app.logger.debug('Wifiguest Log - Site ID:%s voucher_login MAC:%s new guest:%s  for track ID:%s'%(guest_track.site_id,guest_device.mac,newguest.id,guest_track.id))           
         return redirect(url_for('guest.authorize_guest',track_id=guest_track.track_id),code=302)
@@ -931,6 +932,7 @@ def validate_scan2login(url):
         return False
 
     parsed = urlparse(url)
+
 
     if not parsed.netloc == 'scan2log.in':
         return False

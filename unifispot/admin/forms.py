@@ -8,6 +8,7 @@ from unifispot.const import ROLE_ADMIN,ROLE_CLIENT
 class SettingsForm(Form):
     unifi_server            = TextField('Controller Host',validators = [Required()])   
     unifi_server_ip         = TextField('Controller IP',validators = [Required()])   
+    unifi_port              = TextField('Controller  Port',validators = [Required()])   
     unifi_user              = TextField('Unifi Login',validators = [Required()])   
     unifi_pass              = PasswordField('Unifi Password',validators = [Required()])   
 

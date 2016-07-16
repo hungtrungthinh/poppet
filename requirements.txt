@@ -3,6 +3,7 @@ amqp==1.4.9
 anyjson==0.3.3
 apipkg==1.4
 arrow==0.7.0
+Babel==2.3.4
 billiard==3.3.0.23
 blinker==1.4
 boto==2.40.0
@@ -23,6 +24,7 @@ Fabric==1.11.1
 fake-factory==0.5.7
 Flask==0.11
 Flask-Assets==0.11
+Flask-Babel==0.11.1
 Flask-Breadcrumbs==0.3.0
 Flask-CeleryExt==0.2.0
 Flask-DebugToolbar==0.10.0
@@ -89,6 +91,7 @@ SQLAlchemy==1.0.13
 sqlalchemy-migrate==0.10.0
 SQLAlchemy-Utils==0.32.7
 sqlparse==0.1.19
+stripe==1.36.0
 supervisor==3.3.0
 Tempita==0.5.2
 timezones==1.9.6

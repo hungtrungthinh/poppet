@@ -49,7 +49,7 @@ class WifiSiteForm(Form):
     api_auth_field3     = TextField('API Auth Field3',render_kw={"placeholder": "API Key"})
     daily_data_limit    = TextField('Session Data Limit(Mb)')
     monthly_data_limit  = TextField('Monthly Data Limit(Mb)')
-    session_timelimit   = TextField('Session Timelimit(Mins)')
+    session_timelimit   = TextField('Session Timelimit(Mins)',default=0)
     enable_session_limit= BooleanField('Enable Session Limits')
     email_field         = TextField('Email Field')
     firstname_field     = TextField('Firstname Field')

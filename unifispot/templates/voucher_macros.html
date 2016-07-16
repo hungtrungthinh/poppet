@@ -26,7 +26,8 @@
             {% if voucherdesign.showqr %}
             <div class="col-xs-6">
                 <p class="text-center">SCAN TO LOG IN</p>
-                <img src="{{ qrcode(voucher.voucher, box_size=5) }}" class="img-responsive">
+                {% set url ='http://scan2log.in/?voucher='+voucher.voucher %}
+                <img src="{{ qrcode(url, box_size=5) }}" class="img-responsive">
                 <p class="text-center"style= "font-size: 12px">Or browse to: http://scan2log.in</p>
             </div>
             {%endif%}
