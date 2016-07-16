@@ -78,6 +78,7 @@ case "$1" in
     $INSTALLDIR/.env/bin/python $INSTALLDIR/manage.py init_data
     $INSTALLDIR/.env/bin/python $INSTALLDIR/manage.py rebuild_daily_stat
     $INSTALLDIR/.env/bin/python $INSTALLDIR/manage.py migrate_vouchers
+    $INSTALLDIR/.env/bin/python $INSTALLDIR/manage.py set_unifiport
 
 
     if [  -d /etc/init/uwsgi.conf ]; then

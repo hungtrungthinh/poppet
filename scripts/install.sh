@@ -54,6 +54,7 @@ fi
 .env/bin/python manage.py init_data
 .env/bin/python manage.py rebuild_daily_stat
 .env/bin/python manage.py migrate_vouchers
+.env/bin/python manage.py set_unifiport
 
 if [  -d /etc/init/uwsgi.conf ]; then
     echo '-------------Upstart UWSGI config found, removing and upgrading to supervisor--------------'
