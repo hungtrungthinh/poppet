@@ -231,7 +231,7 @@ def authorize_guest(track_id,guest_track,landing_site,guest_device):
         account = Account().query.filter_by(id=guest_session.site.account_id).first()
         settings = account.get_settings()
         try:
-            c =  Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],'8443','v4',guest_track.site.unifi_id)       
+            c =  Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],settings['unifi_port'],'v4',guest_track.site.unifi_id)       
             c.authorize_guest(guest_track.device_mac,duration,ap_mac=guest_track.ap_mac,up_bandwidth=speed_ul,
                 down_bandwidth=speed_dl,byte_quota=bytes_t)    
         except:
@@ -310,7 +310,7 @@ def temp_authorize_guest(track_id):
         settings = account.get_settings()   
 
         try:
-            c =  Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],'8443','v4',guest_track.site.unifi_id)  
+            c =  Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],settings['unifi_port'],'v4',guest_track.site.unifi_id)  
             c.authorize_guest(guest_track.device_mac,5,ap_mac=guest_track.ap_mac)    
         except:
             current_app.logger.exception('Exception occured while trying to authorize User')

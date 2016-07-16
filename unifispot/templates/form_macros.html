@@ -610,25 +610,31 @@
 {% macro render_unifi_settings() -%}
 
 <div class="form-group">
-    <label class="col-sm-4 control-label" >Unifi Controller </label>
+    <label class="col-sm-4 control-label" >{{_('Unifi Controller')}}</label>
     <div class="col-xs-8"> <label id="unifi_server" > </label></div>
 
 </div>
 
 <div class="form-group">
-    <label class="col-sm-4 control-label" >Unifi Controller IP </label>
+    <label class="col-sm-4 control-label" >{{_('Unifi Controller IP')}} </label>
     <div class="col-xs-8"> <label id="unifi_server_ip" > </label></div>
 
 </div>
 
 <div class="form-group">
-    <label class="col-sm-4 control-label" >Unifi Admin </label>
+    <label class="col-sm-4 control-label" >{{_('Unifi Controller Port')}}</label>
+    <div class="col-xs-8"> <label id="unifi_server_port" > </label></div>
+
+</div>
+
+<div class="form-group">
+    <label class="col-sm-4 control-label" >{{_('Unifi Admin')}} </label>
     <div class="col-xs-8"> <label id="unifi_user" > </label></div>
 
 </div>
 
 <div class="form-group">
-    <label class="col-sm-4 control-label" >Unifi Password </label>
+    <label class="col-sm-4 control-label" >{{_('Unifi Password')}} </label>
     <div class="col-xs-8"> 
         <label id="unifi_pass" ></label>
         <a class="btn btn-primary" id="unifipass-show">Show</a>

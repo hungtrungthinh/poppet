@@ -14,6 +14,7 @@ class AccountForm(Form):
     unifi_server            = TextField('Controller Host',validators = [Required()],default="127.0.0.1")   
     unifi_server_ip         = TextField('Controller IP',validators = [Required()],default="127.0.0.1")   
     unifi_user              = TextField('Unifi Login',validators = [Required()],default="ubnt")   
+    unifi_port              = TextField('Unifi Port',validators = [Required()],default="8443")   
     unifi_pass              = PasswordField('Unifi Password',validators = [Required()],default="ubnt")  
     en_api_export           = BooleanField('API Export',default=0)
     en_reporting            = BooleanField('Reporting',default=0)

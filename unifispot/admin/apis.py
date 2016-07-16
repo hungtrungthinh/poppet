@@ -458,7 +458,7 @@ class AccesspointAPI(UnifispotAPI):
                     return jsonify({'status': 0,'msg':'Error while loading settings'})
                 else:
                     try:
-                        c = Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],version='v4',site_id='default')
+                        c = Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],version='v4',site_id='default',port=settings['unifi_port'])
                     except:
                         msg = 'Exception while trying to do Unifi Login check controller ip/username/password'
                         current_app.logger.exception(msg)
@@ -498,7 +498,7 @@ class AccesspointAPI(UnifispotAPI):
                     return jsonify({'status': 0,'msg':'Error while loading settings'})
                 if wifisite:
                     try:
-                        c = Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],version='v4',site_id='default')
+                        c = Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],version='v4',site_id='default',port=settings['unifi_port'])
                     except:
                         msg = 'Exception while trying to do Unifi Login check controller ip/username/password'
                         current_app.logger.exception(msg)
@@ -578,7 +578,7 @@ class DevicesAPI(UnifispotAPI):
                     sites = Wifisite.query.filter_by(client_id=current_user.id).all() 
                 if sites:       
                     try:            
-                        c = Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],version='v4',site_id='default')
+                        c = Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],version='v4',site_id='default',port=settings['unifi_port'])
                     except:
                         msg = 'Exception while trying to do Unifi Login check controller ip/username/password'
                         current_app.logger.exception(msg)
@@ -611,7 +611,7 @@ class DevicesAPI(UnifispotAPI):
                     wifisite = Wifisite.query.filter(and_(Wifisite.id==id,Wifisite.client_id==current_user.id)).first()
                 if wifisite:
                     try:
-                        c = Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],version='v4',site_id='default')
+                        c = Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],version='v4',site_id='default',port=settings['unifi_port'])
                     except:
                         msg = 'Exception while trying to do Unifi Login check controller ip/username/password'
                         current_app.logger.exception(msg)
