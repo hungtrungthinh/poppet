@@ -56,7 +56,7 @@ def guest_portal(site_id):
         abort(404)       
 
     #apple CNA bypass
-    if landing_site.fb_login_en():
+    if landing_site.fb_login_en() and current_app.config['BYPASS_CNA_SOCIAL']:
         ua = request.headers.get('User-Agent')
         if ua and 'CaptiveNetworkSupport' in ua:
             current_app.logger.debug('Wifiguest Log - Site ID:%s apple CNA detected, serve success page Guest with MAC:%s just visited from AP:%s'%(landing_site.id,device_mac,ap_mac))
