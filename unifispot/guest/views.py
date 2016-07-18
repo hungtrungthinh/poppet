@@ -62,9 +62,7 @@ def guest_portal(site_id):
             current_app.logger.debug('Wifiguest Log - Site ID:%s apple CNA detected, serve success page Guest with MAC:%s just visited from AP:%s'%(landing_site.id,device_mac,ap_mac))
             return '''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><HTML><HEAD>
                         <TITLE>Success</TITLE></HEAD><BODY>Success</BODY></HTML>'''
-        elif orig_url and  validate_androidcna(orig_url):
-            current_app.logger.debug('Wifiguest Log - Site ID:%s android CNA detected, serve success page Guest with MAC:%s just visited from AP:%s'%(landing_site.id,device_mac,ap_mac))
-            return ('', 204)
+
 
     current_app.logger.debug('Wifiguest Log - Site ID:%s guest_portal Guest with MAC:%s just visited from AP:%s'%(landing_site.id,device_mac,ap_mac))
     ##-----------check for number of hits allowed per account TODO
