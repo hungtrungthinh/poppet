@@ -190,11 +190,11 @@ def fb_ips():
         from unifispot.guest.newcontroller import Controller       
         account = Account().query.first()
         settings = account.get_settings() 
-        site_id = 'ieu6ek9y'
-        site_code = '572a12afe4b078cda06e7e41'
-        portal_ip = '139.59.192.71'
-        portal_subnet = '139.59.192.71/32'
-        portal_hostname = 'urbanespot.com'
+        site_id = ''
+        site_code = ''
+        portal_ip = ''
+        portal_subnet = ''
+        portal_hostname = ''
         c =  Controller(settings['unifi_server'], settings['unifi_user'], settings['unifi_pass'],'8443','v4',site_id)             
         c.set_guest_access(site_id,site_code,portal_ip,portal_subnet,portal_hostname)
 

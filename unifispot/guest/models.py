@@ -20,6 +20,7 @@ class Guest(db.Model):
     state       = db.Column(db.Integer,index=True)
     email       = db.Column(db.String(60))
     phonenumber = db.Column(db.String(15))
+    agerange    = db.Column(db.String(15))
     devices     = db.relationship('Device', backref='guest',lazy='dynamic')
     fb_profile  = db.Column(db.Integer, db.ForeignKey('facebookauth.id'))
     fb_liked    = db.Column(db.Integer)
@@ -125,7 +126,7 @@ class Guest(db.Model):
         return {'firstname':self.firstname,'age':self.age,'email':self.email,
                 'lastname':self.lastname,'phonenumber':self.phonenumber,
                 'id':self.id,'gender':self.get_gender(),'created_at':created_at,'site_id':self.site_id,
-                'newsletter':self.newsletter,'dob':self.dob,'details':self.details
+                'newsletter':self.newsletter,'dob':self.dob,'details':self.details,'agerange':self.agerange
                 }
 
     def to_dict(self):
@@ -135,7 +136,7 @@ class Guest(db.Model):
         return {'firstname':self.firstname,'age':self.age,'email':self.email,
                 'lastname':self.lastname,'phonenumber':self.phonenumber,
                 'id':self.id,'gender':self.get_gender(),'created_at':created_at,'site_id':self.site_id,
-                'newsletter':self.newsletter,'dob':self.dob,'details':self.details
+                'newsletter':self.newsletter,'dob':self.dob,'details':self.details,'agerange':self.agerange
                 }     
 
     def to_list(self):
@@ -144,11 +145,11 @@ class Guest(db.Model):
         newsletter = 'yes' if self.newsletter else 'no'
         #convert to list add replace None by ''
         list_to_clean =  [self.firstname,self.lastname,self.email,created_at,phonenumber,self.age,self.get_gender(),\
-                        newsletter,self.dob,self.details]           
+                        newsletter,self.dob,self.agerange,self.details]           
         return [x.encode('ascii','ignore') if x else '' for x in list_to_clean]
 
     def get_csv_headers(self):
-        return ['Firstname','Lastname','Email','Created On','Phone','Age','Gender',"Newsletter",'DOB','Details']
+        return ['Firstname','Lastname','Email','Created On','Phone','Age','Gender',"Newsletter",'DOB','Age Range','Details']
 
 class Device(db.Model):
     ''' Class to represent guest's device, each guest can have multiple devices attached to his account
