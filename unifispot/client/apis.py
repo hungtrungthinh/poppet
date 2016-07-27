@@ -346,7 +346,7 @@ class GuestdataAPI(UnifispotAPI):
     '''
     def __init__(self):
         super(self.__class__, self).__init__()
-        self.columns = ['firstname','lastname','gender','phonenumber','email','created_at','newsletter','dob','details']
+        self.columns = ['firstname','lastname','gender','phonenumber','email','created_at','newsletter','dob','agerange','details']
         self.entity_name = 'Guest Data'
         
     def get_template_name(self):

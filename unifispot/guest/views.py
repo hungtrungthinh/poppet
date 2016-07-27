@@ -370,7 +370,8 @@ def facebook_login(track_id,guest_track,landing_site,guest_device):
             at  = GraphAPI().get_access_token_from_code(code, redirect_uri, fb_appid, fb_app_secret)
             access_token = at['access_token']
             graph = GraphAPI(access_token)
-            profile = graph.get_object("me",fields='name,email,first_name,last_name,gender,birthday')
+            profile = graph.get_object("me",fields='name,email,first_name,last_name,gender,birthday,age_range')
+            print profile
             if not profile:
                 #
                 #User is not logged into DB app, redirect to social login page
@@ -387,7 +388,8 @@ def facebook_login(track_id,guest_track,landing_site,guest_device):
             check_user_auth = get_user_from_cookie(cookies=request.cookies, app_id=fb_appid,app_secret=fb_app_secret)
             access_token = check_user_auth['access_token']
             graph = GraphAPI(access_token) 
-            profile = graph.get_object("me",fields='name,email,first_name,last_name,gender,birthday')
+            profile = graph.get_object("me",fields='name,email,first_name,last_name,gender,birthday,age_range')
+            print profile
             if not check_user_auth or not check_user_auth['uid'] or not profile:
                 #
                 #User is not logged into DB app, redirect to social login page
@@ -421,13 +423,15 @@ def facebook_login(track_id,guest_track,landing_site,guest_device):
         guest_check.lastname    = profile.get('last_name')
         guest_check.email       = profile.get('email')       
         gender                  = profile.get('gender')
+        age_range = profile.get('age_range')
         if gender:
             guest_check.gender  = 1 if gender == 'male' else 2
         dob                     = profile.get('birthday')
         if dob:
             #convert MM-DD-YYY to DD-MM-YYYY
-            guest_check.dob = arrow.get(dob,'MM/DD/YYYY').format('DD/MM/YYYY')
-
+            guest_check.dob = arrow.get(dob,'MM/DD/YYYY').format('DD/MM/YYYY')        
+        if age_range:
+            guest_check.agerange = '%s-%s'%(age_range.get('min',''),age_range.get('max',''))
         guest_check.site_id     = landing_site.id
         guest_check.facebookauth = profile_check           
         profile_check.guests.append(guest_check)
